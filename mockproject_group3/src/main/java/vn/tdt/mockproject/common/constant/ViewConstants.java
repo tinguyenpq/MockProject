@@ -19,4 +19,19 @@ public class ViewConstants {
 	 * Login view
 	 */
 	public static final String COMMON_LOGIN = "default/commons/login";
+	
+	/**
+	 * Html exception 404
+	 */
+	public static final String HTML_EXCEPTION_404 = "default/html-exceptions/404";
+
+	/**
+	 * Html exception 500
+	 */
+	public static final String HTML_EXCEPTION_500 = "default/html-exceptions/500";
+
+	/**
+	 * Html exception 403
+	 */
+	public static final String HTML_EXCEPTION_403 = "default/html-exceptions/403";
 }
