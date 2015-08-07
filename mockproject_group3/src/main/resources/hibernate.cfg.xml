@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="vn.tdt.mockproject.entity.Address" />
+		<mapping class="vn.tdt.mockproject.entity.AgreementDealer" />
+		<mapping class="vn.tdt.mockproject.entity.AgreementRFO" />
+		<mapping class="vn.tdt.mockproject.entity.AgreementRFOPK" />
+		<mapping class="vn.tdt.mockproject.entity.AgreementStatus" />
+		<mapping class="vn.tdt.mockproject.entity.Agreement" />
+		<mapping class="vn.tdt.mockproject.entity.Banding" />
+		<mapping class="vn.tdt.mockproject.entity.Company" />
+		<mapping class="vn.tdt.mockproject.entity.CreditNodeText" />
+		<mapping class="vn.tdt.mockproject.entity.CustomerType" />
+		<mapping class="vn.tdt.mockproject.entity.Dealer" />
+		<mapping class="vn.tdt.mockproject.entity.RFONumber" />
+		<mapping class="vn.tdt.mockproject.entity.RFOUser" />
+		<mapping class="vn.tdt.mockproject.entity.SystemConfig" />
+		<mapping class="vn.tdt.mockproject.entity.SystemConfigValue" />
+		<mapping class="vn.tdt.mockproject.entity.UserType" />
+		<mapping class="vn.tdt.mockproject.entity.Volume" />
+	</session-factory>
+</hibernate-configuration>

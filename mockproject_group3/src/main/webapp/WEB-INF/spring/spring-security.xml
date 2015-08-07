@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/jdbc 
+		http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<http auto-config="true" use-expressions="true">
+
+		<!-- <intercept-url pattern="/login" access="isAnonymous()" /> <intercept-url 
+			pattern="/" access="isAnonymous()" /> -->
+		<!-- <intercept-url pattern="/**" access="hasRole'Read Only User')/> -->
+		
+		<intercept-url pattern="/login" access="permitAll" />
+	
+		<intercept-url pattern="/home"
+			access="hasAnyRole('Read Only User','Dealer','Dealer Proposer','CSM','Corporate Management Team','Corporate Sales Administrator','System Admin','LSM')" />
+
+
+		<form-login login-page="/login" default-target-url="/home"
+			authentication-failure-url="/login?error=1" username-parameter="username"
+			password-parameter="password" login-processing-url="/login-processing" />
+		<logout logout-url="/logout" />
+
+		<access-denied-handler error-page="/html-exceptions/404" />
+
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select username, password, enabled from R_F_O_User where username=?"
+				authorities-by-username-query="select R_F_O_User.username, User_Type.user_type_name 
+						from R_F_O_User join User_Type on R_F_O_User.user_type_id = User_Type.user_type_id
+							where R_F_O_User.username=?" />
+
+			<password-encoder hash="plaintext" />
+
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
