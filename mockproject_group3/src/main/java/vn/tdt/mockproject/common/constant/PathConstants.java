@@ -30,4 +30,19 @@ public class PathConstants {
 	 * Logout path
 	 */
 	public static final String COMMON_LOGOUT = "/logout";
+	
+	/**
+	 * Html exception 404 path
+	 */
+	public static final String HTML_EXCEPTION_404 = "/html-exceptions/404";
+
+	/**
+	 * Html exception 500 path
+	 */
+	public static final String HTML_EXCEPTION_500 = "/html-exceptions/500";
+
+	/**
+	 * Html exception 403 path
+	 */
+	public static final String HTML_EXCEPTION_403 = "/html-exceptions/403";
 }
