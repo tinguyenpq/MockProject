@@ -53,8 +53,14 @@ public class ViewConstants {
 	 * Agreement detail view
 	 */
 	public static final String AGREEMENT_DETAIL = "default/agreement/agreement-detail";
+	
 	/**
 	 * Agreement detail view
 	 */
 	public static final String AGREEMENT_COPY =  "default/agreement/copy-agreement";
+	
+	/**
+	 * Search agreement view
+	 */
+	public static final String AGREEMENT_SEARCH =  "default/agreement/search-agreement";
 }
