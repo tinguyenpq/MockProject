@@ -71,5 +71,5 @@ public class PathConstants {
 	/**
 	 * Agreement detail path
 	 */
-	public static final String AGREEMENT_COPY = "/agreement/copy";
+	public static final String AGREEMENT_COPY = "/agreement/copy-agreement";
 }

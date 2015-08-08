@@ -32,4 +32,14 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
+
+	@RequestMapping(value = PathConstants.AGREEMENT_COPY, method = RequestMethod.GET)
+	public String copyAgreement(Model model) {
+		// logs debug message
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Copy agreement is executed!");
+		}
+
+		return ViewConstants.AGREEMENT_COPY;
+	}
 }

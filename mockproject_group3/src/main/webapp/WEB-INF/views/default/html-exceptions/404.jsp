@@ -15,6 +15,12 @@
 <h1>
 	<spring:message code="htmlException.404.default" />
 </h1>
+
+<c:if test="${not empty param.denied}">
+	<div class="alert alert-danger" role="alert">
+		<strong>Oh snap!</strong> ${denied}
+	</div>
+</c:if>
 <p>
 	<strong>File not found</strong>
 </p>
@@ -26,6 +32,7 @@
 	If this is your site, make sure that the filename case matches the URL.<br>
 </p>
 
-<a href="${rootPath}<%=PathConstants.COMMON_HOME%>" class="logo"> <img width="32" height="32" title="Home"
-	alt="Home" src="${rootPath}/img/home_icon.png">
+<a href="${rootPath}<%=PathConstants.COMMON_HOME%>" class="logo"> <img
+	width="32" height="32" title="Home" alt="Home"
+	src="${rootPath}/img/home_icon.png">
 </a>

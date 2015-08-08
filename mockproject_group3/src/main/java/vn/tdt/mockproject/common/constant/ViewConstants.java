@@ -19,7 +19,7 @@ public class ViewConstants {
 	 * Login view
 	 */
 	public static final String COMMON_LOGIN = "default/commons/login";
-	
+
 	/**
 	 * User profile view
 	 */
@@ -38,19 +38,23 @@ public class ViewConstants {
 	 * Html exception 403
 	 */
 	public static final String HTML_EXCEPTION_403 = "default/html-exceptions/403";
-	
+
 	/**
 	 * Select customer view
 	 */
 	public static final String AGREEMENT_SELECT_CUSTOMER = "default/agreement/select-customer";
-	
+
 	/**
 	 * Select dealer view
 	 */
 	public static final String AGREEMENT_SELECT_DEALER = "default/agreement/select-dealer";
-	
+
 	/**
 	 * Agreement detail view
 	 */
 	public static final String AGREEMENT_DETAIL = "default/agreement/agreement-detail";
+	/**
+	 * Agreement detail view
+	 */
+	public static final String AGREEMENT_COPY =  "default/agreement/copy-agreement";
 }

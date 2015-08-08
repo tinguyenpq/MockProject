@@ -43,6 +43,7 @@ public class ExceptionsController {
 	@RequestMapping(method = RequestMethod.GET, value = PathConstants.HTML_EXCEPTION_404)
 	public String exception404(Model model) {
 		LOGGER.debug("Error 404 is executed!");
+		model.addAttribute("denied", "You can not access this page");
 		return ViewConstants.HTML_EXCEPTION_404;
 	}
 

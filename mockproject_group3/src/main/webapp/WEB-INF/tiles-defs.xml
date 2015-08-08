@@ -27,9 +27,9 @@
 	</definition>
 	
 	<!-- Child views Default template commons -->
-	<definition name="default/**" extends="base.defaultTemplate">
-		<put-attribute name="title" value="name empty" />
-		<put-attribute name="body" value="/WEB-INF/views/default/{1}/{2}.jsp" />
+	<definition name="default/agreement/*" extends="base.defaultTemplate">
+		<put-attribute name="title" value="title.agreement.{1}" />
+		<put-attribute name="body" value="/WEB-INF/views/default/agreement/{1}.jsp" />
 	</definition>
 	<!-- =========================================================================================================== -->
 	<!-- Base First template -->
@@ -45,7 +45,7 @@
 	</definition>
 	<!-- =========================================================================================================== -->
 	<!-- Child views First template commons -->
-	<definition name="first/commons/**" extends="base.firstTemplate">
+	<definition name="first/commons/*" extends="base.firstTemplate">
 		<put-attribute name="title" value="title.commons.{1}" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/first/commons/{1}.jsp" />
@@ -58,13 +58,6 @@
 			value="/WEB-INF/views/first/commons/left-profile-sidebar.jsp" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/first/commons/profile.jsp" />
-	</definition>
-	
-	<!-- Child views First template commons -->
-	<definition name="first/**" extends="base.firstTemplate">
-		<put-attribute name="title" value="name empty" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/first/{1}/{2}.jsp" />
 	</definition>
 	
 	<!-- Child views First template commons -->
