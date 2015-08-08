@@ -228,7 +228,7 @@ CREATE TABLE `company` (
   PRIMARY KEY (`company_id`),
   KEY `fk_Company_Address1_idx` (`address_id`),
   CONSTRAINT `fk_Company_Address1` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -237,7 +237,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'FPT 2',2,NULL,NULL,NULL,NULL,NULL,'fpt2@gamil.com','Area 2','2015-06-06 00:00:00','2015-06-06 00:00:00'),(2,'FPT',1,'',NULL,NULL,NULL,NULL,'fpt@gamil.com','Area 1','2015-06-06 00:00:00','2015-06-06 00:00:00');
+INSERT INTO `company` VALUES (1,'FPT 2',2,NULL,NULL,'southern',NULL,NULL,'fpt2@gamil.com','Area 2','2015-06-06 00:00:00','2015-06-06 00:00:00'),(2,'FPT',1,'',NULL,'southern',NULL,NULL,'fpt@gamil.com','Area 1','2015-06-06 00:00:00','2015-06-06 00:00:00'),(3,'GOS',1,NULL,NULL,'southern',NULL,NULL,'gos@gmail.com','Area 3','2015-06-06 00:00:00','2015-06-06 00:00:00');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -498,4 +498,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-08 16:17:38
+-- Dump completed on 2015-08-08 16:42:58
