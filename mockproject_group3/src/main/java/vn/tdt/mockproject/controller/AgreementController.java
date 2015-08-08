@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
 import vn.tdt.mockproject.entity.RFONumber;
-import vn.tdt.mockproject.service.IGenericService;
+import vn.tdt.mockproject.service.IRFONumberService;
 
 /**
  * AgreementController.java
@@ -26,7 +26,7 @@ public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
 
 	@Autowired
-	private IGenericService<RFONumber> rFONumberService;
+	private IRFONumberService iRFONumberService;
 	
 	@RequestMapping(value = { PathConstants.AGREEMENT_ADD_AGREEMENT,
 			PathConstants.AGREEMENT_SELECT_CUSTOMER }, method = RequestMethod.GET)
@@ -36,7 +36,7 @@ public class AgreementController {
 			LOGGER.debug("Select customer is executed!");
 		}
 		
-		model.addAttribute("listRFONumber", rFONumberService.findAll());
+		model.addAttribute("listRFONumber", iRFONumberService.findAll());
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
 

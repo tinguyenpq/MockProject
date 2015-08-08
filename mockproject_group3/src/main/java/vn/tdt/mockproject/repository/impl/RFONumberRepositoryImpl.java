@@ -1,7 +1,7 @@
 /**
  * (c)Copyright 2015, ThanhTien. All rights reserved.
  */
-package vn.tdt.mockproject.repository;
+package vn.tdt.mockproject.repository.impl;
 
 
 
@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.tdt.mockproject.entity.RFONumber;
+import vn.tdt.mockproject.repository.AbstractHibernateDao;
+import vn.tdt.mockproject.repository.IRFONumberRepository;
 
 /**
  * RFONumberRepositoryImpl.java
@@ -21,18 +23,12 @@ import vn.tdt.mockproject.entity.RFONumber;
  */
 @Repository
 @Transactional
-public class RFONumberRepositoryImpl extends AbstractRepository<RFONumber>implements IGenericRepository<RFONumber> {
+public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber> implements IRFONumberRepository {
 	private static final Logger LOGGER = Logger.getLogger(RFONumberRepositoryImpl.class);
 
 	public RFONumberRepositoryImpl() {
-		setClazz(RFONumber.class);
+		super();
+        setClazz(RFONumber.class);
 	}
-	/* 
-	 * @see vn.tdt.mockproject.repository.AbstractRepository#findAll()
-	 */
-	@Override
-	public List<RFONumber> findAll() {
-		// TODO Auto-generated method stub
-		return super.findAll();
-	}
+	
 }
