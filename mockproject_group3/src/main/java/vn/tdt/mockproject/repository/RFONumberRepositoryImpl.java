@@ -3,6 +3,8 @@
  */
 package vn.tdt.mockproject.repository;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,5 +26,6 @@ public class RFONumberRepositoryImpl extends AbstractRepository<RFONumber>implem
 	public RFONumberRepositoryImpl() {
 		setClazz(RFONumber.class);
 	}
+	
 
 }

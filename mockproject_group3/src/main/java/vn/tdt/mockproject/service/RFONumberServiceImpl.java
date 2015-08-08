@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.repository.IGenericRepository;
 
@@ -24,7 +23,7 @@ import vn.tdt.mockproject.repository.IGenericRepository;
 public class RFONumberServiceImpl implements IGenericService<RFONumber> {
 	
 	@Autowired
-	private IGenericRepository dao;
+	private IGenericRepository<RFONumber> dao;
 
 	/*
 	 * @see vn.tdt.mockproject.service.IGenericService#findById(long)

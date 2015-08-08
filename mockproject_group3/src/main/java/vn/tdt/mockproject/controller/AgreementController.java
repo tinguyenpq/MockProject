@@ -14,6 +14,7 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
 
 /**
  * AgreementController.java
+ * 
  * @author ThanhTien
  * @since 08-08-2015
  */
@@ -21,13 +22,14 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
 public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
 
-	@RequestMapping(value = PathConstants.AGREEMENT_SELECT_CUSTOMER, method = RequestMethod.GET)
+	@RequestMapping(value = { PathConstants.AGREEMENT_ADD_AGREEMENT,
+			PathConstants.AGREEMENT_SELECT_CUSTOMER }, method = RequestMethod.GET)
 	public String selectCustomer(Model model) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Select customer is executed!");
 		}
-		
+
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
 }

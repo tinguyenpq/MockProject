@@ -77,16 +77,16 @@
 	<!-- 403 -->
 	<error-page>
 		<error-code>403</error-code>
-		<location>/WEB-INF/views/default/html-exceptions/403.jsp</location>
+		<location>/html-exceptions/403</location>
 	</error-page>
 	<!-- 404 -->
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/default/html-exceptions/404.jsp</location>
+		<location>/html-exceptions/404</location>
 	</error-page>
 	<!-- 500 -->
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/default/html-exceptions/500.jsp</location>
+		<location>/html-exceptions/500</location>
 	</error-page>
 </web-app>
