@@ -2,6 +2,7 @@ package vn.tdt.mockproject.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -23,7 +24,7 @@ public class Address implements Serializable {
 	private String country;
 	private String postCode;
 	private String sate;
-	private Company company;
+	private List<Company> companies;
 
 	public Address() {
 	}
@@ -132,14 +133,27 @@ public class Address implements Serializable {
 
 
 	//bi-directional many-to-one association to Company
-	@ManyToOne
-	@JoinColumn(name="company_id", nullable=false)
-	public Company getCompany() {
-		return this.company;
+	@OneToMany(mappedBy="address")
+	public List<Company> getCompanies() {
+		return this.companies;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setCompanies(List<Company> companies) {
+		this.companies = companies;
+	}
+
+	public Company addCompany(Company company) {
+		getCompanies().add(company);
+		company.setAddress(this);
+
+		return company;
+	}
+
+	public Company removeCompany(Company company) {
+		getCompanies().remove(company);
+		company.setAddress(null);
+
+		return company;
 	}
 
 }

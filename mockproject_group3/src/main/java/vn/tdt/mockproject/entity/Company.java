@@ -26,7 +26,7 @@ public class Company implements Serializable {
 	private String sector;
 	private String status;
 	private Date updatedDate;
-	private List<Address> addresses;
+	private Address address;
 	private List<RFONumber> RFONumbers;
 
 	public Company() {
@@ -148,27 +148,14 @@ public class Company implements Serializable {
 
 
 	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="company")
-	public List<Address> getAddresses() {
-		return this.addresses;
+	@ManyToOne
+	@JoinColumn(name="address_id")
+	public Address getAddress() {
+		return this.address;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-
-	public Address addAddress(Address address) {
-		getAddresses().add(address);
-		address.setCompany(this);
-
-		return address;
-	}
-
-	public Address removeAddress(Address address) {
-		getAddresses().remove(address);
-		address.setCompany(null);
-
-		return address;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 

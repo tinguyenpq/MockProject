@@ -18,7 +18,7 @@
 			<tr>
 
 				<th scope="row">#</th>
-				<th>#</th>
+				<th>${rfo.customerType.customerTypeName}</th>
 				<th>${rfo.rFOName}</th>
 			</tr>
 		</c:forEach>

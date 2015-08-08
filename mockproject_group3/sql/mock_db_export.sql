@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS `address`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` int(11) NOT NULL,
   `address1` varchar(255) DEFAULT NULL,
   `address2` varchar(255) DEFAULT NULL,
   `address3` varchar(255) DEFAULT NULL,
@@ -34,10 +33,8 @@ CREATE TABLE `address` (
   `sate` varchar(45) DEFAULT NULL,
   `country` varchar(45) NOT NULL,
   `post_code` varchar(45) NOT NULL,
-  PRIMARY KEY (`address_id`),
-  KEY `fk_Address_Company1_idx` (`company_id`),
-  CONSTRAINT `fk_Address_Company1` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`address_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +43,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Viet Nam','RG21 3RF'),(2,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'UK','SO43 4TR'),(3,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'UK','SL7 52R'),(4,4,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'UK','SO43 4TR');
+INSERT INTO `address` VALUES (1,'ADD1','ADD2','ADD3','ADD4','ADD5','HO CHI MINH','VIETNAM','VIET NAM','70000'),(2,'ADD1','ADD2','ADD3','ADD4','ADD5','HA NOI','VIET NAM','VIET NAM','50000');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,6 +215,7 @@ DROP TABLE IF EXISTS `company`;
 CREATE TABLE `company` (
   `company_id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(45) NOT NULL,
+  `address_id` int(11) DEFAULT NULL,
   `company_type` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `sector` varchar(45) DEFAULT NULL,
@@ -227,8 +225,10 @@ CREATE TABLE `company` (
   `business_area` varchar(45) NOT NULL,
   `created_date` datetime NOT NULL,
   `updated_date` datetime NOT NULL,
-  PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`company_id`),
+  KEY `fk_Company_Address1_idx` (`address_id`),
+  CONSTRAINT `fk_Company_Address1` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -237,7 +237,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'Company 1',NULL,NULL,NULL,NULL,NULL,NULL,'0 - 100','2015-08-08 00:00:00','2015-08-08 00:00:00'),(2,'Company 2',NULL,NULL,NULL,NULL,NULL,NULL,'100+','2015-08-08 00:00:00','2015-08-08 00:00:00'),(3,'Company 3',NULL,NULL,NULL,NULL,NULL,NULL,'0 - 100','2015-08-08 00:00:00','2015-08-08 00:00:00'),(4,'Company 4',NULL,NULL,NULL,NULL,NULL,NULL,'100+','2015-08-08 00:00:00','2015-08-08 00:00:00');
+INSERT INTO `company` VALUES (1,'FPT 2',2,NULL,NULL,NULL,NULL,NULL,'fpt2@gamil.com','Area 2','2015-06-06 00:00:00','2015-06-06 00:00:00'),(2,'FPT',1,'',NULL,NULL,NULL,NULL,'fpt@gamil.com','Area 1','2015-06-06 00:00:00','2015-06-06 00:00:00');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,6 +348,7 @@ CREATE TABLE `r_f_o_number` (
 
 LOCK TABLES `r_f_o_number` WRITE;
 /*!40000 ALTER TABLE `r_f_o_number` DISABLE KEYS */;
+INSERT INTO `r_f_o_number` VALUES ('S001','JACK',1,1,'2015-06-06 00:00:00','2015-06-06 00:00:00'),('S002','TOM',2,1,'2015-06-06 00:00:00','2015-06-06 00:00:00'),('S003','HONEY',1,2,'2015-06-06 00:00:00','2015-06-06 00:00:00');
 /*!40000 ALTER TABLE `r_f_o_number` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -497,4 +498,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-08  9:47:02
+-- Dump completed on 2015-08-08 16:17:38

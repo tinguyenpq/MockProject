@@ -3,6 +3,8 @@
  */
 package vn.tdt.mockproject.repository;
 
+
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -25,5 +27,12 @@ public class RFONumberRepositoryImpl extends AbstractRepository<RFONumber>implem
 	public RFONumberRepositoryImpl() {
 		setClazz(RFONumber.class);
 	}
-	
+	/* 
+	 * @see vn.tdt.mockproject.repository.AbstractRepository#findAll()
+	 */
+	@Override
+	public List<RFONumber> findAll() {
+		// TODO Auto-generated method stub
+		return super.findAll();
+	}
 }
