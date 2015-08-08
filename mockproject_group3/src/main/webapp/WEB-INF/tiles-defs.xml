@@ -68,10 +68,10 @@
 	</definition>
 	
 	<!-- Child views First template commons -->
-	<definition name="first/**" extends="base.firstTemplate">
+	<definition name="agreement/search" extends="base.firstTemplate">
 		<put-attribute name="title" value="title.agreement.search-agreement" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/first/{1}/{2}.jsp" />
+			value="/WEB-INF/views/default/agreement/search-agreement.jsp" />
 	</definition>
 	
 </tiles-definitions>
