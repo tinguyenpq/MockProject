@@ -21,6 +21,10 @@ public class ViewConstants {
 	public static final String COMMON_LOGIN = "default/commons/login";
 	
 	/**
+	 * User profile view
+	 */
+	public static final String COMMON_USER_PROFILE = "first/commons/profile";
+	/**
 	 * Html exception 404
 	 */
 	public static final String HTML_EXCEPTION_404 = "default/html-exceptions/404";
