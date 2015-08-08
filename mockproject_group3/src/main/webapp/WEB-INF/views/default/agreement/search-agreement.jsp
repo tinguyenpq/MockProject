@@ -7,8 +7,8 @@
 	<table>
 		<tr>
 			<td>Customer Type</td>
-			<td>
-				<select name="cusTypeId" id="cusTypeId">
+			<td>	
+				<select name="cusTypeId" id="cusTypeId" class="selectpicker">
 					<c:forEach var="p" items="${cusTypes}">
 						<option value="${p.customerTypeId}">${p.customerTypeName}</option>
 					</c:forEach>
@@ -31,7 +31,7 @@
 		<tr>
 			<td>Status</td>
 			<td>
-				<select name="agrStatusId" id="agrStatusId">
+				<select name="agrStatusId" id="agrStatusId" class="selectpicker">
 					<c:forEach var="p" items="${agrStatuses}">
 						<option value="${p.agreementStatusId}">${p.agreementStatusName}</option>
 					</c:forEach>
@@ -64,5 +64,6 @@ $(function() {
 	$('.datepicker').datepicker({
 		format: 'dd/mm/yyyy'
 	});
+	$('.selectpicker').selectpicker();
 });
 </script>

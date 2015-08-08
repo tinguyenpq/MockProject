@@ -27,6 +27,7 @@
 	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet"
 	href="${rootPath}/css/bootstrap-datepicker.min.css" />
+<link rel="stylesheet" href="${rootPath}/css/bootstrap-select.min.css" />
 
 <link rel="stylesheet" href="${rootPath}/css/header.css" />
 <link rel="stylesheet" href="${rootPath}/css/navbar.css" />
@@ -40,6 +41,7 @@
 <%-- <script src="${rootPath}/assets/bootstrap/3.3.5/js/bootstrap.js"></script> --%>
 
 <script src="${rootPath}/js/bootstrap-datepicker.min.js"></script>
+<script src="${rootPath}/js/bootstrap-select.min.js"></script>
 
 <%-- Icon --%>
 <link rel="icon" href="${rootPath}/img/app.ico">
