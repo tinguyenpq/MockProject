@@ -47,4 +47,19 @@ public class PathConstants {
 	 * Html exception 403 path
 	 */
 	public static final String HTML_EXCEPTION_403 = "/html-exceptions/403";
+
+	/**
+	 * Select customer path
+	 */
+	public static final String AGREEMENT_SELECT_CUSTOMER = "/agreement/select-customer";
+	
+	/**
+	 * Select dealer path
+	 */
+	public static final String AGREEMENT_SELECT_DEALER = "/agreement/select-dealer";
+	
+	/**
+	 * Agreement detail path
+	 */
+	public static final String AGREEMENT_DETAIL = "/agreement/agreement-detail";
 }
