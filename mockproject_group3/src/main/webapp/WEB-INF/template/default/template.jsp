@@ -23,18 +23,23 @@
 	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap.css" /> --%>
 <link rel="stylesheet"
 	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap.min.css" />
-<%-- <link rel="stylesheet"
-	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap-theme.min.css"> --%>
+<link rel="stylesheet"
+	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="${rootPath}/css/bootstrap-datepicker.min.css" />
+
 <link rel="stylesheet" href="${rootPath}/css/header.css" />
 <link rel="stylesheet" href="${rootPath}/css/navbar.css" />
 <link rel="stylesheet" href="${rootPath}/css/footer.css" />
 <link rel="stylesheet" href="${rootPath}/css/style.css" />
 
 <%--JAVASCRIPT --%>
-	<script src="${rootPath}/assets/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<%-- <script src="${rootPath}/assets/bootstrap/3.3.5/js/bootstrap.js"></script> --%>
-	<script type="text/javascript"
-		src="${rootPath}/assets/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${rootPath}/assets/jquery/1.11.3/jquery.min.js"></script>
+<script src="${rootPath}/assets/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<%-- <script src="${rootPath}/assets/bootstrap/3.3.5/js/bootstrap.js"></script> --%>
+
+<script src="${rootPath}/js/bootstrap-datepicker.min.js"></script>
 
 <%-- Icon --%>
 <link rel="icon" href="${rootPath}/img/app.ico">
@@ -55,7 +60,7 @@
 	<%-- Footer --%>
 	<tiles:insertAttribute name="footer" />
 
-	
+
 
 </body>
 

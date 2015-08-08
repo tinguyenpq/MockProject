@@ -41,13 +41,13 @@
 		<tr>
 			<td>Start Date</td>
 			<td>
-				
+				<input data-provide="datepicker" class="datepicker" />
 			</td>
 		</tr>
 		<tr>
 			<td>End Date</td>
 			<td>
-				
+				<input data-provide="datepicker" class="datepicker" />
 			</td>
 		</tr>
 		<tr>
@@ -59,3 +59,10 @@
 	</table>
 
 </form>
+<script>
+$(function() {
+	$('.datepicker').datepicker({
+		format: 'dd/mm/yyyy'
+	});
+});
+</script>
