@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
-import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.service.IRFONumberService;
+import vn.tdt.mockproject.service.IAgreementStatusService;
+import vn.tdt.mockproject.service.ICustomerTyperService;
 
 /**
  * AgreementController.java
@@ -27,6 +28,12 @@ public class AgreementController {
 
 	@Autowired
 	private IRFONumberService iRFONumberService;
+	
+	@Autowired
+	private ICustomerTyperService cusTypeService;
+	
+	@Autowired
+	private IAgreementStatusService agrStatusService;
 	
 	@RequestMapping(value = { PathConstants.AGREEMENT_ADD_AGREEMENT,
 			PathConstants.AGREEMENT_SELECT_CUSTOMER }, method = RequestMethod.GET)
@@ -49,4 +56,21 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_COPY;
 	}
+	
+	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.GET)
+	public String search(Model model) {
+		// logs debug message
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Search agreement is executed!");
+		}
+		
+		model.addAttribute("cusTypes", cusTypeService.findAll());
+		model.addAttribute("agrStatuses", agrStatusService.findAll());
+		
+		return ViewConstants.AGREEMENT_SEARCH;
+	}
+	
+	
+	
 }
+

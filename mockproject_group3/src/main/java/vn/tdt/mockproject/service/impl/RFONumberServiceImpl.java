@@ -21,6 +21,7 @@ import vn.tdt.mockproject.service.IRFONumberService;
 @Service
 @Transactional
 public class RFONumberServiceImpl extends AbstractService<RFONumber>implements IRFONumberService{
+	
 	@Autowired
     private IRFONumberRepository dao;
 
@@ -37,5 +38,4 @@ public class RFONumberServiceImpl extends AbstractService<RFONumber>implements I
 		 return dao;
 	}
 	
-
 }

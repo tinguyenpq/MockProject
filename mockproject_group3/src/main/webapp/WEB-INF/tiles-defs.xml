@@ -38,6 +38,3 @@
 			value="/WEB-INF/views/first/{1}/{2}.jsp" />
 	</definition>
 	
-
-	
-</tiles-definitions>
