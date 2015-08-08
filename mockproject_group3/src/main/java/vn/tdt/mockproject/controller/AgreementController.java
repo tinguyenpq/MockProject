@@ -13,7 +13,7 @@ import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
 
 /**
- * AggreementController.java
+ * AgreementController.java
  * @author ThanhTien
  * @since 08-08-2015
  */
