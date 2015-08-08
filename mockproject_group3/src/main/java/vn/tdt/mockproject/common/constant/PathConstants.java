@@ -19,7 +19,6 @@ public class PathConstants {
 	 * Login path
 	 */
 	public static final String COMMON_LOGIN_HOME = "/";
-
 	public static final String COMMON_LOGIN = "/login";
 	/**
 	 * Login check path
@@ -30,7 +29,10 @@ public class PathConstants {
 	 * Logout path
 	 */
 	public static final String COMMON_LOGOUT = "/logout";
-	
+	/**
+	 * User profile path
+	 */
+	public static final String COMMON_USER_PROFILE = "/profile";
 	/**
 	 * Html exception 404 path
 	 */
