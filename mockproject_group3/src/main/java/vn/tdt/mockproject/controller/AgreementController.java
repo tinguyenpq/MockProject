@@ -21,5 +21,5 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
 public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
 
-	
+
 }
