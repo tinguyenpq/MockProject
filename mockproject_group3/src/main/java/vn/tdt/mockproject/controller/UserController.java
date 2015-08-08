@@ -20,7 +20,7 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
  */
 @Controller
 public class UserController {
-	private static final Logger LOGGER = Logger.getLogger(HomeController.class);
+	private static final Logger LOGGER = Logger.getLogger(UserController.class);
 
 	@RequestMapping(value = PathConstants.COMMON_USER_PROFILE, method = RequestMethod.GET)
 	public String getUserProfile(Model model) {
