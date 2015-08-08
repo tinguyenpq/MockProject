@@ -11,9 +11,9 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.tdt.mockproject.entity.RFONumber;
+import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.repository.AbstractHibernateDao;
-import vn.tdt.mockproject.repository.IRFONumberRepository;
+import vn.tdt.mockproject.repository.IAgreementRepository;
 
 /**
  * RFONumberRepositoryImpl.java
@@ -23,11 +23,11 @@ import vn.tdt.mockproject.repository.IRFONumberRepository;
  */
 @Repository
 @Transactional
-public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber> implements IRFONumberRepository {
-
-	public RFONumberRepositoryImpl() {
+public class AgreementRepositoryImpl extends AbstractHibernateDao<Agreement> implements IAgreementRepository {
+	
+	public AgreementRepositoryImpl() {
 		super();
-        setClazz(RFONumber.class);
+        setClazz(Agreement.class);
 	}
 	
 }
