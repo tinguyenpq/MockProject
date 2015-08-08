@@ -19,7 +19,7 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
  */
 @Controller
 public class ExceptionsController {
-	private static final Logger LOGGER = Logger.getLogger(HomeController.class);
+	private static final Logger LOGGER = Logger.getLogger(ExceptionsController.class);
 
 
 	/**

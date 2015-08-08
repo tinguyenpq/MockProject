@@ -21,4 +21,13 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
 public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
 
+	@RequestMapping(value = PathConstants.COMMON_HOME, method = RequestMethod.GET)
+	public String selectCustomer(Model model) {
+		// logs debug message
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Select customer is executed!");
+		}
+		
+		return ViewConstants.COMMON_USER_PROFILE;
+	}
 }
