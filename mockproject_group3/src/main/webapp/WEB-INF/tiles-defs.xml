@@ -12,24 +12,11 @@
 		<put-attribute name="footer" value="/WEB-INF/template/footer.jsp" />
 	</definition>
 	<!-- =========================================================================================================== -->
+
 	<!-- Child views Default template commons -->
-	<definition name="default/commons/*" extends="base.defaultTemplate">
-		<put-attribute name="title" value="title.commons.{1}" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/default/commons/{1}.jsp" />
-	</definition>
-	
-	<!-- Child views Default template commons -->
-	<definition name="default/html-exceptions/*" extends="base.defaultTemplate">
-		<put-attribute name="title" value="title.html-exceptions.{1}" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/default/html-exceptions/{1}.jsp" />
-	</definition>
-	
-	<!-- Child views Default template commons -->
-	<definition name="default/agreement/*" extends="base.defaultTemplate">
-		<put-attribute name="title" value="title.agreement.{1}" />
-		<put-attribute name="body" value="/WEB-INF/views/default/agreement/{1}.jsp" />
+	<definition name="default/*/*" extends="base.defaultTemplate">
+		<put-attribute name="title" value="title.{1}.{2}" />
+		<put-attribute name="body" value="/WEB-INF/views/default/{1}/{2}.jsp" />
 	</definition>
 	<!-- =========================================================================================================== -->
 	<!-- Base First template -->
@@ -44,27 +31,13 @@
 		<put-attribute name="footer" value="/WEB-INF/template/footer.jsp" />
 	</definition>
 	<!-- =========================================================================================================== -->
-	<!-- Child views First template commons -->
-	<definition name="first/commons/*" extends="base.firstTemplate">
-		<put-attribute name="title" value="title.commons.{1}" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/first/commons/{1}.jsp" />
-	</definition>
-	
 	<!-- Child views First template commons PROFILE -->
-	<definition name="first/commons/profile" extends="base.firstTemplate">
-		<put-attribute name="title" value="title.commons.profile" />
-		<put-attribute name="left-sidebar"
-			value="/WEB-INF/views/first/commons/left-profile-sidebar.jsp" />
+	<definition name="first/*/*" extends="base.firstTemplate">
+		<put-attribute name="title" value="title.{1}.{2}" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/first/commons/profile.jsp" />
+			value="/WEB-INF/views/first/{1}/{2}.jsp" />
 	</definition>
 	
-	<!-- Child views First template commons -->
-	<definition name="agreement/search" extends="base.firstTemplate">
-		<put-attribute name="title" value="title.agreement.search-agreement" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/default/agreement/search-agreement.jsp" />
-	</definition>
+
 	
 </tiles-definitions>
