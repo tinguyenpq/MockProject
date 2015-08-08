@@ -37,7 +37,7 @@ CREATE TABLE `address` (
   PRIMARY KEY (`address_id`),
   KEY `fk_Address_Company1_idx` (`company_id`),
   CONSTRAINT `fk_Address_Company1` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Viet Nam','RG21 3RF'),(2,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'UK','SO43 4TR'),(3,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'UK','SL7 52R'),(4,4,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'UK','SO43 4TR');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +118,7 @@ CREATE TABLE `agreement_status` (
   `agreement_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `agreement_status_name` varchar(45) NOT NULL,
   PRIMARY KEY (`agreement_status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +127,7 @@ CREATE TABLE `agreement_status` (
 
 LOCK TABLES `agreement_status` WRITE;
 /*!40000 ALTER TABLE `agreement_status` DISABLE KEYS */;
+INSERT INTO `agreement_status` VALUES (1,'Draft'),(2,'Awaiting Approval'),(3,'Signature Required'),(4,'Approved'),(5,'Rejected'),(6,'Discontinued'),(7,'Archived'),(8,'Overdue');
 /*!40000 ALTER TABLE `agreement_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +228,7 @@ CREATE TABLE `company` (
   `created_date` datetime NOT NULL,
   `updated_date` datetime NOT NULL,
   PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,6 +237,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
+INSERT INTO `company` VALUES (1,'Company 1',NULL,NULL,NULL,NULL,NULL,NULL,'0 - 100','2015-08-08 00:00:00','2015-08-08 00:00:00'),(2,'Company 2',NULL,NULL,NULL,NULL,NULL,NULL,'100+','2015-08-08 00:00:00','2015-08-08 00:00:00'),(3,'Company 3',NULL,NULL,NULL,NULL,NULL,NULL,'0 - 100','2015-08-08 00:00:00','2015-08-08 00:00:00'),(4,'Company 4',NULL,NULL,NULL,NULL,NULL,NULL,'100+','2015-08-08 00:00:00','2015-08-08 00:00:00');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +281,7 @@ CREATE TABLE `customer_type` (
   `customer_type_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_type_name` varchar(45) NOT NULL,
   PRIMARY KEY (`customer_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -287,6 +290,7 @@ CREATE TABLE `customer_type` (
 
 LOCK TABLES `customer_type` WRITE;
 /*!40000 ALTER TABLE `customer_type` DISABLE KEYS */;
+INSERT INTO `customer_type` VALUES (1,'Fleet'),(2,'Leasing');
 /*!40000 ALTER TABLE `customer_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,7 +395,7 @@ CREATE TABLE `system_config` (
   `system_config_id` int(11) NOT NULL AUTO_INCREMENT,
   `config_name` varchar(45) NOT NULL,
   PRIMARY KEY (`system_config_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -400,6 +404,7 @@ CREATE TABLE `system_config` (
 
 LOCK TABLES `system_config` WRITE;
 /*!40000 ALTER TABLE `system_config` DISABLE KEYS */;
+INSERT INTO `system_config` VALUES (1,'PAYMENT TO'),(2,'DEALER VISIBILITY'),(3,'DISCOUNT UNIT'),(4,'COMBINABILITY'),(5,'TRIGGER CREDIT'),(6,'CRM AGREEMENT FILE LOCATION'),(7,'FUNDING TYPE'),(8,'FUNDING STATUS'),(9,'ARCHIVE YEARS'),(10,'SCHEDULED DATES'),(11,'VOLUME DISCOUNT TYPE'),(12,'BUSINESS AREA'),(13,'NUMBER LEVEL'),(14,'SIGNED CONTRACT DEFAULT'),(15,'ORDER TYPE'),(16,'REG TYPE'),(17,'FUNDING MATCH BASED ON');
 /*!40000 ALTER TABLE `system_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,7 +423,7 @@ CREATE TABLE `system_config_value` (
   PRIMARY KEY (`system_config_value_id`),
   KEY `fk_System_Config_Value_System_Config1_idx` (`system_config_id`),
   CONSTRAINT `fk_System_Config_Value_System_Config1` FOREIGN KEY (`system_config_id`) REFERENCES `system_config` (`system_config_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,6 +432,7 @@ CREATE TABLE `system_config_value` (
 
 LOCK TABLES `system_config_value` WRITE;
 /*!40000 ALTER TABLE `system_config_value` DISABLE KEYS */;
+INSERT INTO `system_config_value` VALUES (1,1,'Customer','1'),(2,1,'Dealer','2'),(3,2,'All','1'),(4,2,'Preferred dealers only','2'),(5,2,'Selected dealers only','3'),(6,2,'Leasing co. preferred dealers only','4'),(7,3,'£','1'),(8,3,'%','2'),(13,4,'End user support only','1'),(14,4,'Leasing support only','2'),(15,4,'End user and Leasing','3'),(16,5,'End of ki','1'),(17,5,'End of month','2'),(18,5,'End of quarter','3'),(19,5,'June 30th & Dec 31st','4'),(20,5,'End of calendar year','5'),(21,5,'Move to next Banding','6'),(22,7,'End User','1'),(23,7,'Leasing','2'),(24,8,'Active','1'),(25,8,'InActive','2'),(26,10,'Immediate','1'),(27,10,'Daily','2'),(28,10,'Weekly','3'),(29,10,'None','4'),(30,11,'None','1'),(31,11,'Banding','2'),(32,11,'Retrospective Banding','3'),(33,12,'0 - 100','1'),(34,12,'100+','2'),(35,13,'8','1'),(36,14,'Yes(Enable)','1'),(37,14,'Yes(Protected)','2'),(38,14,'No','3'),(39,15,'Fleet','1'),(40,15,'Leasing','2'),(41,16,'R','1'),(42,16,'P','2'),(43,17,'Registration date','1'),(44,17,'Order date','2'),(45,4,'Leasing campaign: In lieu of end user support','4');
 /*!40000 ALTER TABLE `system_config_value` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -491,4 +497,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-07 14:52:35
+-- Dump completed on 2015-08-08  9:47:02
