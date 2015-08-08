@@ -24,7 +24,7 @@ import vn.tdt.mockproject.repository.IGenericRepository;
 public class RFONumberServiceImpl implements IGenericService<RFONumber> {
 	
 	@Autowired
-	private IGenericRepository<RFONumber> dao;
+	private IGenericRepository dao;
 
 	/*
 	 * @see vn.tdt.mockproject.service.IGenericService#findById(long)

@@ -5,6 +5,7 @@ package vn.tdt.mockproject.service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,22 +22,21 @@ import vn.tdt.mockproject.repository.IGenericRepository;
 @Service
 @Transactional
 public class AgreementServiceImpl implements IGenericService<Agreement> {
+	private static final Logger LOGGER = Logger.getLogger(AgreementServiceImpl.class);
 
 	@Autowired
-	private IGenericRepository<Agreement> dao;
+	private IGenericRepository dao;
 
-	/*
+	/* 
 	 * @see vn.tdt.mockproject.service.IGenericService#findById(long)
 	 */
 	@Override
 	public Agreement findById(long id) {
-		if (id > 0) {
-			return dao.findById(id);
-		}
-		return new Agreement();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/*
+	/* 
 	 * @see vn.tdt.mockproject.service.IGenericService#findAll()
 	 */
 	@Override
@@ -45,19 +45,17 @@ public class AgreementServiceImpl implements IGenericService<Agreement> {
 		return null;
 	}
 
-	/*
-	 * @see
-	 * vn.tdt.mockproject.service.IGenericService#create(java.io.Serializable)
+	/* 
+	 * @see vn.tdt.mockproject.service.IGenericService#create(java.io.Serializable)
 	 */
 	@Override
 	public void create(Agreement entity) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	/*
-	 * @see
-	 * vn.tdt.mockproject.service.IGenericService#update(java.io.Serializable)
+	/* 
+	 * @see vn.tdt.mockproject.service.IGenericService#update(java.io.Serializable)
 	 */
 	@Override
 	public Agreement update(Agreement entity) {
@@ -65,23 +63,22 @@ public class AgreementServiceImpl implements IGenericService<Agreement> {
 		return null;
 	}
 
-	/*
-	 * @see
-	 * vn.tdt.mockproject.service.IGenericService#delete(java.io.Serializable)
+	/* 
+	 * @see vn.tdt.mockproject.service.IGenericService#delete(java.io.Serializable)
 	 */
 	@Override
 	public void delete(Agreement entity) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	/*
+	/* 
 	 * @see vn.tdt.mockproject.service.IGenericService#deleteById(long)
 	 */
 	@Override
 	public void deleteById(long id) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
