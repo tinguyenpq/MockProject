@@ -25,6 +25,6 @@ public class AgreementController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String search() {
 		
-		return "";
+		return "search-agreement";
 	}
 }
