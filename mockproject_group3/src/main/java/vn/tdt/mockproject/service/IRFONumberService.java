@@ -3,6 +3,8 @@
  */
 package vn.tdt.mockproject.service;
 
+import java.util.List;
+
 import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.repository.IOperations;
 
@@ -14,4 +16,6 @@ import vn.tdt.mockproject.repository.IOperations;
  */
 public interface IRFONumberService extends IOperations<RFONumber> {
 	
+	List<RFONumber> findAll(String cusName, String postCode,
+			int cusTypeId);
 }

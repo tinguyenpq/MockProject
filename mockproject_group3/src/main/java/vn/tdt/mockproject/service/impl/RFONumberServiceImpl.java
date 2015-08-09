@@ -3,6 +3,8 @@
  */
 package vn.tdt.mockproject.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,14 @@ public class RFONumberServiceImpl extends AbstractService<RFONumber>implements I
 	@Override
 	protected IOperations<RFONumber> getDao() {
 		 return dao;
+	}
+
+	/* 
+	 * @see vn.tdt.mockproject.service.IRFONumberService#findAll(java.lang.String, java.lang.String, int)
+	 */
+	@Override
+	public List<RFONumber> findAll(String cusName, String postCode, int cusTypeId) {
+		return dao.findAll(cusName, postCode, cusTypeId);
 	}
 	
 }

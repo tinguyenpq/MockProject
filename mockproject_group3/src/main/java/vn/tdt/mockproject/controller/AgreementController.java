@@ -3,18 +3,25 @@
  */
 package vn.tdt.mockproject.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
-import vn.tdt.mockproject.service.IRFONumberService;
+import vn.tdt.mockproject.entity.Agreement;
+import vn.tdt.mockproject.entity.AgreementRFO;
+import vn.tdt.mockproject.entity.RFONumber;
+import vn.tdt.mockproject.service.IAgreementService;
 import vn.tdt.mockproject.service.IAgreementStatusService;
 import vn.tdt.mockproject.service.ICustomerTyperService;
+import vn.tdt.mockproject.service.IRFONumberService;
 
 /**
  * AgreementController.java
@@ -25,6 +32,9 @@ import vn.tdt.mockproject.service.ICustomerTyperService;
 @Controller
 public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
+	
+	@Autowired
+	private IAgreementService agrService;
 
 	@Autowired
 	private IRFONumberService iRFONumberService;
@@ -69,6 +79,54 @@ public class AgreementController {
 		
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
+	
+	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.POST)
+	public String search(
+			@RequestParam(value = "cusTypeId") String cusTypeId,
+			@RequestParam(value = "cusName") String cusName,
+			@RequestParam(value = "cusPostcode") String cusPostcode,
+			@RequestParam(value = "agrStatusId") String agrStatusId,
+			@RequestParam(value = "startDate") String startDate,
+			@RequestParam(value = "endDate") String endDate,
+			@RequestParam(value = "agrNumber") String agrNumber, Model model) {
+		
+		System.out.println("Customer type id: " + cusTypeId);
+		System.out.println("Customer name: " + cusName);
+		System.out.println("Customer postcode: " + cusPostcode);
+		System.out.println("status: " + agrStatusId);
+		System.out.println("start: " + startDate);
+		System.out.println("end: " + endDate);
+		System.out.println("agr number: " + agrNumber);
+		
+		
+		RFONumber rfoNum;
+		List<Agreement> lst = agrService.findAll(1, null, null, 1, null, null, 0);
+		for (Agreement agr : lst) {
+			
+			System.out.println("Customer: ");
+			System.out.println("Postcode: ");
+			System.out.println("Startdate: " + agr.getStartDate());
+			System.out.println("Enddate: " + agr.getEndDate());
+			System.out.println("Agreement: " + agr.getAgreementNumber() + "\\" + agr.getVariantNumber());
+			System.out.println("Status: " + agr.getAgreementStatus().getAgreementStatusName());
+			
+		}
+		
+		model.addAttribute("cusTypes", cusTypeService.findAll());
+		model.addAttribute("agrStatuses", agrStatusService.findAll());
+		
+		return ViewConstants.AGREEMENT_SEARCH;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
