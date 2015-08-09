@@ -31,7 +31,7 @@
 					<th>${rfo.getCompany().getAddress().getPostCode()}</th>
 					<th>${rfo.getCompany().getBusinessArea()}</th>
 					<th>${rfo.getCompany().getSector()}</th>
-					<th><form:radiobutton path="customer" id="customer"
+					<th><form:radiobutton path="customer" id="customer${status.index +1}"
 							value="${rfo.getRFONumber()}" cssErrorClass="input-error" /></th>
 				</tr>
 			</c:forEach>
