@@ -29,7 +29,8 @@
 				<th>${rfo.getCompany().getAddress().getPostCode()}</th>
 				<th>${rfo.getCompany().getBusinessArea()}</th>
 				<th>${rfo.getCompany().getSector()}</th>
-				<th></th>
+				<th><form:radiobutton path="isHungry" id="hungryYes"
+											value="${rfo.getRFONumber()}" cssErrorClass="input-error" /></th>
 			</tr>
 		</c:forEach>
 	</tbody>
