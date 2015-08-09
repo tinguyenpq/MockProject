@@ -36,6 +36,11 @@ public class CustomerSelectForm {
 		this.customer = customer;
 	}
 	
-	
+	/**
+	 * 
+	 */
+	public CustomerSelectForm() {
+		// TODO Auto-generated constructor stub
+	}
 
 }

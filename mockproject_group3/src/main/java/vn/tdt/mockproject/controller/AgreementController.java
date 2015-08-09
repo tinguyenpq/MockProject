@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
+import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.AgreementRFO;
 import vn.tdt.mockproject.entity.RFONumber;
@@ -53,6 +54,7 @@ public class AgreementController {
 			LOGGER.debug("Select customer is executed!");
 		}
 		
+		model.addAttribute("customerSelectForm", new CustomerSelectForm());
 		model.addAttribute("listRFONumber", iRFONumberService.findAll());
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
