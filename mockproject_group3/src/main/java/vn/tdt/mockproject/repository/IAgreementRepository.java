@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import vn.tdt.mockproject.entity.Agreement;
-import vn.tdt.mockproject.entity.RFONumber;
+import vn.tdt.mockproject.entity.AgreementInfo;
 
 /**
  * IAgreementRepository.java
@@ -16,7 +16,7 @@ import vn.tdt.mockproject.entity.RFONumber;
  */
 public interface IAgreementRepository extends IOperations<Agreement> {
 
-	List<Agreement> findAll(int cusTypeId, String cusName,
+	List<AgreementInfo> findAll(int cusTypeId, String cusName,
 			String cusPostcode, int agrStatusId, Date startDate,
 			Date endDate, int agrNumber);
 	

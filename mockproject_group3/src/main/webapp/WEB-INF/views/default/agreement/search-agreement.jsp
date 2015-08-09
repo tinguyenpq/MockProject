@@ -1,10 +1,12 @@
 <%-- Settings --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/template/jsp-header.jsp"%>
-<h1>search customer</h1>
-<form method="post" action="${rootPath}<%=PathConstants.AGREEMENT_SEARCH%>"
- class="form-horizontal" role="form">
+<h1>SEARCH AGREEMENT</h1>
+<form method="post"
+	action="${rootPath}<%=PathConstants.AGREEMENT_SEARCH%>"
+	class="form-horizontal" role="form">
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="cusTypeId">Customer
 			Type:</label>
@@ -66,11 +68,11 @@
 			<input type="number" name="agrNumber" id="agrNumber" />
 		</div>
 	</div>
-	<div class="form-group"> 
-			<div class="col-sm-offset-4 col-sm-8">
-				<input type="submit" value="Search" class="btn btn-primary" />
-			</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-8">
+			<input type="submit" value="Search" class="btn btn-primary" />
 		</div>
+	</div>
 </form>
 <script>
 	$(function() {
@@ -80,3 +82,56 @@
 		$('.selectpicker').selectpicker();
 	});
 </script>
+<form method="post" action="#">
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>RFO Number</th>
+			<th>Customer</th>
+			<th>Postcode</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Agreement</th>
+			<th>Status</th>
+			<th>Select</th>
+		</tr>
+	</thead>
+	<tbody>
+	<c:forEach var="p" items="${agreementList}" varStatus="status">
+		<tr>
+			<td>${p.rFONumber}</td>
+			<td>${p.companyName}</td>
+			<td>${p.postCode}</td>
+			<td>
+				<fmt:formatDate value="${p.startDate}" var="formattedStartDate"
+				 type="date" pattern="dd/MM/yyyy" />
+				${formattedStartDate}
+			</td>
+			<td>
+				<fmt:formatDate value="${p.endDate}" var="formattedEndDate"
+				 type="date" pattern="dd/MM/yyyy" />
+				${formattedEndDate}
+			</td>
+			<td>${p.agreementNumber} / ${p.variantNumber}</td>
+			<td>${p.agreementStatusName}</td>
+			<td><input type="radio" name="selected" /></td>
+		</tr>
+	</c:forEach>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="6"></td>
+			<td><input type="submit" value="View an agreement" class="btn btn-primary" /></td>
+			<td><input type="submit" value="Copy agreement" class="btn btn-primary" /></td>
+		</tr>
+	</tfoot>
+</table>
+</form>
+
+
+
+
+
+
+
+

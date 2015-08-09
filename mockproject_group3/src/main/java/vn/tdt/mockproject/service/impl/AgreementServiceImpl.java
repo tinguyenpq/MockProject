@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.tdt.mockproject.entity.Agreement;
+import vn.tdt.mockproject.entity.AgreementInfo;
 import vn.tdt.mockproject.repository.IAgreementRepository;
 import vn.tdt.mockproject.repository.IOperations;
 import vn.tdt.mockproject.service.AbstractService;
@@ -44,7 +45,7 @@ public class AgreementServiceImpl extends AbstractService<Agreement>implements I
 	 * @see vn.tdt.mockproject.service.IAgreementService#findAll(int, java.lang.String, java.lang.String, int, java.util.Date, java.util.Date, int)
 	 */
 	@Override
-	public List<Agreement> findAll(int cusTypeId, String cusName,
+	public List<AgreementInfo> findAll(int cusTypeId, String cusName,
 			String cusPostcode, int agrStatusId, Date startDate,
 			Date endDate, int agrNumber) {
 		return dao.findAll(cusTypeId, cusName,

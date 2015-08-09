@@ -3,6 +3,9 @@
  */
 package vn.tdt.mockproject.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,7 +20,7 @@ import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Agreement;
-import vn.tdt.mockproject.entity.AgreementRFO;
+import vn.tdt.mockproject.entity.AgreementInfo;
 import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.service.IAgreementService;
 import vn.tdt.mockproject.service.IAgreementStatusService;
@@ -92,28 +95,31 @@ public class AgreementController {
 			@RequestParam(value = "endDate") String endDate,
 			@RequestParam(value = "agrNumber") String agrNumber, Model model) {
 		
-		System.out.println("Customer type id: " + cusTypeId);
-		System.out.println("Customer name: " + cusName);
-		System.out.println("Customer postcode: " + cusPostcode);
-		System.out.println("status: " + agrStatusId);
-		System.out.println("start: " + startDate);
-		System.out.println("end: " + endDate);
-		System.out.println("agr number: " + agrNumber);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+		
+//		System.out.println("Customer type id: " + cusTypeId);
+//		System.out.println("Customer name: " + cusName);
+//		System.out.println("Customer postcode: " + cusPostcode);
+//		System.out.println("status: " + agrStatusId);
+//		System.out.println("start: " + startDate);
+//		System.out.println("end: " + endDate);
+//		System.out.println("agr number: " + agrNumber);
 		
 		
-		RFONumber rfoNum;
-		List<Agreement> lst = agrService.findAll(1, null, null, 1, null, null, 0);
-		for (Agreement agr : lst) {
-			
-			System.out.println("Customer: ");
-			System.out.println("Postcode: ");
-			System.out.println("Startdate: " + agr.getStartDate());
-			System.out.println("Enddate: " + agr.getEndDate());
-			System.out.println("Agreement: " + agr.getAgreementNumber() + "\\" + agr.getVariantNumber());
-			System.out.println("Status: " + agr.getAgreementStatus().getAgreementStatusName());
-			
-		}
+
+		List<AgreementInfo> lst = agrService.findAll(1, null, null, 1, null, null, 0);
+//		for (AgreementInfo agr : lst) {
+//			
+//			System.out.println("Customer: " + agr.getCompanyName());
+//			System.out.println("Postcode: " + agr.getPostCode());
+//			System.out.println("Startdate: " + agr.getStartDate());
+//			System.out.println("Enddate: " + agr.getEndDate());
+//			System.out.println("Agreement: " + agr.getAgreementNumber() + "\\" + agr.getVariantNumber());
+//			System.out.println("Status: " + agr.getAgreementStatusName());
+//			
+//		}
 		
+		model.addAttribute("agreementList", lst);
 		model.addAttribute("cusTypes", cusTypeService.findAll());
 		model.addAttribute("agrStatuses", agrStatusService.findAll());
 		

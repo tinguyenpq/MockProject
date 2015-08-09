@@ -12,12 +12,15 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.tdt.mockproject.entity.Agreement;
+import vn.tdt.mockproject.entity.AgreementInfo;
 import vn.tdt.mockproject.repository.AbstractHibernateDao;
 import vn.tdt.mockproject.repository.IAgreementRepository;
 
@@ -44,7 +47,7 @@ public class AgreementRepositoryImpl extends AbstractHibernateDao<Agreement> imp
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Agreement> findAll(int cusTypeId, String cusName,
+	public List<AgreementInfo> findAll(int cusTypeId, String cusName,
 			String cusPostcode, int agrStatusId, Date startDate,
 			Date endDate, int agrNumber) {
 		
@@ -70,15 +73,29 @@ public class AgreementRepositoryImpl extends AbstractHibernateDao<Agreement> imp
 		.createAlias("rfo.customerType", "customerType")
 		.add(Restrictions.eq("customerType.customerTypeId", cusTypeId));
 		
+		cri.createAlias("rfo.company", "company");
 		if (cusName != null && !"".equals(cusName)) {
-			cri.createAlias("rfo.company", "company")
-			.add(Restrictions.like("company.companyName", cusName, MatchMode.ANYWHERE));
+			cri.add(Restrictions.like("company.companyName",
+					cusName, MatchMode.ANYWHERE));
 		}
 		
+		cri.createAlias("company.address", "address");
 		if (cusPostcode != null && !"".equals(cusPostcode)) {
-			cri.createAlias("company.address", "address")
-			.add(Restrictions.like("address.postCode", cusPostcode, MatchMode.ANYWHERE));
+			cri.add(Restrictions.like("address.postCode",
+					cusPostcode, MatchMode.ANYWHERE));
 		}
+		
+		cri.setProjection(Projections.projectionList()
+				.add(Projections.property("rfo.RFONumber").as("rFONumber"))
+				.add(Projections.property("company.companyName").as("companyName"))
+				.add(Projections.property("address.postCode").as("postCode"))
+				.add(Projections.property("agr.startDate").as("startDate"))
+				.add(Projections.property("agr.endDate").as("endDate"))
+				.add(Projections.property("agr.agreementNumber").as("agreementNumber"))
+				.add(Projections.property("agr.variantNumber").as("variantNumber"))
+				.add(Projections.property("agrStatus.agreementStatusName").as("agreementStatusName")));
+		
+		cri.setResultTransformer(Transformers.aliasToBean(AgreementInfo.class));
 		
 		return cri.list();
 	}
