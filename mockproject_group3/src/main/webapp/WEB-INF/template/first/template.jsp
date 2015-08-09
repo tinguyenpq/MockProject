@@ -23,8 +23,8 @@
 	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap.css" /> --%>
 <link rel="stylesheet"
 	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap.min.css" />
-<%-- <link rel="stylesheet"
-	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap-theme.min.css"> --%>
+<link rel="stylesheet"
+	href="${rootPath}/assets/bootstrap/3.3.5/css/bootstrap-theme.min.css"> 
 <link rel="stylesheet" href="${rootPath}/css/header.css" />
 <link rel="stylesheet" href="${rootPath}/css/navbar.css" />
 <link rel="stylesheet" href="${rootPath}/css/footer.css" />
