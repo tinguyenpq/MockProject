@@ -36,27 +36,44 @@ import vn.tdt.mockproject.service.IRFONumberService;
 @Controller
 public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
-	
+
 	@Autowired
 	private IAgreementService iAgreementService;
 
 	@Autowired
 	private IRFONumberService iRFONumberService;
-	
+
 	@Autowired
 	private ICustomerTyperService iCustomerTyperService;
-	
+
 	@Autowired
 	private IAgreementStatusService iAgreementStatusService;
-	
+
+	/**
+	 * Select customer function /get
+	 * 
+	 * @since 08-08-2015
+	 */
 	@RequestMapping(value = { PathConstants.AGREEMENT_ADD_AGREEMENT,
 			PathConstants.AGREEMENT_SELECT_CUSTOMER }, method = RequestMethod.GET)
-	public String selectCustomer(Model model) {
+	public String getSelectCustomer(Model model) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Select customer is executed!");
 		}
-		
+
+		model.addAttribute("customerSelectForm", new CustomerSelectForm());
+		model.addAttribute("listRFONumber", iRFONumberService.findAll());
+		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
+	}
+
+	@RequestMapping(value = PathConstants.AGREEMENT_SELECT_CUSTOMER, method = RequestMethod.POST)
+	public String postSelectCustomer(Model model) {
+		// logs debug message
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Select customer is executed!");
+		}
+
 		model.addAttribute("customerSelectForm", new CustomerSelectForm());
 		model.addAttribute("listRFONumber", iRFONumberService.findAll());
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
@@ -71,72 +88,55 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_COPY;
 	}
-	
+
 	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.GET)
 	public String search(Model model) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Search agreement is executed!");
 		}
-		
+
 		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
 		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
-		
+
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
-	
+
 	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.POST)
-	public String search(
-			@RequestParam(value = "cusTypeId") String cusTypeId,
-			@RequestParam(value = "cusName") String cusName,
-			@RequestParam(value = "cusPostcode") String cusPostcode,
+	public String search(@RequestParam(value = "cusTypeId") String cusTypeId,
+			@RequestParam(value = "cusName") String cusName, @RequestParam(value = "cusPostcode") String cusPostcode,
 			@RequestParam(value = "agrStatusId") String agrStatusId,
-			@RequestParam(value = "startDate") String startDate,
-			@RequestParam(value = "endDate") String endDate,
+			@RequestParam(value = "startDate") String startDate, @RequestParam(value = "endDate") String endDate,
 			@RequestParam(value = "agrNumber") String agrNumber, Model model) {
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-		
-//		System.out.println("Customer type id: " + cusTypeId);
-//		System.out.println("Customer name: " + cusName);
-//		System.out.println("Customer postcode: " + cusPostcode);
-//		System.out.println("status: " + agrStatusId);
-//		System.out.println("start: " + startDate);
-//		System.out.println("end: " + endDate);
-//		System.out.println("agr number: " + agrNumber);
-		
-		
+
+		// System.out.println("Customer type id: " + cusTypeId);
+		// System.out.println("Customer name: " + cusName);
+		// System.out.println("Customer postcode: " + cusPostcode);
+		// System.out.println("status: " + agrStatusId);
+		// System.out.println("start: " + startDate);
+		// System.out.println("end: " + endDate);
+		// System.out.println("agr number: " + agrNumber);
 
 		List<AgreementInfo> lst = iAgreementService.findAll(1, null, null, 1, null, null, 0);
-//		for (AgreementInfo agr : lst) {
-//			
-//			System.out.println("Customer: " + agr.getCompanyName());
-//			System.out.println("Postcode: " + agr.getPostCode());
-//			System.out.println("Startdate: " + agr.getStartDate());
-//			System.out.println("Enddate: " + agr.getEndDate());
-//			System.out.println("Agreement: " + agr.getAgreementNumber() + "\\" + agr.getVariantNumber());
-//			System.out.println("Status: " + agr.getAgreementStatusName());
-//			
-//		}
-		
+		// for (AgreementInfo agr : lst) {
+		//
+		// System.out.println("Customer: " + agr.getCompanyName());
+		// System.out.println("Postcode: " + agr.getPostCode());
+		// System.out.println("Startdate: " + agr.getStartDate());
+		// System.out.println("Enddate: " + agr.getEndDate());
+		// System.out.println("Agreement: " + agr.getAgreementNumber() + "\\" +
+		// agr.getVariantNumber());
+		// System.out.println("Status: " + agr.getAgreementStatusName());
+		//
+		// }
+
 		model.addAttribute("agreementList", lst);
 		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
 		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
-		
+
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
 
+}
