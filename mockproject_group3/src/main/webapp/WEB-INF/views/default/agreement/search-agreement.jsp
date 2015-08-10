@@ -43,15 +43,15 @@
 			Date:</label>
 		<div class="col-sm-2">
 			<form:input path="startDate" data-provide="datepicker"
-				class="datepicker" placeholder="Click to select date" />
+				class="datepicker" placeholder="Click to select date" id="startDate" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="endDate">End Date:</label>
 		<div class="col-sm-8">
 			<div class="input-group">
-				<form:input path="endDate" data-provide="datepicker"
-					class="datepicker" placeholder="Click to select date" />
+				<form:input path="endDate" data-provide="datepicker" id="endDate"
+					class="datepicker" placeholder="Click to select date"  />
 			</div>
 		</div>
 	</div>
@@ -59,12 +59,12 @@
 		<label class="control-label col-sm-4" for="agrNumber">Agreement
 			Number:</label>
 		<div class="col-sm-8">
-			<form:input path="agrNumber" />
+			<form:input path="agrNumber" id="agrNumber" />
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-8">
-			<input type="submit" value="Search" class="btn btn-primary" />
+			<input type="submit" value="Search" class="btn btn-primary submitSearch" />
 		</div>
 	</div>
 </form:form>
@@ -106,7 +106,7 @@
 								${formattedEndDate}</td>
 							<td>${p.agreementNumber}/${p.variantNumber}</td>
 							<td>${p.agreementStatusName}</td>
-							<td><input type="radio" name="selected" /></td>
+							<td><input type="radio" name="selected" id="selected" value="1" /></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -119,18 +119,20 @@
 
 		</tbody>
 		<tfoot>
-			<c:if test="${message eq null}">
+			<c:if test="${message eq null && agreementList ne null}">
 				<tr>
 					<td colspan="6"></td>
 					<td><input type="submit" value="View an agreement"
-						class="btn btn-primary" /></td>
+						class="btn btn-primary submitView" /></td>
 					<td><input type="submit" value="Copy agreement"
-						class="btn btn-primary" /></td>
+						class="btn btn-primary submitView" /></td>
 				</tr>
 			</c:if>
 		</tfoot>
 	</table>
 </form>
+
+<script src="${rootPath}/js/search-agreement-validation.js"></script>
 
 
 

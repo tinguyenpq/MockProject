@@ -167,31 +167,10 @@ public class AgreementController {
 			agrNumberInt = Integer.parseInt(agrNumberStr);
 		}
 
-			
-
-		// System.out.println("Customer type id: " + cusTypeId);
-		// System.out.println("Customer name: " + cusName);
-		// System.out.println("Customer postcode: " + cusPostcode);
-		// System.out.println("status: " + agrStatusId);
-		// System.out.println("start: " + startDate);
-		// System.out.println("end: " + endDate);
-		// System.out.println("agr number: " + agrNumber);
-
 		List<AgreementInfo> lst = iAgreementService
 				.findAll(cusTypeIdInt, cusName,
 						cusPostcode, agrStatusIdInt,
 						start, end, agrNumberInt);
-		// for (AgreementInfo agr : lst) {
-		//
-		// System.out.println("Customer: " + agr.getCompanyName());
-		// System.out.println("Postcode: " + agr.getPostCode());
-		// System.out.println("Startdate: " + agr.getStartDate());
-		// System.out.println("Enddate: " + agr.getEndDate());
-		// System.out.println("Agreement: " + agr.getAgreementNumber() + "\\" +
-		// agr.getVariantNumber());
-		// System.out.println("Status: " + agr.getAgreementStatusName());
-		//
-		// }
 
 		if (lst == null || lst.size() == 0) {
 			model.addAttribute("message", "Result does not exist.");
@@ -204,6 +183,10 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
 	
+	/**@
+	 * @author PhatVT
+	 * @param String
+	 */
 	private String formatDate(String dateStr) {
 		String dateArr[] = dateStr.split("/");
 		String day = dateArr[0];

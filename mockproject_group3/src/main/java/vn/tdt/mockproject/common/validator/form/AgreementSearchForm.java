@@ -22,6 +22,7 @@ public class AgreementSearchForm {
 	
 	private String endDate;
 	
+	
 	private String agrNumber;
 
 	public int getCusTypeId() {
