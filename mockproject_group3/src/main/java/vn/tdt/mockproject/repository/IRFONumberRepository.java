@@ -5,6 +5,7 @@ package vn.tdt.mockproject.repository;
 
 import java.util.List;
 
+import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.entity.RFONumber;
 
 /**
@@ -16,4 +17,11 @@ public interface IRFONumberRepository extends IOperations<RFONumber> {
 
 	List<RFONumber> findAll(String cusName, String postCode,
 			int cusTypeId);
+
+	/**
+	 * @param List<RFONumber>
+	 */
+	List<RFONumber> findAll(CustomerSearchForm customerSearchForm);
+
+	
 }

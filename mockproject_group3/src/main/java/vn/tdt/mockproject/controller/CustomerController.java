@@ -44,9 +44,9 @@ public class CustomerController {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Search customer is executed!");
 		}
-
+		
 		model.addAttribute("customerSelectForm", new CustomerSelectForm());
-		model.addAttribute("listRFONumber", iRFONumberService.findAll());
+		model.addAttribute("listRFONumber", iRFONumberService.findAll(customerSearchForm));
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
 }
