@@ -31,7 +31,7 @@
 			password-parameter="password" login-processing-url="/login-processing" />
 		<logout logout-url="/logout" />
 
-		<access-denied-handler error-page="/html-exceptions/404?denied=1" />
+		<access-denied-handler error-page="/html-exceptions/404?denied=You%20can%20not%20access%20this%20page" />
 
 	</http>
 

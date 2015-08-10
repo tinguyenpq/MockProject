@@ -4,14 +4,15 @@
 <%@ include file="/WEB-INF/template/jsp-header.jsp"%>
 
 <%-- Message --%>
-<c:if test="${!empty errorMessage }">
+<c:if test="${!empty error }">
 	<div class="alert alert-warning alert-dismissible" role="alert">
 		<button type="button" class="close" data-dismiss="alert">
 			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 		</button>
-		${errorMessage}
+		${error}
 	</div>
 </c:if>
+
 <h1>
 	<spring:message code="htmlException.500.default" />
 </h1>
