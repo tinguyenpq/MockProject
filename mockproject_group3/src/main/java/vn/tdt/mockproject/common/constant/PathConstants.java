@@ -109,6 +109,16 @@ public class PathConstants {
 	 * Agreements daily stats  path
 	 */
 	public static final String AGREEMENT_DAILY_STATS = "/agreement/agreement-daily-stats";
+	
+	/**
+	 * Agreements Search customer path
+	 */
+	public static final String AGREEMENT_SEARCH_CUSTOMER= "/agreement/search-customer";
+	
+	/**
+	 * Agreements Search Dealer path
+	 */
+	public static final String AGREEMENT_SEARCH_DEALER = "/agreement/search-dealer";
 	 
 	 
 }
