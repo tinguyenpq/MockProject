@@ -133,17 +133,18 @@ public class AgreementController {
 	 * @since 09-08-2015
 	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.POST)
-	public String search(@RequestParam(value = "cusTypeId") String cusTypeIdStr,
-			@RequestParam(value = "cusName") String cusName,
-			@RequestParam(value = "cusPostcode") String cusPostcode,
-			@RequestParam(value = "agrStatusId") String agrStatusIdStr,
-			@RequestParam(value = "startDate") String startDate,
-			@RequestParam(value = "endDate") String endDate,
-			@RequestParam(value = "agrNumber") String agrNumberStr, Model model) {
+	public String search(@ModelAttribute("agrSearchForm") AgreementSearchForm agrSearchForm,
+			Model model) {
 
 		int agrNumberInt = 0;
-		int cusTypeIdInt = 0;
-		int agrStatusIdInt = 0;
+		String agrNumberStr = agrSearchForm.getAgrNumber();
+		int cusTypeIdInt = agrSearchForm.getCusTypeId();
+		int agrStatusIdInt = agrSearchForm.getAgrStatusId();
+		String startDate = agrSearchForm.getStartDate();
+		String endDate = agrSearchForm.getEndDate();
+		String cusName = agrSearchForm.getCusName();
+		String cusPostcode = agrSearchForm.getCusPostcode();
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date start = null;
 		Date end = null;
@@ -165,16 +166,8 @@ public class AgreementController {
 		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
 			agrNumberInt = Integer.parseInt(agrNumberStr);
 		}
-		
-		if (!"".equals(cusTypeIdStr) && cusTypeIdStr != null) {
-			cusTypeIdInt = Integer.parseInt(cusTypeIdStr);
-		}
-		
-		if (!"".equals(agrStatusIdStr) && agrStatusIdStr != null) {
-			agrStatusIdInt = Integer.parseInt(agrStatusIdStr);
-		}
-		
-		
+
+			
 
 		// System.out.println("Customer type id: " + cusTypeId);
 		// System.out.println("Customer name: " + cusName);
@@ -200,6 +193,10 @@ public class AgreementController {
 		//
 		// }
 
+		if (lst == null || lst.size() == 0) {
+			model.addAttribute("message", "Result does not exist.");
+		}
+		
 		model.addAttribute("agreementList", lst);
 		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
 		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());

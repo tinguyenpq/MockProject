@@ -3,9 +3,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="/WEB-INF/template/jsp-header.jsp"%>
+<c:set var="searchAgreementPath"
+	value="${rootPath}/agreement/search-agreement" />
 <h1>SEARCH AGREEMENT</h1>
-<form:form method="post"
-	action="${rootPath}<%=PathConstants.AGREEMENT_SEARCH%>"
+<form:form method="post" action="${searchAgreementPath}"
 	class="form-horizontal" role="form" commandName="agrSearchForm">
 
 	<div class="form-group">
@@ -49,8 +50,8 @@
 		<label class="control-label col-sm-4" for="endDate">End Date:</label>
 		<div class="col-sm-8">
 			<div class="input-group">
-					<form:input path="endDate" data-provide="datepicker"
-				class="datepicker" placeholder="Click to select date" />
+				<form:input path="endDate" data-provide="datepicker"
+					class="datepicker" placeholder="Click to select date" />
 			</div>
 		</div>
 	</div>
@@ -58,7 +59,7 @@
 		<label class="control-label col-sm-4" for="agrNumber">Agreement
 			Number:</label>
 		<div class="col-sm-8">
-			<form:input path="agrNumber"/>
+			<form:input path="agrNumber" />
 		</div>
 	</div>
 	<div class="form-group">
@@ -90,31 +91,43 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="p" items="${agreementList}" varStatus="status">
-				<tr>
-					<td>${p.rFONumber}</td>
-					<td>${p.companyName}</td>
-					<td>${p.postCode}</td>
-					<td><fmt:formatDate value="${p.startDate}"
-							var="formattedStartDate" type="date" pattern="dd/MM/yyyy" />
-						${formattedStartDate}</td>
-					<td><fmt:formatDate value="${p.endDate}"
-							var="formattedEndDate" type="date" pattern="dd/MM/yyyy" />
-						${formattedEndDate}</td>
-					<td>${p.agreementNumber}/${p.variantNumber}</td>
-					<td>${p.agreementStatusName}</td>
-					<td><input type="radio" name="selected" /></td>
-				</tr>
-			</c:forEach>
+			<c:choose>
+				<c:when test="${message eq null}">
+					<c:forEach var="p" items="${agreementList}" varStatus="status">
+						<tr>
+							<td>${p.rFONumber}</td>
+							<td>${p.companyName}</td>
+							<td>${p.postCode}</td>
+							<td><fmt:formatDate value="${p.startDate}"
+									var="formattedStartDate" type="date" pattern="dd/MM/yyyy" />
+								${formattedStartDate}</td>
+							<td><fmt:formatDate value="${p.endDate}"
+									var="formattedEndDate" type="date" pattern="dd/MM/yyyy" />
+								${formattedEndDate}</td>
+							<td>${p.agreementNumber}/${p.variantNumber}</td>
+							<td>${p.agreementStatusName}</td>
+							<td><input type="radio" name="selected" /></td>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="8" align="center" style="color: red;">${message}</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+
 		</tbody>
 		<tfoot>
-			<tr>
-				<td colspan="6"></td>
-				<td><input type="submit" value="View an agreement"
-					class="btn btn-primary" /></td>
-				<td><input type="submit" value="Copy agreement"
-					class="btn btn-primary" /></td>
-			</tr>
+			<c:if test="${message eq null}">
+				<tr>
+					<td colspan="6"></td>
+					<td><input type="submit" value="View an agreement"
+						class="btn btn-primary" /></td>
+					<td><input type="submit" value="Copy agreement"
+						class="btn btn-primary" /></td>
+				</tr>
+			</c:if>
 		</tfoot>
 	</table>
 </form>
