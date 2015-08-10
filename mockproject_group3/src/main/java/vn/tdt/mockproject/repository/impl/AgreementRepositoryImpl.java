@@ -53,8 +53,11 @@ public class AgreementRepositoryImpl extends AbstractHibernateDao<Agreement> imp
 		
 		Criteria cri = sessionFactory.getCurrentSession()
 				.createCriteria(Agreement.class, "agr")
-				.createAlias("agr.agreementStatus", "agrStatus")
-				.add(Restrictions.eq("agrStatus.agreementStatusId", agrStatusId));
+				.createAlias("agr.agreementStatus", "agrStatus");
+				
+		if (agrStatusId != 0) {
+			cri.add(Restrictions.eq("agrStatus.agreementStatusId", agrStatusId));
+		}
 		
 		if (agrNumber != 0) {
 			cri.add(Restrictions.eq("agr.agreementNumber", agrNumber));

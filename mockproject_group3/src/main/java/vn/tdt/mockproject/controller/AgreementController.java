@@ -124,14 +124,55 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
 
+	/**
+	 * agreement search function
+	 * 
+	 * @author PhatVT
+	 * @since 09-08-2015
+	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.POST)
-	public String search(@RequestParam(value = "cusTypeId") String cusTypeId,
-			@RequestParam(value = "cusName") String cusName, @RequestParam(value = "cusPostcode") String cusPostcode,
-			@RequestParam(value = "agrStatusId") String agrStatusId,
-			@RequestParam(value = "startDate") String startDate, @RequestParam(value = "endDate") String endDate,
-			@RequestParam(value = "agrNumber") String agrNumber, Model model) {
+	public String search(@RequestParam(value = "cusTypeId") String cusTypeIdStr,
+			@RequestParam(value = "cusName") String cusName,
+			@RequestParam(value = "cusPostcode") String cusPostcode,
+			@RequestParam(value = "agrStatusId") String agrStatusIdStr,
+			@RequestParam(value = "startDate") String startDate,
+			@RequestParam(value = "endDate") String endDate,
+			@RequestParam(value = "agrNumber") String agrNumberStr, Model model) {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+		int agrNumberInt = 0;
+		int cusTypeIdInt = 0;
+		int agrStatusIdInt = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date start = null;
+		Date end = null;
+		
+		try {
+			
+			if (!"".equals(startDate) && startDate != null) {
+				start = sdf.parse(formatDate(startDate));
+			}
+			
+			if (!"".equals(endDate) && endDate != null) {
+				end = sdf.parse(formatDate(endDate));
+			}
+				
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
+			agrNumberInt = Integer.parseInt(agrNumberStr);
+		}
+		
+		if (!"".equals(cusTypeIdStr) && cusTypeIdStr != null) {
+			cusTypeIdInt = Integer.parseInt(cusTypeIdStr);
+		}
+		
+		if (!"".equals(agrStatusIdStr) && agrStatusIdStr != null) {
+			agrStatusIdInt = Integer.parseInt(agrStatusIdStr);
+		}
+		
+		
 
 		// System.out.println("Customer type id: " + cusTypeId);
 		// System.out.println("Customer name: " + cusName);
@@ -141,7 +182,10 @@ public class AgreementController {
 		// System.out.println("end: " + endDate);
 		// System.out.println("agr number: " + agrNumber);
 
-		List<AgreementInfo> lst = iAgreementService.findAll(1, null, null, 1, null, null, 0);
+		List<AgreementInfo> lst = iAgreementService
+				.findAll(cusTypeIdInt, cusName,
+						cusPostcode, agrStatusIdInt,
+						start, end, agrNumberInt);
 		// for (AgreementInfo agr : lst) {
 		//
 		// System.out.println("Customer: " + agr.getCompanyName());
@@ -160,5 +204,15 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
+	
+	private String formatDate(String dateStr) {
+		String dateArr[] = dateStr.split("/");
+		String day = dateArr[0];
+		String month = dateArr[1];
+		String year = dateArr[2];
+		return year + "-" + month + "-" + day;
+	}
+	
+	
 
 }
