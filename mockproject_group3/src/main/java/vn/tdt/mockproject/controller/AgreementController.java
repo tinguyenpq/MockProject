@@ -12,12 +12,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
+import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.AgreementInfo;
@@ -62,7 +64,7 @@ public class AgreementController {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Select customer is executed!");
 		}
-
+		model.addAttribute("customerSearchForm", new CustomerSearchForm());
 		model.addAttribute("customerSelectForm", new CustomerSelectForm());
 		model.addAttribute("listRFONumber", iRFONumberService.findAll());
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
@@ -80,8 +82,7 @@ public class AgreementController {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Select customer is executed!");
 		}
-		model.addAttribute("customerSelectForm", new CustomerSelectForm());
-		model.addAttribute("listRFONumber", iRFONumberService.findAll());
+		
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
 
@@ -91,12 +92,14 @@ public class AgreementController {
 	 * @author ThanhTien
 	 * @since 10-08-2015
 	 */
-	@RequestMapping(value = PathConstants.AGREEMENT_SELECT_CUSTOMER, method = RequestMethod.POST)
-	public String postSearchSelectCustomer(Model model) {
+	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH_CUSTOMER, method = RequestMethod.POST)
+	public String postSearchSelectCustomer(Model model,
+			@ModelAttribute("@ModelAttribute") CustomerSearchForm customerSearchForm) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Select customer is executed!");
 		}
+		
 		model.addAttribute("customerSelectForm", new CustomerSelectForm());
 		model.addAttribute("listRFONumber", iRFONumberService.findAll());
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
