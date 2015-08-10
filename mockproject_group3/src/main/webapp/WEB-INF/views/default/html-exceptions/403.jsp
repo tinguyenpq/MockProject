@@ -18,14 +18,7 @@
 	<spring:message code="htmlException.403.default" />
 </h1>
 <p>
-	<strong>File not found</strong>
-</p>
-
-<p>The site configured at this address does not contain the
-	requested file.</p>
-
-<p>
-	If this is your site, make sure that the filename case matches the URL.<br>
+	Access is forbidden to the requested page.<br>
 </p>
 
 <a href="${rootPath}<%=PathConstants.COMMON_HOME%>" class="logo"> <img width="32" height="32" title="Home"

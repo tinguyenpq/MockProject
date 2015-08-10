@@ -30,15 +30,9 @@
 		<strong>Oh snap!</strong> ${denied}
 	</div>
 </c:if>
-<p>
-	<strong>File not found</strong>
-</p>
-
-<p>The site configured at this address does not contain the
-	requested file.</p>
 
 <p>
-	If this is your site, make sure that the filename case matches the URL.<br>
+	The server can not find the requested page..<br>
 </p>
 
 <a href="${rootPath}<%=PathConstants.COMMON_HOME%>" class="logo"> <img
