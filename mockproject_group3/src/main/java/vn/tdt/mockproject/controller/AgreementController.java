@@ -86,25 +86,15 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
 
+	
+
 	/**
-	 * Search customer function /post
+	 * copy agreement function /post
 	 * 
 	 * @author ThanhTien
 	 * @since 10-08-2015
 	 */
-	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH_CUSTOMER, method = RequestMethod.POST)
-	public String postSearchSelectCustomer(Model model,
-			@ModelAttribute("@ModelAttribute") CustomerSearchForm customerSearchForm) {
-		// logs debug message
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Select customer is executed!");
-		}
-		
-		model.addAttribute("customerSelectForm", new CustomerSelectForm());
-		model.addAttribute("listRFONumber", iRFONumberService.findAll());
-		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
-	}
-
+	
 	@RequestMapping(value = PathConstants.AGREEMENT_COPY, method = RequestMethod.GET)
 	public String copyAgreement(Model model) {
 		// logs debug message
