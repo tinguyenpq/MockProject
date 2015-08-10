@@ -42,7 +42,7 @@ public class CustomerController {
 			@ModelAttribute("@ModelAttribute") CustomerSearchForm customerSearchForm) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Select customer is executed!");
+			LOGGER.debug("Search customer is executed!");
 		}
 
 		model.addAttribute("customerSelectForm", new CustomerSelectForm());

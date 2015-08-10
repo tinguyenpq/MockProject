@@ -80,7 +80,7 @@ public class AgreementController {
 	public String postSelectCustomer(Model model) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Select customer is executed!");
+			LOGGER.debug("Post Select customer is executed!");
 		}
 		
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
