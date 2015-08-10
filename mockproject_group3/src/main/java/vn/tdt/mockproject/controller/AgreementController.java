@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
+import vn.tdt.mockproject.common.validator.form.AgreementSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Agreement;
@@ -118,6 +119,7 @@ public class AgreementController {
 			LOGGER.debug("Search agreement is executed!");
 		}
 
+		model.addAttribute("agrSearchForm", new AgreementSearchForm());
 		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
 		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
 
