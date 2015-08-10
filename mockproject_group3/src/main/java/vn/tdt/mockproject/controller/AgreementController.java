@@ -38,16 +38,16 @@ public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
 	
 	@Autowired
-	private IAgreementService agrService;
+	private IAgreementService iAgreementService;
 
 	@Autowired
 	private IRFONumberService iRFONumberService;
 	
 	@Autowired
-	private ICustomerTyperService cusTypeService;
+	private ICustomerTyperService iCustomerTyperService;
 	
 	@Autowired
-	private IAgreementStatusService agrStatusService;
+	private IAgreementStatusService iAgreementStatusService;
 	
 	@RequestMapping(value = { PathConstants.AGREEMENT_ADD_AGREEMENT,
 			PathConstants.AGREEMENT_SELECT_CUSTOMER }, method = RequestMethod.GET)
@@ -79,8 +79,8 @@ public class AgreementController {
 			LOGGER.debug("Search agreement is executed!");
 		}
 		
-		model.addAttribute("cusTypes", cusTypeService.findAll());
-		model.addAttribute("agrStatuses", agrStatusService.findAll());
+		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
+		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
 		
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
@@ -107,7 +107,7 @@ public class AgreementController {
 		
 		
 
-		List<AgreementInfo> lst = agrService.findAll(1, null, null, 1, null, null, 0);
+		List<AgreementInfo> lst = iAgreementService.findAll(1, null, null, 1, null, null, 0);
 //		for (AgreementInfo agr : lst) {
 //			
 //			System.out.println("Customer: " + agr.getCompanyName());
@@ -120,8 +120,8 @@ public class AgreementController {
 //		}
 		
 		model.addAttribute("agreementList", lst);
-		model.addAttribute("cusTypes", cusTypeService.findAll());
-		model.addAttribute("agrStatuses", agrStatusService.findAll());
+		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
+		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
 		
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
