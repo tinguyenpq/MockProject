@@ -47,12 +47,12 @@ public class PathConstants {
 	 * Html exception 403 path
 	 */
 	public static final String HTML_EXCEPTION_403 = "/html-exceptions/403";
-	
+
 	/**
 	 * add agreement path
 	 */
 	public static final String AGREEMENT_ADD_AGREEMENT = "/agreement/add-agreement";
-	
+
 	/**
 	 * Select customer path
 	 */
@@ -67,15 +67,48 @@ public class PathConstants {
 	 * Agreement detail path
 	 */
 	public static final String AGREEMENT_DETAIL = "/agreement/agreement-detail";
-	
+
 	/**
 	 * Agreement detail path
 	 */
 	public static final String AGREEMENT_COPY = "/agreement/copy-agreement";
-	
+
 	/**
 	 * Search Agreement path
 	 */
 	public static final String AGREEMENT_SEARCH = "/agreement/search-agreement";
-}
 
+	/**
+	 * Edit Agreement path
+	 */
+	public static final String AGREEMENT_EDIT = "/agreement/edit-agreement";
+	
+	/**
+	 * Extend Agreement path
+	 */
+	public static final String AGREEMENT_EXTEND = "/agreement/extend-agreement";
+	
+	
+	/**
+	 * Approve Agreement path
+	 */
+	public static final String AGREEMENT_APPROVE = "/agreement/approve-agreement";
+	
+	/**
+	 * Reject Agreement path
+	 */
+	public static final String AGREEMENT_REJECT = "/agreement/reject-agreement";
+	
+	
+	/**
+	 * View Agreement path
+	 */
+	public static final String AGREEMENT_VIEW = "/agreement/view-agreement";
+	
+	/**
+	 * Agreements daily stats  path
+	 */
+	public static final String AGREEMENT_DAILY_STATS = "/agreement/agreement-daily-stats";
+	 
+	 
+}

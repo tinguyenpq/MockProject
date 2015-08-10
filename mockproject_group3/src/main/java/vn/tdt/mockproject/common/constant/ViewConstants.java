@@ -63,5 +63,37 @@ public class ViewConstants {
 	 * Search agreement view
 	 */
 	public static final String AGREEMENT_SEARCH =  "default/agreement/search-agreement";
+	
+	/**
+	 * Edit Agreement view
+	 */
+	public static final String AGREEMENT_EDIT = "default/agreement/edit-agreement";
+	
+	/**
+	 * Extend Agreement view
+	 */
+	public static final String AGREEMENT_EXTEND = "default/agreement/extend-agreement";
+	
+	
+	/**
+	 * Approve Agreement view
+	 */
+	public static final String AGREEMENT_APPROVE = "default/agreement/approve-agreement";
+	
+	/**
+	 * Reject Agreement view
+	 */
+	public static final String AGREEMENT_REJECT = "/agreement/reject-agreement";
+	
+	
+	/**
+	 * View Agreement view
+	 */
+	public static final String AGREEMENT_VIEW = "default/agreement/view-agreement";
+	
+	/**
+	 * Agreements daily stats  view
+	 */
+	public static final String AGREEMENT_DAILY_STATS = "default/agreement/agreement-daily-stats";
 }
 
