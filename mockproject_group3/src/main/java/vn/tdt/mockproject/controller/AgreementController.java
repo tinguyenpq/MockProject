@@ -52,6 +52,7 @@ public class AgreementController {
 	/**
 	 * Select customer function /get
 	 * 
+	 * @author ThanhTien
 	 * @since 08-08-2015
 	 */
 	@RequestMapping(value = { PathConstants.AGREEMENT_ADD_AGREEMENT,
@@ -67,13 +68,35 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 	}
 
+	/**
+	 * Select customer function /post
+	 * 
+	 * @author ThanhTien
+	 * @since 10-08-2015
+	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_SELECT_CUSTOMER, method = RequestMethod.POST)
 	public String postSelectCustomer(Model model) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Select customer is executed!");
 		}
+		model.addAttribute("customerSelectForm", new CustomerSelectForm());
+		model.addAttribute("listRFONumber", iRFONumberService.findAll());
+		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
+	}
 
+	/**
+	 * Search customer function /post
+	 * 
+	 * @author ThanhTien
+	 * @since 10-08-2015
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_SELECT_CUSTOMER, method = RequestMethod.POST)
+	public String postSearchSelectCustomer(Model model) {
+		// logs debug message
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Select customer is executed!");
+		}
 		model.addAttribute("customerSelectForm", new CustomerSelectForm());
 		model.addAttribute("listRFONumber", iRFONumberService.findAll());
 		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
@@ -89,6 +112,12 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_COPY;
 	}
 
+	/**
+	 * agreement search function
+	 * 
+	 * @author PhatVT
+	 * @since 09-08-2015
+	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.GET)
 	public String search(Model model) {
 		// logs debug message
