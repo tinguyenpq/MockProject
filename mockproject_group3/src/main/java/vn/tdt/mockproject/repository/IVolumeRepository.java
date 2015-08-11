@@ -12,4 +12,5 @@ import vn.tdt.mockproject.entity.Volume;
  */
 public interface IVolumeRepository extends IOperations<Volume> {
 
+	Volume findOneByAgreementId(int id);
 }

@@ -22,6 +22,7 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
 import vn.tdt.mockproject.common.validator.form.AgreementSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
+import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.AgreementInfo;
 import vn.tdt.mockproject.entity.CreditNodeText;
 import vn.tdt.mockproject.entity.Dealer;
@@ -211,6 +212,9 @@ public class AgreementController {
 		for (Dealer d : dealerList) {
 			System.out.println(d.getDealerId());
 		}
+		
+		Agreement agr = iAgreementService.findOne(agrNumber);
+		
 		
 
 		return ViewConstants.AGREEMENT_VIEW;
