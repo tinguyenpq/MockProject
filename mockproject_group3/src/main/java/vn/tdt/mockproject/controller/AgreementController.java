@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +24,22 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
 import vn.tdt.mockproject.common.validator.form.AgreementSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
+import vn.tdt.mockproject.entity.Address;
 import vn.tdt.mockproject.entity.Agreement;
-import vn.tdt.mockproject.entity.RFONumber;
-import vn.tdt.mockproject.entity.common.AgreementInfo;
-
+import vn.tdt.mockproject.entity.Company;
 import vn.tdt.mockproject.entity.CreditNodeText;
 import vn.tdt.mockproject.entity.Dealer;
+import vn.tdt.mockproject.entity.Volume;
+import vn.tdt.mockproject.entity.common.AgreementInfo;
+import vn.tdt.mockproject.service.IAddressService;
 import vn.tdt.mockproject.service.IAgreementService;
 import vn.tdt.mockproject.service.IAgreementStatusService;
+import vn.tdt.mockproject.service.ICompanyService;
 import vn.tdt.mockproject.service.ICreditNodeTextService;
 import vn.tdt.mockproject.service.ICustomerTyperService;
 import vn.tdt.mockproject.service.IDealerService;
 import vn.tdt.mockproject.service.IRFONumberService;
+import vn.tdt.mockproject.service.IVolumeService;
 
 /**
  * AgreementController.java
@@ -62,6 +68,15 @@ public class AgreementController {
 	
 	@Autowired
 	private IDealerService iDealerSerivce;
+	
+	@Autowired
+	private IVolumeService iVolumeService;
+	
+	@Autowired
+	private ICompanyService iCompanyService;
+	
+	@Autowired
+	private IAddressService iAddressService; 
 
 	/**
 	 * Select customer function /get
@@ -198,27 +213,30 @@ public class AgreementController {
 	 * @author PhatVT
 	 * @param String
 	 */
+	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.POST)
 	public String view(@RequestParam("selected") String selected, Model model) {
 		
-		System.out.println(selected);
 		String agrInfo[] = selected.split("///");
 		
 		int agrNumber = Integer.parseInt(agrInfo[3]);
-		System.out.println(agrNumber);
 		
 		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
-		System.out.println(creNoteText.getDateTime().toString());
-		
 		List<Dealer> dealerList = iDealerSerivce.findAllByAgreementId(agrNumber);
-		for (Dealer d : dealerList) {
-			System.out.println(d.getDealerId());
-		}
-		
 		Agreement agr = iAgreementService.findOne(agrNumber);
-		
-		
+		Volume vol = iVolumeService.findOne(agr.getVolume().getVolumeId());
+		Hibernate.initialize(vol.getBandings());
+		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
+		Address address = iAddressService.findOne(Integer.parseInt(agrInfo[2]));
 
+		model.addAttribute("agr", agr);
+		model.addAttribute("creNoteText", creNoteText);
+		model.addAttribute("dealerList", dealerList);
+		model.addAttribute("com", com);
+		model.addAttribute("address", address);
+		model.addAttribute("vol", vol);
+		model.addAttribute("bandings", vol.getBandings());
+		model.addAttribute("rfonumber", agrInfo[0]);
 		return ViewConstants.AGREEMENT_VIEW;
 	}
 	
