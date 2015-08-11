@@ -19,14 +19,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
+import vn.tdt.mockproject.common.validator.form.AgreementSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.entity.common.AgreementInfo;
+
+import vn.tdt.mockproject.entity.CreditNodeText;
+import vn.tdt.mockproject.entity.Dealer;
 import vn.tdt.mockproject.service.IAgreementService;
 import vn.tdt.mockproject.service.IAgreementStatusService;
+import vn.tdt.mockproject.service.ICreditNodeTextService;
 import vn.tdt.mockproject.service.ICustomerTyperService;
+import vn.tdt.mockproject.service.IDealerService;
 import vn.tdt.mockproject.service.IRFONumberService;
 
 /**
@@ -50,6 +56,12 @@ public class AgreementController {
 
 	@Autowired
 	private IAgreementStatusService iAgreementStatusService;
+	
+	@Autowired
+	private ICreditNodeTextService iCreditNodeTextService;
+	
+	@Autowired
+	private IDealerService iDealerSerivce;
 
 	/**
 	 * Select customer function /get
@@ -118,47 +130,110 @@ public class AgreementController {
 			LOGGER.debug("Search agreement is executed!");
 		}
 
+		model.addAttribute("agrSearchForm", new AgreementSearchForm());
 		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
 		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
 
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
 
+	/**
+	 * agreement search function
+	 * 
+	 * @author PhatVT
+	 * @since 09-08-2015
+	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.POST)
-	public String search(@RequestParam(value = "cusTypeId") String cusTypeId,
-			@RequestParam(value = "cusName") String cusName, @RequestParam(value = "cusPostcode") String cusPostcode,
-			@RequestParam(value = "agrStatusId") String agrStatusId,
-			@RequestParam(value = "startDate") String startDate, @RequestParam(value = "endDate") String endDate,
-			@RequestParam(value = "agrNumber") String agrNumber, Model model) {
+	public String search(@ModelAttribute("agrSearchForm") AgreementSearchForm agrSearchForm,
+			Model model) {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+		int agrNumberInt = 0;
+		String agrNumberStr = agrSearchForm.getAgrNumber();
+		int cusTypeIdInt = agrSearchForm.getCusTypeId();
+		int agrStatusIdInt = agrSearchForm.getAgrStatusId();
+		String startDate = agrSearchForm.getStartDate();
+		String endDate = agrSearchForm.getEndDate();
+		String cusName = agrSearchForm.getCusName();
+		String cusPostcode = agrSearchForm.getCusPostcode();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date start = null;
+		Date end = null;
+		
+		try {
+			
+			if (!"".equals(startDate) && startDate != null) {
+				start = sdf.parse(formatDate(startDate));
+			}
+			
+			if (!"".equals(endDate) && endDate != null) {
+				end = sdf.parse(formatDate(endDate));
+			}
+				
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
+			agrNumberInt = Integer.parseInt(agrNumberStr);
+		}
 
-		// System.out.println("Customer type id: " + cusTypeId);
-		// System.out.println("Customer name: " + cusName);
-		// System.out.println("Customer postcode: " + cusPostcode);
-		// System.out.println("status: " + agrStatusId);
-		// System.out.println("start: " + startDate);
-		// System.out.println("end: " + endDate);
-		// System.out.println("agr number: " + agrNumber);
+		List<AgreementInfo> lst = iAgreementService
+				.findAll(cusTypeIdInt, cusName,
+						cusPostcode, agrStatusIdInt,
+						start, end, agrNumberInt);
 
-		List<AgreementInfo> lst = iAgreementService.findAll(1, null, null, 1, null, null, 0);
-		// for (AgreementInfo agr : lst) {
-		//
-		// System.out.println("Customer: " + agr.getCompanyName());
-		// System.out.println("Postcode: " + agr.getPostCode());
-		// System.out.println("Startdate: " + agr.getStartDate());
-		// System.out.println("Enddate: " + agr.getEndDate());
-		// System.out.println("Agreement: " + agr.getAgreementNumber() + "\\" +
-		// agr.getVariantNumber());
-		// System.out.println("Status: " + agr.getAgreementStatusName());
-		//
-		// }
-
+		if (lst == null || lst.size() == 0) {
+			model.addAttribute("message", "Result does not exist.");
+		}
+		
 		model.addAttribute("agreementList", lst);
 		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
 		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
 
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
+	
+	/** view an agreement function
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.POST)
+	public String view(@RequestParam("selected") String selected, Model model) {
+		
+		System.out.println(selected);
+		String agrInfo[] = selected.split("///");
+		
+		int agrNumber = Integer.parseInt(agrInfo[3]);
+		System.out.println(agrNumber);
+		
+		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
+		System.out.println(creNoteText.getDateTime().toString());
+		
+		List<Dealer> dealerList = iDealerSerivce.findAllByAgreementId(agrNumber);
+		for (Dealer d : dealerList) {
+			System.out.println(d.getDealerId());
+		}
+		
+		Agreement agr = iAgreementService.findOne(agrNumber);
+		
+		
+
+		return ViewConstants.AGREEMENT_VIEW;
+	}
+	
+	/**@
+	 * @author PhatVT
+	 * @param String
+	 */
+	private String formatDate(String dateStr) {
+		String dateArr[] = dateStr.split("/");
+		String day = dateArr[0];
+		String month = dateArr[1];
+		String year = dateArr[2];
+		return year + "-" + month + "-" + day;
+	}
+	
+	
 
 }

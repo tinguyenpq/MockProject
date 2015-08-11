@@ -24,7 +24,8 @@ import vn.tdt.mockproject.service.IAgreementService;
  */
 @Service
 @Transactional
-public class AgreementServiceImpl extends AbstractService<Agreement>implements IAgreementService{
+public class AgreementServiceImpl extends AbstractService<Agreement>implements IAgreementService {
+	
 	@Autowired
     private IAgreementRepository dao;
 
@@ -51,6 +52,14 @@ public class AgreementServiceImpl extends AbstractService<Agreement>implements I
 		return dao.findAll(cusTypeId, cusName,
 				cusPostcode, agrStatusId,
 				startDate, endDate, agrNumber);
+	}
+
+	/* 
+	 * @see vn.tdt.mockproject.service.IAgreementService#findByOne(int, int)
+	 */
+	@Override
+	public Agreement findOne(int agrNumber, int variantNumber) {
+		return dao.findOne(agrNumber, variantNumber);
 	}
 	
 

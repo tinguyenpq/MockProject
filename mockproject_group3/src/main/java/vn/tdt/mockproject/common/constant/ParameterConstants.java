@@ -10,4 +10,5 @@ package vn.tdt.mockproject.common.constant;
  */
 public class ParameterConstants {
 
+	
 }
