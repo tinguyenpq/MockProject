@@ -1,4 +1,5 @@
 <%-- Settings --%>
+<%@page import="vn.tdt.mockproject.common.constant.ViewConstants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -51,7 +52,7 @@
 		<div class="col-sm-8">
 			<div class="input-group">
 				<form:input path="endDate" data-provide="datepicker" id="endDate"
-					class="datepicker" placeholder="Click to select date"  />
+					class="datepicker" placeholder="Click to select date" />
 			</div>
 		</div>
 	</div>
@@ -64,7 +65,8 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-8">
-			<input type="submit" value="Search" class="btn btn-primary submitSearch" />
+			<input type="submit" value="Search"
+				class="btn btn-primary submitSearch" />
 		</div>
 	</div>
 </form:form>
@@ -76,7 +78,8 @@
 		$('.selectpicker').selectpicker();
 	});
 </script>
-<form method="post" action="#">
+<form method="post"
+	action="${rootPath}<%=PathConstants.AGREEMENT_VIEW%>">
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -106,7 +109,10 @@
 								${formattedEndDate}</td>
 							<td>${p.agreementNumber}/${p.variantNumber}</td>
 							<td>${p.agreementStatusName}</td>
-							<td><input type="radio" name="selected" id="selected" value="1" /></td>
+							<td><input type="radio" name="selected" id="selected"
+								value='<c:out value="${p.rFONumber}///${p.companyName}///${p.postCode}///${p.startDate}///${p.endDate}///${p.agreementNumber}///${p.variantNumber}///${p.agreementStatusName}"></c:out>' />
+							</td>
+
 						</tr>
 					</c:forEach>
 				</c:when>

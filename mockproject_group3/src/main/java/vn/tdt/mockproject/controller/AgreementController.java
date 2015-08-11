@@ -183,6 +183,24 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
 	
+	/** view an agreement function
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.POST)
+	public String view(@RequestParam("selected") String selected, Model model) {
+		
+		System.out.println(selected);
+		String agrInfo[] = selected.split("///");
+		
+		for (String str : agrInfo) {
+			System.out.println(str);
+		}
+		
+
+		return ViewConstants.AGREEMENT_VIEW;
+	}
+	
 	/**@
 	 * @author PhatVT
 	 * @param String
