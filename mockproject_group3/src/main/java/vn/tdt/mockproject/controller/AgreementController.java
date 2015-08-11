@@ -24,9 +24,11 @@ import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.AgreementInfo;
+import vn.tdt.mockproject.entity.CreditNodeText;
 import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.service.IAgreementService;
 import vn.tdt.mockproject.service.IAgreementStatusService;
+import vn.tdt.mockproject.service.ICreditNodeTextService;
 import vn.tdt.mockproject.service.ICustomerTyperService;
 import vn.tdt.mockproject.service.IRFONumberService;
 
@@ -51,6 +53,9 @@ public class AgreementController {
 
 	@Autowired
 	private IAgreementStatusService iAgreementStatusService;
+	
+	@Autowired
+	private ICreditNodeTextService iCreditNodeTextService;
 
 	/**
 	 * Select customer function /get
@@ -193,9 +198,11 @@ public class AgreementController {
 		System.out.println(selected);
 		String agrInfo[] = selected.split("///");
 		
-		for (String str : agrInfo) {
-			System.out.println(str);
-		}
+		int agrNumber = Integer.parseInt(agrInfo[3]);
+		System.out.println(agrNumber);
+		
+		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
+		System.out.println(creNoteText.getDateTime().toString());
 		
 
 		return ViewConstants.AGREEMENT_VIEW;

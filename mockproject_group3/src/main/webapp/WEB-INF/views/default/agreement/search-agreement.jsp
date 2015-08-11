@@ -110,7 +110,7 @@
 							<td>${p.agreementNumber}/${p.variantNumber}</td>
 							<td>${p.agreementStatusName}</td>
 							<td><input type="radio" name="selected" id="selected"
-								value='<c:out value="${p.rFONumber}///${p.companyName}///${p.postCode}///${p.startDate}///${p.endDate}///${p.agreementNumber}///${p.variantNumber}///${p.agreementStatusName}"></c:out>' />
+								value='<c:out value="${p.rFONumber}///${p.companyId}///${p.addressId}///${p.agreementNumber}///${p.variantNumber}"></c:out>' />
 							</td>
 
 						</tr>

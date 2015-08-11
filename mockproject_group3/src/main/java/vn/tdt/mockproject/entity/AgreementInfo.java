@@ -21,6 +21,24 @@ public class AgreementInfo {
 	private int agreementNumber;
 	private int variantNumber;
 	private String agreementStatusName;
+	private int companyId;
+	private int addressId;
+
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
+
+	public int getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
 
 	public String getrFONumber() {
 		return rFONumber;

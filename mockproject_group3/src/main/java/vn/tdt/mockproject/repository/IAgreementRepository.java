@@ -20,4 +20,5 @@ public interface IAgreementRepository extends IOperations<Agreement> {
 			String cusPostcode, int agrStatusId, Date startDate,
 			Date endDate, int agrNumber);
 	
+	Agreement findOne(int agrNumber, int variantNumber);
 }

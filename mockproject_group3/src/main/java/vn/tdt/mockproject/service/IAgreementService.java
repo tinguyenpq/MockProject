@@ -21,4 +21,6 @@ public interface IAgreementService extends IOperations<Agreement> {
 	List<AgreementInfo> findAll(int cusTypeId, String cusName,
 			String cusPostcode, int agrStatusId, Date startDate,
 			Date endDate, int agrNumber);
+	
+	Agreement findOne(int agrNumber, int variantNumber);
 }

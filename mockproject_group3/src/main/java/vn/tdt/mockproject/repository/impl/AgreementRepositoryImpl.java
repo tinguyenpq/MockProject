@@ -91,7 +91,9 @@ public class AgreementRepositoryImpl extends AbstractHibernateDao<Agreement> imp
 		cri.setProjection(Projections.projectionList()
 				.add(Projections.property("rfo.RFONumber").as("rFONumber"))
 				.add(Projections.property("company.companyName").as("companyName"))
+				.add(Projections.property("company.companyId").as("companyId"))
 				.add(Projections.property("address.postCode").as("postCode"))
+				.add(Projections.property("address.addressId").as("addressId"))
 				.add(Projections.property("agr.startDate").as("startDate"))
 				.add(Projections.property("agr.endDate").as("endDate"))
 				.add(Projections.property("agr.agreementNumber").as("agreementNumber"))
@@ -101,6 +103,18 @@ public class AgreementRepositoryImpl extends AbstractHibernateDao<Agreement> imp
 		cri.setResultTransformer(Transformers.aliasToBean(AgreementInfo.class));
 		
 		return cri.list();
+	}
+
+	/* 
+	 * @see vn.tdt.mockproject.repository.IAgreementRepository#findByOne(int, int)
+	 */
+	@Override
+	public Agreement findOne(int agrNumber, int variantNumber) {
+		return (Agreement) sessionFactory.getCurrentSession()
+				.createCriteria(Agreement.class)
+				.add(Restrictions.eq("agreementNumber", agrNumber))
+				.add(Restrictions.eq("variantNumber", variantNumber))
+				.uniqueResult();
 	}
 	
 }
