@@ -22,14 +22,14 @@ import vn.tdt.mockproject.common.constant.ViewConstants;
 import vn.tdt.mockproject.common.validator.form.AgreementSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
-import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.AgreementInfo;
 import vn.tdt.mockproject.entity.CreditNodeText;
-import vn.tdt.mockproject.entity.RFONumber;
+import vn.tdt.mockproject.entity.Dealer;
 import vn.tdt.mockproject.service.IAgreementService;
 import vn.tdt.mockproject.service.IAgreementStatusService;
 import vn.tdt.mockproject.service.ICreditNodeTextService;
 import vn.tdt.mockproject.service.ICustomerTyperService;
+import vn.tdt.mockproject.service.IDealerService;
 import vn.tdt.mockproject.service.IRFONumberService;
 
 /**
@@ -56,6 +56,9 @@ public class AgreementController {
 	
 	@Autowired
 	private ICreditNodeTextService iCreditNodeTextService;
+	
+	@Autowired
+	private IDealerService iDealerSerivce;
 
 	/**
 	 * Select customer function /get
@@ -203,6 +206,11 @@ public class AgreementController {
 		
 		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
 		System.out.println(creNoteText.getDateTime().toString());
+		
+		List<Dealer> dealerList = iDealerSerivce.findAllByAgreementId(agrNumber);
+		for (Dealer d : dealerList) {
+			System.out.println(d.getDealerId());
+		}
 		
 
 		return ViewConstants.AGREEMENT_VIEW;
