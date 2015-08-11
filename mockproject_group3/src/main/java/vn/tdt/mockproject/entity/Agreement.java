@@ -43,7 +43,7 @@ public class Agreement implements Serializable {
 	private AgreementStatus agreementStatus;
 	private RFOUser RFOUser;
 	private List<CreditNodeText> creditNodeTexts;
-	private List<Volume> volumes;
+	private Volume volume;
 
 	public Agreement() {
 	}
@@ -386,28 +386,14 @@ public class Agreement implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Volume
-	@OneToMany(mappedBy="agreement")
-	public List<Volume> getVolumes() {
-		return this.volumes;
+	//bi-directional one-to-one association to Volume
+	@OneToOne(mappedBy="agreement")
+	public Volume getVolume() {
+		return this.volume;
 	}
 
-	public void setVolumes(List<Volume> volumes) {
-		this.volumes = volumes;
-	}
-
-	public Volume addVolume(Volume volume) {
-		getVolumes().add(volume);
-		volume.setAgreement(this);
-
-		return volume;
-	}
-
-	public Volume removeVolume(Volume volume) {
-		getVolumes().remove(volume);
-		volume.setAgreement(null);
-
-		return volume;
+	public void setVolume(Volume volume) {
+		this.volume = volume;
 	}
 
 }

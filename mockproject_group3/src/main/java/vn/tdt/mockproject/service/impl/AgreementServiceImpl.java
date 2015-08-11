@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.tdt.mockproject.entity.Agreement;
-import vn.tdt.mockproject.entity.AgreementInfo;
+import vn.tdt.mockproject.entity.common.AgreementInfo;
 import vn.tdt.mockproject.repository.IAgreementRepository;
 import vn.tdt.mockproject.repository.IOperations;
 import vn.tdt.mockproject.service.AbstractService;

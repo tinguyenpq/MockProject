@@ -13,7 +13,7 @@
 			<td width="200px"><label for="rFONumberInput">RFO
 					Number: </label></td>
 			<td><form:input path="rFONumber" id="rFONumberInput"
-					tabindex="-1" type="text" cssErrorClass="input-error" />
+					tabindex="-1" cssErrorClass="input-error" />
 				<p></p> <form:errors path="rFONumber" cssclass="error" /></td>
 		</tr>
 		<tr>
@@ -48,8 +48,8 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td></td>
 			<td><input type="submit" value="Search" /></td>
+			<td></td>
 		</tr>
 	</table>
 </form:form>

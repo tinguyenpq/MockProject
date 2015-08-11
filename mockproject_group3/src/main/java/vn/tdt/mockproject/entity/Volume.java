@@ -92,9 +92,9 @@ public class Volume implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Agreement
-	@ManyToOne
-	@JoinColumn(name="agreement_number", nullable=false)
+	//bi-directional one-to-one association to Agreement
+	@OneToOne
+	@JoinColumn(name="volume_id", nullable=false, insertable=false, updatable=false)
 	public Agreement getAgreement() {
 		return this.agreement;
 	}

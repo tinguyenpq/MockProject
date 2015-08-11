@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.tdt.mockproject.entity.Agreement;
-import vn.tdt.mockproject.entity.AgreementInfo;
+import vn.tdt.mockproject.entity.common.AgreementInfo;
 import vn.tdt.mockproject.repository.AbstractHibernateDao;
 import vn.tdt.mockproject.repository.IAgreementRepository;
 

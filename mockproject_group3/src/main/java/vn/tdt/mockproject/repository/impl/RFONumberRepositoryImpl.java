@@ -66,12 +66,14 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 	 * @see vn.tdt.mockproject.repository.IRFONumberRepository#findAll(vn.tdt.
 	 * mockproject.common.validator.form.CustomerSearchForm)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<RFONumber> findAll(CustomerSearchForm customerSearchForm) {
-		List<RFONumber> listRFONumber = new ArrayList<RFONumber>();
+
 		StringBuilder queryBuilder = new StringBuilder();
-		
-		queryBuilder.append("SELECT rfo.r_f_o_number, rfo.r_f_o_name, rfo.customer_type_id, rfo.company_id, rfo.created_date, rfo.updated_date ");
+
+		queryBuilder.append(
+				"SELECT rfo.r_f_o_number, rfo.r_f_o_name, rfo.customer_type_id, rfo.company_id, rfo.created_date, rfo.updated_date ");
 		queryBuilder.append(" FROM r_f_o_number rfo ");
 		queryBuilder.append(" INNER JOIN customer_type cus ");
 		queryBuilder.append(" ON rfo.customer_type_id =  cus.customer_type_id ");
@@ -90,9 +92,10 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 
 		Query query = this.getCurrentSession().createQuery(queryBuilder.toString());
 		// query.setParameter("customerSearchForm", customerSearchForm);
+		List<RFONumber> listRFONumber = new ArrayList<RFONumber>();
 
-		listRFONumber = query.list();
-		
+		listRFONumber = (List<RFONumber>) query.list();
+
 		return listRFONumber;
 	}
 

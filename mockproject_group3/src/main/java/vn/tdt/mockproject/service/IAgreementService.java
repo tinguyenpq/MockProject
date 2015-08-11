@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import vn.tdt.mockproject.entity.Agreement;
-import vn.tdt.mockproject.entity.AgreementInfo;
+import vn.tdt.mockproject.entity.common.AgreementInfo;
 import vn.tdt.mockproject.repository.IOperations;
 
 /**

@@ -1,7 +1,7 @@
 /**
  * (c)Copyright 2015, PhatVT. All rights reserved.
  */
-package vn.tdt.mockproject.entity;
+package vn.tdt.mockproject.entity.common;
 
 import java.util.Date;
 
