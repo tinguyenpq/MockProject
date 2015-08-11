@@ -36,12 +36,18 @@ public class CreditNodeTextRepositoryImpl extends AbstractHibernateDao<CreditNod
 	 */
 	@Override
 	public CreditNodeText findOneLatest(int id) {
-		return (CreditNodeText) sessionFactory.getCurrentSession()
-				.createCriteria(CreditNodeText.class, "c")
-				.createAlias("c.agreement", "agreement")
-				.add(Restrictions.eq("agreement.agreementNumber", id))
-				.addOrder(Order.desc("c.dateTime"))
-				.list().get(0);
+		CreditNodeText rs = null;
+		try {
+			rs = (CreditNodeText) sessionFactory.getCurrentSession()
+					.createCriteria(CreditNodeText.class, "c")
+					.createAlias("c.agreement", "agreement")
+					.add(Restrictions.eq("agreement.agreementNumber", id))
+					.addOrder(Order.desc("c.dateTime"))
+					.list().get(0);
+		} catch (IndexOutOfBoundsException ex) {
+			ex.printStackTrace();
+		}
+		return rs;
 	}
 
 	

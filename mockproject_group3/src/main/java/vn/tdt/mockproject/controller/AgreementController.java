@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +29,7 @@ import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Address;
 import vn.tdt.mockproject.entity.Agreement;
+import vn.tdt.mockproject.entity.AgreementStatus;
 import vn.tdt.mockproject.entity.Company;
 import vn.tdt.mockproject.entity.CreditNodeText;
 import vn.tdt.mockproject.entity.Dealer;
@@ -215,16 +219,22 @@ public class AgreementController {
 	 */
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.POST)
-	public String view(@RequestParam("selected") String selected, Model model) {
+	public String view(
+			@RequestParam("selected") String selected,
+			@RequestParam("backURI") String backURI, Model model) {
 		
 		String agrInfo[] = selected.split("///");
 		
 		int agrNumber = Integer.parseInt(agrInfo[3]);
+
 		
 		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
 		List<Dealer> dealerList = iDealerSerivce.findAllByAgreementId(agrNumber);
 		Agreement agr = iAgreementService.findOne(agrNumber);
-		Volume vol = iVolumeService.findOne(agr.getVolume().getVolumeId());
+		
+		int volumeId = agr.getVolume().getVolumeId();
+		
+		Volume vol = iVolumeService.findOne(volumeId);
 		Hibernate.initialize(vol.getBandings());
 		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
 		Address address = iAddressService.findOne(Integer.parseInt(agrInfo[2]));
@@ -237,7 +247,33 @@ public class AgreementController {
 		model.addAttribute("vol", vol);
 		model.addAttribute("bandings", vol.getBandings());
 		model.addAttribute("rfonumber", agrInfo[0]);
+		model.addAttribute("backURI", backURI);
+		
 		return ViewConstants.AGREEMENT_VIEW;
+	}
+	
+	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT + "/{id}", method = RequestMethod.GET)
+	public String submit(@PathVariable("id") String agrNumberStr) {
+		
+		int agrNumberInt = 0;
+		
+		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
+			try {
+				agrNumberInt = Integer.parseInt(agrNumberStr);
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		Agreement agreement = iAgreementService.findOne(agrNumberInt);
+		
+		if (agreement != null) {
+			AgreementStatus agrStatus = iAgreementStatusService.findOne(2);
+			agreement.setAgreementStatus(agrStatus);
+			iAgreementService.update(agreement);
+		}
+		
+		return ViewConstants.AGREEMENT_SEARCH;
 	}
 	
 	/**@

@@ -175,5 +175,66 @@
 		</div>
 	</div>
 
+	<c:choose>
+		<c:when test="${agr.agreementStatus.agreementStatusId eq 1}">
+			<div class="row">
+				<div class="col-md-1 col-md-offset-7">
+					<a type="submit" class="btn btn-primary"
+						href="${rootPath}<%=PathConstants.AGREEMENT_SUBMIT%>/${agr.agreementNumber}">Submit</a>
+				</div>
+				<div class="col-md-1 ">
+					<a type="submit" href="${backURI}" class="btn btn-primary">Back</a>
+				</div>
+				<div class="col-md-1">
+					<a type="submit" class="btn btn-primary">Print</a>
+				</div>
+
+				<div class="col-md-2">
+					<a type="submit" class="btn btn-primary">Save As Draft</a>
+				</div>
+			</div>
+		</c:when>
+		<c:when test="${agr.agreementStatus.agreementStatusId eq 2}">
+			<div class="row">
+				<div class="col-md-1 col-md-offset-9">
+					<a type="submit" class="btn btn-primary">Approve</a>
+				</div>
+				<div class="col-md-1">
+					<a type="submit" class="btn btn-primary">Print</a>
+				</div>
+				<div class="col-md-1">
+					<a type="submit" class="btn btn-primary">Copy Agreement</a>
+				</div>
+			</div>
+		</c:when>
+		<c:when test="${agr.agreementStatus.agreementStatusId eq 6}">
+			<div class="row">
+				<div class="col-md-1 col-md-offset-11">
+					<a type="submit" class="btn btn-primary">Print</a>
+				</div>
+			</div>
+		</c:when>
+		<c:when test="${agr.agreementStatus.agreementStatusId eq 4}">
+			<div class="row">
+				<div class="col-md-1 col-md-offset-7">
+					<a type="submit" class="btn btn-primary">Edit</a>
+				</div>
+				<div class="col-md-1">
+					<a type="submit" class="btn btn-primary">Extend</a>
+				</div>
+				<div class="col-md-1">
+					<a type="submit" class="btn btn-primary">Print</a>
+				</div>
+				<div class="col-md-1">
+					<a type="submit" class="btn btn-primary">Terminate</a>
+				</div>
+				<div class="col-md-1">
+					<a type="submit" class="btn btn-primary">Copy Agreement</a>
+				</div>
+			</div>
+		</c:when>
+	</c:choose>
+
+
 </div>
 
