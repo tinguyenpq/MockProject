@@ -207,8 +207,9 @@
 							<form
 								action="${rootPath}<%=PathConstants.AGREEMENT_SAVE_AS_DRAFT%>"
 								method="post">
-								<input type="hidden" name=""> <input type="submit"
-									class="btn btn-primary" value="Save
+								<input type="hidden" name="param" value="${paramAgr}"> <input
+									type="submit" class="btn btn-primary"
+									value="Save
 						As Draft" />
 							</form>
 						</div>
@@ -217,7 +218,10 @@
 				<c:when test="${agr.agreementStatus.agreementStatusId eq 2}">
 					<div class="row">
 						<div class="col-md-1 col-md-offset-9">
-							<a type="submit" class="btn btn-primary">Approve</a>
+							<form action="#" method="post">
+								<input type="hidden" name="param" value="${paramAgr}"> <input
+									type="submit" class="btn btn-primary" value="Approve" />
+							</form>
 						</div>
 						<div class="col-md-1">
 							<form action="${rootPath}<%=PathConstants.AGREEMENT_DOCUMENT%>"
@@ -227,7 +231,10 @@
 							</form>
 						</div>
 						<div class="col-md-1">
-							<a type="submit" class="btn btn-primary">Copy Agreement</a>
+							<form action="#" method="post">
+								<input type="hidden" name="param" value="${paramAgr}"> <input
+									type="submit" class="btn btn-primary" value="Copy Agreement" />
+							</form>
 						</div>
 					</div>
 				</c:when>
@@ -245,10 +252,16 @@
 				<c:when test="${agr.agreementStatus.agreementStatusId eq 4}">
 					<div class="row">
 						<div class="col-md-1 col-md-offset-7">
-							<a type="submit" class="btn btn-primary">Edit</a>
+							<form action="#" method="post">
+								<input type="hidden" name="param" value="${paramAgr}"> <input
+									type="submit" class="btn btn-primary" value="Edit" />
+							</form>
 						</div>
 						<div class="col-md-1">
-							<a type="submit" class="btn btn-primary">Extend</a>
+							<form action="#" method="post">
+								<input type="hidden" name="param" value="${paramAgr}"> <input
+									type="submit" class="btn btn-primary" value="Extend" />
+							</form>
 						</div>
 						<div class="col-md-1">
 							<form action="${rootPath}<%=PathConstants.AGREEMENT_DOCUMENT%>"
@@ -258,10 +271,16 @@
 							</form>
 						</div>
 						<div class="col-md-1">
-							<a type="submit" class="btn btn-primary">Terminate</a>
+							<form action="#" method="post">
+								<input type="hidden" name="param" value="${paramAgr}"> <input
+									type="submit" class="btn btn-primary" value="Terminate" />
+							</form>
 						</div>
 						<div class="col-md-1">
-							<a type="submit" class="btn btn-primary">Copy Agreement</a>
+							<form action="#" method="post">
+								<input type="hidden" name="param" value="${paramAgr}"> <input
+									type="submit" class="btn btn-primary" value="Copy Agreement" />
+							</form>
 						</div>
 					</div>
 				</c:when>

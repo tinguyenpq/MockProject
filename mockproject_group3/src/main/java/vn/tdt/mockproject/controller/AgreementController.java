@@ -293,8 +293,8 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
 	
-	@RequestMapping(value = PathConstants.AGREEMENT_SAVE_AS_DRAFT + "/{param}", method = RequestMethod.GET)
-	public String saveAsDraft(@PathVariable("param")String param, Model model) {
+	@RequestMapping(value = PathConstants.AGREEMENT_SAVE_AS_DRAFT, method = RequestMethod.POST)
+	public String saveAsDraft(@RequestParam("param")String param, Model model) {
 		
 		model.addAttribute("param", param);
 		return ViewConstants.AGREEMENT_COMPLETE;
