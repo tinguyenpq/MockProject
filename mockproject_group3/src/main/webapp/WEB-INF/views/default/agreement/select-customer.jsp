@@ -14,37 +14,37 @@
 					Number: </label></td>
 			<td><form:input path="rFONumber" id="rFONumberInput"
 					tabindex="-1" cssErrorClass="input-error" />
-				<p></p> <form:errors path="rFONumber" cssclass="error" /></td>
+				<p></p> <form:errors path="rFONumber" class="error" /></td>
 		</tr>
 		<tr>
 			<td><label for="customerTypeInput">Customer Type: </label></td>
 			<td><form:input path="customerType" id="customerTypeInput"
 					cssErrorClass="input-error" />
-				<p></p> <form:errors path="customerType" cssclass="error" /></td>
+				<p></p> <form:errors path="customerType" class="error" /></td>
 		</tr>
 		<tr>
 			<td><label for="rFONameInput">RFO Name: </label></td>
 			<td><form:input path="rFOName" id="rFONameInput"
 					cssErrorClass="input-error" />
-				<p></p> <form:errors path="rFOName" cssclass="error" /></td>
+				<p></p> <form:errors path="rFOName" class="error" /></td>
 		</tr>
 		<tr>
 			<td><label for="postCodeInput">Post Code: </label></td>
 			<td><form:input path="postCode" id="postCodeInput"
 					cssErrorClass="input-error" />
-				<p></p> <form:errors path="postCode" cssclass="error" /></td>
+				<p></p> <form:errors path="postCode" class="error" /></td>
 		</tr>
 		<tr>
 			<td><label for="businessAreaInput">Business Area: </label></td>
 			<td><form:input path="businessArea" id="businessAreaInput"
 					cssErrorClass="input-error" />
-				<p></p> <form:errors path="businessArea" cssclass="error" /></td>
+				<p></p> <form:errors path="businessArea" class="error" /></td>
 		</tr>
 		<tr>
 			<td><label for="regionInput">Region: </label></td>
 			<td><form:input path="region" id="regionInput"
 					cssErrorClass="input-error" />
-				<p></p> <form:errors path="region" cssclass="error" /></td>
+				<p></p> <form:errors path="region" class="error" /></td>
 		</tr>
 		<tr>
 			<td></td>
