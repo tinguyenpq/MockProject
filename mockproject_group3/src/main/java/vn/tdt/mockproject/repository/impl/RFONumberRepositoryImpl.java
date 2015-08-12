@@ -76,20 +76,20 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 	@Override
 	public List<RFONumber> findAll(CustomerSearchForm customerSearchForm) {
 
-		
 		LOGGER.info("LOGGER: findAll Customer executed");
+
 		List<RFONumber> listRFONumber = sessionFactory.getCurrentSession().createCriteria(RFONumber.class, "rfo")
-				.createAlias("rfo.customerType", "cus")
-				.createAlias("rfo.company", "com")
-				.createAlias("rfo.company.address", "add")
-				.add(Restrictions.like("rfo.RFONumber", "'%" + customerSearchForm.getrFONumber() + "%'"))
-				.add(Restrictions.like("cus.customerTypeName", customerSearchForm.getCustomerType()))
-				.add(Restrictions.like("rfo.RFOName", "'%" + customerSearchForm.getrFOName() + "%'"))
-				.add(Restrictions.like("add.postCode", "'%" + customerSearchForm.getPostCode() + "%'"))
-				.add(Restrictions.like("com.businessArea", customerSearchForm.getBusinessArea()))
-				.add(Restrictions.like("com.sector", "'%" + customerSearchForm.getRegion() + "%'")).list();
+				.createAlias("rfo.customerType", "cus").createAlias("rfo.company", "com")
+				.createAlias("com.address", "add")
+				.add(Restrictions.like("rfo.RFONumber", customerSearchForm.getrFONumber(), MatchMode.ANYWHERE))
+				.add(Restrictions.eq("cus.customerTypeName", customerSearchForm.getCustomerType()))
+				.add(Restrictions.like("rfo.RFOName", customerSearchForm.getrFOName(), MatchMode.ANYWHERE))
+				.add(Restrictions.like("add.postCode", customerSearchForm.getPostCode(), MatchMode.ANYWHERE))
+				.add(Restrictions.eq("com.businessArea", customerSearchForm.getBusinessArea()))
+				.add(Restrictions.like("com.sector", customerSearchForm.getRegion(), MatchMode.ANYWHERE)).list();
+
 		for (RFONumber rfoNumber : listRFONumber) {
-			System.out.println(rfoNumber.toString());
+			LOGGER.info("Result customer: " + rfoNumber.toString());
 		}
 		return listRFONumber;
 	}

@@ -25,13 +25,13 @@ public class CustomerSearchForm {
 
 	
 	private String rFONumber;
-	@NotEmpty
+	
 	private String customerType;
 	
 	private String rFOName;
 	
 	private String postCode;
-	@NotEmpty
+	
 	private String businessArea;
 	
 	private String region;
