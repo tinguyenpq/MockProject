@@ -225,17 +225,30 @@ public class AgreementController {
 		
 		String agrInfo[] = selected.split("///");
 		
+		if (agrInfo.length != 5) {
+			model.addAttribute("message", "Agreement does not exist.");
+			return ViewConstants.AGREEMENT_VIEW;
+		}
+		
 		int agrNumber = Integer.parseInt(agrInfo[3]);
-
+		int volumeId = 0;
+		Volume vol = null;
 		
 		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
 		List<Dealer> dealerList = iDealerSerivce.findAllByAgreementId(agrNumber);
 		Agreement agr = iAgreementService.findOne(agrNumber);
 		
-		int volumeId = agr.getVolume().getVolumeId();
+		try {
+			volumeId = agr.getVolume().getVolumeId();
+		} catch (Exception e) {
+			
+		}
 		
-		Volume vol = iVolumeService.findOne(volumeId);
-		Hibernate.initialize(vol.getBandings());
+		if (volumeId != 0) {
+			vol = iVolumeService.findOne(volumeId);
+			Hibernate.initialize(vol.getBandings());
+		}
+
 		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
 		Address address = iAddressService.findOne(Integer.parseInt(agrInfo[2]));
 
