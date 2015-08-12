@@ -8,15 +8,19 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
+import vn.tdt.mockproject.controller.CustomerController;
 import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.repository.AbstractHibernateDao;
 import vn.tdt.mockproject.repository.IRFONumberRepository;
@@ -30,6 +34,8 @@ import vn.tdt.mockproject.repository.IRFONumberRepository;
 @Repository
 @Transactional
 public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>implements IRFONumberRepository {
+
+	private static final Logger LOGGER = Logger.getLogger(RFONumberRepositoryImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -70,32 +76,21 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 	@Override
 	public List<RFONumber> findAll(CustomerSearchForm customerSearchForm) {
 
-		StringBuilder queryBuilder = new StringBuilder();
-
-		queryBuilder.append(
-				"SELECT rfo.r_f_o_number, rfo.r_f_o_name, rfo.customer_type_id, rfo.company_id, rfo.created_date, rfo.updated_date ");
-		queryBuilder.append(" FROM r_f_o_number rfo ");
-		queryBuilder.append(" INNER JOIN customer_type cus ");
-		queryBuilder.append(" ON rfo.customer_type_id =  cus.customer_type_id ");
-		queryBuilder.append(" INNER JOIN company com ");
-		queryBuilder.append(" ON rfo.company_id = com.company_id ");
-		queryBuilder.append(" INNER JOIN address adr ");
-		queryBuilder.append(" ON com.address_id = adr.address_id ");
-
-		queryBuilder.append(" WHERE ");
-		queryBuilder.append(" r_F_O_Number like '%" + customerSearchForm.getrFONumber() + "%' AND ");
-		queryBuilder.append(" customer_type_name like '%" + customerSearchForm.getCustomerType() + "%' AND ");
-		queryBuilder.append(" r_F_O_Name like '%" + customerSearchForm.getrFOName() + "%' AND ");
-		queryBuilder.append(" post_code like '%" + customerSearchForm.getPostCode() + "%' AND ");
-		queryBuilder.append(" business_area like '%" + customerSearchForm.getBusinessArea() + "%' AND ");
-		queryBuilder.append(" sector like '%" + customerSearchForm.getRegion() + "%'");
-
-		Query query = this.getCurrentSession().createQuery(queryBuilder.toString());
-		// query.setParameter("customerSearchForm", customerSearchForm);
-		List<RFONumber> listRFONumber = new ArrayList<RFONumber>();
-
-		listRFONumber = (List<RFONumber>) query.list();
-
+		
+		LOGGER.info("LOGGER: findAll Customer executed");
+		List<RFONumber> listRFONumber = sessionFactory.getCurrentSession().createCriteria(RFONumber.class, "rfo")
+				.createAlias("rfo.customerType", "cus")
+				.createAlias("rfo.company", "com")
+				.createAlias("rfo.company.address", "add")
+				.add(Restrictions.like("rfo.RFONumber", "'%" + customerSearchForm.getrFONumber() + "%'"))
+				.add(Restrictions.like("cus.customerTypeName", customerSearchForm.getCustomerType()))
+				.add(Restrictions.like("rfo.RFOName", "'%" + customerSearchForm.getrFOName() + "%'"))
+				.add(Restrictions.like("add.postCode", "'%" + customerSearchForm.getPostCode() + "%'"))
+				.add(Restrictions.like("com.businessArea", customerSearchForm.getBusinessArea()))
+				.add(Restrictions.like("com.sector", "'%" + customerSearchForm.getRegion() + "%'")).list();
+		for (RFONumber rfoNumber : listRFONumber) {
+			System.out.println(rfoNumber.toString());
+		}
 		return listRFONumber;
 	}
 

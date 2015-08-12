@@ -3,6 +3,9 @@
 	border-color: red;
 }
 
+.error {
+	color: red;
+}
 
 /** Login form */
 

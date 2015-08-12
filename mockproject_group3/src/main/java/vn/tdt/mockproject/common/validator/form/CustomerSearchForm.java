@@ -6,6 +6,7 @@ package vn.tdt.mockproject.common.validator.form;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,13 +25,13 @@ public class CustomerSearchForm {
 
 	
 	private String rFONumber;
-	
+	@NotEmpty
 	private String customerType;
 	
 	private String rFOName;
 	
 	private String postCode;
-	
+	@NotEmpty
 	private String businessArea;
 	
 	private String region;
@@ -119,11 +120,27 @@ public class CustomerSearchForm {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-
-
-
 	public CustomerSearchForm() {
+		super();
+		this.rFONumber = "";
+		this.customerType = "";
+		this.rFOName = "";
+		this.postCode = "";
+		this.businessArea = "";
+		this.region = "";
 	}
+	public CustomerSearchForm(String rFONumber, String customerType, String rFOName, String postCode,
+			String businessArea, String region) {
+		super();
+		this.rFONumber = rFONumber;
+		this.customerType = customerType;
+		this.rFOName = rFOName;
+		this.postCode = postCode;
+		this.businessArea = businessArea;
+		this.region = region;
+	}
+
+
 
 	
 }

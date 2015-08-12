@@ -15,7 +15,7 @@
 		<a href="#" class="list-group-item active"> Menu </a> <a href="${rootPath}<%=PathConstants.AGREEMENT_ADD_AGREEMENT %>"
 			class="list-group-item">Add new an agreement</a> <a href="${rootPath}<%=PathConstants.AGREEMENT_COPY %>"
 			class="list-group-item">Copy an agreement</a> <a href="${rootPath}<%=PathConstants.AGREEMENT_SEARCH%>"
-			class="list-group-item">Search agreement</a> <a href="#"
-			class="list-group-item">New tab 4</a>
+			class="list-group-item">Search agreement</a> <a href="${rootPath}<%=PathConstants.AGREEMENT_APPROVE%>"
+			class="list-group-item">Agreement Approve</a>
 	</div>
 </div>
