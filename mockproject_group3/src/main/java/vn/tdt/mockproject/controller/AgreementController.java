@@ -307,6 +307,36 @@ public class AgreementController {
 	 */
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
+	public String viewDocument(@RequestParam("param") String param, Model model) {
+		
+		String agrInfo[] = param.split("///");
+
+		if (agrInfo.length != 5) {
+			model.addAttribute("message", "Agreement does not exist.");
+			return ViewConstants.AGREEMENT_VIEW;
+		}
+
+		int agrNumber = Integer.parseInt(agrInfo[3]);
+
+		Agreement agr = iAgreementService.findOne(agrNumber);
+
+		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
+		
+		model.addAttribute("agr", agr);
+		model.addAttribute("com", com);
+		model.addAttribute("rfonumber", agrInfo[0]);
+		model.addAttribute("paramAgr", param);
+
+//		PrintCommon.build(agrInfo[0], agr, com, address);
+		return ViewConstants.AGREEMENT_DOCUMENT;
+	}
+	
+	/**
+	 * @author PhatVT
+	 * @param String
+	 */
+	@Transactional
+	@RequestMapping(value = PathConstants.AGREEMENT_GENERATE_DOCUMENT, method = RequestMethod.POST)
 	public String generateDocument(@RequestParam("param") String param, Model model) {
 		
 		String agrInfo[] = param.split("///");
@@ -317,28 +347,14 @@ public class AgreementController {
 		}
 
 		int agrNumber = Integer.parseInt(agrInfo[3]);
-		int volumeId = 0;
-		Volume vol = null;
 
-		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
-		List<Dealer> dealerList = iDealerSerivce.findAllByAgreementId(agrNumber);
 		Agreement agr = iAgreementService.findOne(agrNumber);
-
-		try {
-			volumeId = agr.getVolume().getVolumeId();
-		} catch (Exception e) {
-
-		}
-
-		if (volumeId != 0) {
-			vol = iVolumeService.findOne(volumeId);
-			Hibernate.initialize(vol.getBandings());
-		}
 
 		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
 		Address address = iAddressService.findOne(Integer.parseInt(agrInfo[2]));
 
 		PrintCommon.build(agrInfo[0], agr, com, address);
+		
 		return ViewConstants.AGREEMENT_DOCUMENT_SUCCESS;
 	}
 
