@@ -78,7 +78,8 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 
 		LOGGER.info("LOGGER: findAll Customer executed");
 
-		List<RFONumber> listRFONumber = sessionFactory.getCurrentSession().createCriteria(RFONumber.class, "rfo")
+		List<RFONumber> listRFONumber = sessionFactory.getCurrentSession()
+				.createCriteria(RFONumber.class, "rfo")
 				.createAlias("rfo.customerType", "cus").createAlias("rfo.company", "com")
 				.createAlias("com.address", "add")
 				.add(Restrictions.like("rfo.RFONumber", customerSearchForm.getrFONumber(), MatchMode.ANYWHERE))
