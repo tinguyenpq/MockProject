@@ -248,12 +248,14 @@ public class AgreementController {
 		model.addAttribute("bandings", vol.getBandings());
 		model.addAttribute("rfonumber", agrInfo[0]);
 		model.addAttribute("backURI", backURI);
+		model.addAttribute("paramAgr", selected);
 		
 		return ViewConstants.AGREEMENT_VIEW;
 	}
 	
-	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT + "/{id}", method = RequestMethod.GET)
-	public String submit(@PathVariable("id") String agrNumberStr) {
+	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT, method = RequestMethod.POST)
+	public String submit(@RequestParam("param") String param,
+			@RequestParam("agrNumber") String agrNumberStr, Model model) {
 		
 		int agrNumberInt = 0;
 		
@@ -270,10 +272,25 @@ public class AgreementController {
 		if (agreement != null) {
 			AgreementStatus agrStatus = iAgreementStatusService.findOne(2);
 			agreement.setAgreementStatus(agrStatus);
+			agreement.setLastUpdatedDate(new Date());
 			iAgreementService.update(agreement);
 		}
 		
-		return ViewConstants.AGREEMENT_SEARCH;
+		model.addAttribute("paramAgr", param);
+		return ViewConstants.AGREEMENT_COMPLETE;
+	}
+	
+	@RequestMapping(value = PathConstants.AGREEMENT_SAVE_AS_DRAFT + "/{param}", method = RequestMethod.GET)
+	public String saveAsDraft(@PathVariable("param")String param, Model model) {
+		
+		model.addAttribute("param", param);
+		return ViewConstants.AGREEMENT_COMPLETE;
+	}
+	
+	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
+	public String generateDocument(@RequestParam("param") String param, Model model) {
+		
+		return ViewConstants.AGREEMENT_DOCUMENT; 
 	}
 	
 	/**@

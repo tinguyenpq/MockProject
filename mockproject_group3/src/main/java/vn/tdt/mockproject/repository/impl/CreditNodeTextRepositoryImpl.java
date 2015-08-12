@@ -45,7 +45,7 @@ public class CreditNodeTextRepositoryImpl extends AbstractHibernateDao<CreditNod
 					.addOrder(Order.desc("c.dateTime"))
 					.list().get(0);
 		} catch (IndexOutOfBoundsException ex) {
-			ex.printStackTrace();
+			
 		}
 		return rs;
 	}

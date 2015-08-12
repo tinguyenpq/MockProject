@@ -179,18 +179,33 @@
 		<c:when test="${agr.agreementStatus.agreementStatusId eq 1}">
 			<div class="row">
 				<div class="col-md-1 col-md-offset-7">
-					<a type="submit" class="btn btn-primary"
-						href="${rootPath}<%=PathConstants.AGREEMENT_SUBMIT%>/${agr.agreementNumber}">Submit</a>
+					<form action="${rootPath}<%=PathConstants.AGREEMENT_SUBMIT%>"
+						method="post">
+						<input type="hidden" name="param" value="${paramAgr}"> <input
+							type="hidden" name="agrNumber" value="${agr.agreementNumber}">
+						<input type="submit" class="btn btn-primary" value="Submit" />
+					</form>
 				</div>
 				<div class="col-md-1 ">
-					<a type="submit" href="${backURI}" class="btn btn-primary">Back</a>
+					<form action="${backURI}" method="get">
+						<input type="submit" class="btn btn-primary" value="Back" />
+					</form>
 				</div>
 				<div class="col-md-1">
-					<a type="submit" class="btn btn-primary">Print</a>
+					<form action="${rootPath}<%=PathConstants.AGREEMENT_DOCUMENT%>" method="post">
+						<input type="hidden" name="param" value="${paramAgr}">
+						<input type="submit" class="btn btn-primary" value="Print" />
+					</form>
 				</div>
 
 				<div class="col-md-2">
-					<a type="submit" class="btn btn-primary">Save As Draft</a>
+					<form
+						action="${rootPath}<%=PathConstants.AGREEMENT_SAVE_AS_DRAFT%>"
+						method="post">
+						<input type="hidden" name=""> <input type="submit"
+							class="btn btn-primary" value="Save
+						As Draft" />
+					</form>
 				</div>
 			</div>
 		</c:when>
