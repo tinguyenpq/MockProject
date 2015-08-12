@@ -127,7 +127,8 @@
 		<tfoot>
 			<c:if test="${message eq null && agreementList ne null}">
 				<tr>
-					<td colspan="6"></td>
+					<td colspan="6"><input type="hidden" name="backURI"
+						value="${rootPath}<%=PathConstants.AGREEMENT_SEARCH%>" /></td>
 					<td><input type="submit" value="View an agreement"
 						class="btn btn-primary submitView" /></td>
 					<td><input type="submit" value="Copy agreement"

@@ -95,5 +95,15 @@ public class ViewConstants {
 	 * Agreements daily stats  view
 	 */
 	public static final String AGREEMENT_DAILY_STATS = "default/agreement/agreement-daily-stats";
+	
+	/**
+	 * Complete Agreement view
+	 */
+	public static final String AGREEMENT_COMPLETE = "default/agreement/complete-agreement";
+	
+	/**
+	 * Document Agreement view
+	 */
+	public static final String AGREEMENT_DOCUMENT = "default/agreement/document-agreement";
 }
 

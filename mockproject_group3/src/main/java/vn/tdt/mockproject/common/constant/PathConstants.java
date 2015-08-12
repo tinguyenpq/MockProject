@@ -120,5 +120,18 @@ public class PathConstants {
 	 */
 	public static final String AGREEMENT_SEARCH_DEALER = "/agreement/search-dealer";
 	 
-	 
+	/**
+	 * Agreements submit path
+	 */
+	public static final String AGREEMENT_SUBMIT = "/agreement/submit-agreement";
+	
+	/**
+	 * Agreements save as draft path
+	 */
+	public static final String AGREEMENT_SAVE_AS_DRAFT = "/agreement/save-as-draft-agreement";
+	
+	/**
+	 * Agreements generate document path
+	 */
+	public static final String AGREEMENT_DOCUMENT = "/agreement/document-agreement";
 }
