@@ -100,10 +100,15 @@ public class ViewConstants {
 	 * Complete Agreement view
 	 */
 	public static final String AGREEMENT_COMPLETE = "default/agreement/complete-agreement";
-	
+
 	/**
 	 * Document Agreement view
 	 */
 	public static final String AGREEMENT_DOCUMENT = "default/agreement/document-agreement";
+	
+	/**
+	 * Document Agreement view
+	 */
+	public static final String AGREEMENT_DOCUMENT_SUCCESS = "default/agreement/general-document-success";
 }
 

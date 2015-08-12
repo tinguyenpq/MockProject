@@ -8,23 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static net.sf.dynamicreports.report.builder.DynamicReports.*;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.util.Date;
-
-import net.sf.dynamicreports.report.builder.FieldBuilder;
-import net.sf.dynamicreports.report.builder.column.ComponentColumnBuilder;
-import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
-import net.sf.dynamicreports.report.builder.style.StyleBuilder;
-import net.sf.dynamicreports.report.builder.subtotal.AggregationSubtotalBuilder;
-import net.sf.dynamicreports.report.constant.HorizontalTextAlignment;
-import net.sf.dynamicreports.report.constant.PageType;
-import net.sf.dynamicreports.report.datasource.DRDataSource;
-import net.sf.dynamicreports.report.exception.DRException;
-import net.sf.jasperreports.engine.JRDataSource;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -51,6 +34,7 @@ import vn.tdt.mockproject.entity.CreditNodeText;
 import vn.tdt.mockproject.entity.Dealer;
 import vn.tdt.mockproject.entity.Volume;
 import vn.tdt.mockproject.entity.common.AgreementInfo;
+import vn.tdt.mockproject.entity.common.PrintCommon;
 import vn.tdt.mockproject.entity.common.Templates;
 import vn.tdt.mockproject.service.IAddressService;
 import vn.tdt.mockproject.service.IAgreementService;
@@ -279,6 +263,10 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_VIEW;
 	}
 
+	/**
+	 * @author PhatVT
+	 * @param String
+	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT, method = RequestMethod.POST)
 	public String submit(@RequestParam("param") String param, @RequestParam("agrNumber") String agrNumberStr,
 			Model model) {
@@ -313,6 +301,10 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
 
+	/**
+	 * @author PhatVT
+	 * @param String
+	 */
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
 	public String generateDocument(@RequestParam("param") String param, Model model) {
@@ -345,11 +337,9 @@ public class AgreementController {
 
 		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
 		Address address = iAddressService.findOne(Integer.parseInt(agrInfo[2]));
-		
-		
 
-		build(agrInfo[0], agr, com, address);
-		return ViewConstants.AGREEMENT_DOCUMENT;
+		PrintCommon.build(agrInfo[0], agr, com, address);
+		return ViewConstants.AGREEMENT_DOCUMENT_SUCCESS;
 	}
 
 	/**
@@ -362,88 +352,6 @@ public class AgreementController {
 		String month = dateArr[1];
 		String year = dateArr[2];
 		return year + "-" + month + "-" + day;
-	}
-
-	private void build(String rfoNumber, Agreement agr, Company com, Address address) {
-		
-		StyleBuilder nameStyle = stl.style().bold();
-		StyleBuilder valueStyle = stl.style()
-				.setHorizontalTextAlignment(HorizontalTextAlignment.LEFT);
-
-		FieldBuilder<String> agrNameField = field("agrName", type.stringType());
-		FieldBuilder<String> rfoNumberField = field("rfoNumber", type.stringType());
-		FieldBuilder<String> cusNameField = field("cusName", type.stringType());
-		FieldBuilder<String> startDateField = field("startDate", type.stringType());
-		FieldBuilder<String> endDateField = field("endDate", type.stringType());
-		FieldBuilder<String> businessAreaField = field("businessArea", type.stringType());
-		FieldBuilder<String> agrDetailsField = field("agrDetails", type.stringType());
-		FieldBuilder<String> paymenToField = field("paymenTo", type.stringType());
-		FieldBuilder<String> handlingChargeField = field("handlingCharge", type.stringType());
-		FieldBuilder<String> agendaPaymentField = field("agendaPayment", type.stringType());
-
-		VerticalListBuilder nameList = cmp.verticalList(
-				cmp.text("Agreement Number:").setStyle(nameStyle),
-				cmp.text("RFO Number:").setStyle(nameStyle),
-				cmp.text("Customer Name:").setStyle(nameStyle),
-				cmp.text("Start Date:").setStyle(nameStyle),
-				cmp.text("End Date:").setStyle(nameStyle),
-				cmp.text("Business Area:").setStyle(nameStyle),
-				cmp.text("Agreement Details:").setStyle(nameStyle),
-				cmp.text("Payment To:").setStyle(nameStyle),
-				cmp.text("Handling Charge:").setStyle(nameStyle),
-				cmp.text("Agenda Payment:").setStyle(nameStyle));
-		VerticalListBuilder valueList = cmp.verticalList(
-				cmp.text(agrNameField).setStyle(valueStyle),
-				cmp.text(rfoNumberField).setStyle(valueStyle),
-				cmp.text(cusNameField).setStyle(valueStyle),
-				cmp.text(startDateField).setStyle(valueStyle),
-				cmp.text(endDateField).setStyle(valueStyle),
-				cmp.text(businessAreaField).setStyle(valueStyle),
-				cmp.text(agrDetailsField).setStyle(valueStyle),
-				cmp.text(paymenToField).setStyle(valueStyle),
-				cmp.text(handlingChargeField).setStyle(valueStyle),
-				cmp.text(agendaPaymentField).setStyle(valueStyle));
-
-		ComponentColumnBuilder nameColumn = col.componentColumn("", nameList);
-		ComponentColumnBuilder valueColumn = col.componentColumn("", valueList);
-
-//		AggregationSubtotalBuilder<BigDecimal> unitPriceSum = sbt.sum(unitPriceField, valueColumn)
-//				.setLabel("Unit price sum =");
-
-		try {
-			report().setTemplate(Templates.reportTemplate).setPageFormat(PageType.A4)
-					.fields(agrNameField, rfoNumberField,
-							cusNameField, startDateField,
-							endDateField, businessAreaField,
-							agrDetailsField, paymenToField,
-							handlingChargeField, agendaPaymentField)
-					.columns(nameColumn, valueColumn)
-					.pageFooter(Templates.footerComponent)
-					.title(Templates.createTitleComponent("Group 4"))
-					.setDataSource(createDataSource(rfoNumber, agr, com, address))
-					.toPdf(new FileOutputStream("d:/report.pdf"));
-		} catch (DRException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private JRDataSource createDataSource(String rfoNumber,
-			Agreement agr, Company com, Address address) {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-		
-		DRDataSource dataSource = new DRDataSource("agrName", "rfoNumber",
-				"cusName", "startDate", "endDate", "businessArea",
-				"agrDetails", "paymenTo", "handlingCharge", "agendaPayment");
-		dataSource.add(agr.getAgreementName(), rfoNumber,
-				com.getCompanyName(),sdf.format(agr.getStartDate()),
-				sdf.format(agr.getEndDate()),
-				com.getBusinessArea(), agr.getDescription(), agr.getPaymentTo(),
-				"£" + agr.getHandlingCharge(), agr.getAgendaPayment());
-		return dataSource;
 	}
 
 }
