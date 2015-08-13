@@ -57,49 +57,47 @@ public class ViewConstants {
 	 * Agreement detail view
 	 */
 	public static final String AGREEMENT_DETAIL = "default/agreement/agreement-detail";
-	
+
 	/**
 	 * Agreement detail view
 	 */
-	public static final String AGREEMENT_COPY =  "default/agreement/copy-agreement";
-	
+	public static final String AGREEMENT_COPY = "default/agreement/copy-agreement";
+
 	/**
 	 * Search agreement view
 	 */
-	public static final String AGREEMENT_SEARCH =  "default/agreement/search-agreement";
-	
+	public static final String AGREEMENT_SEARCH = "default/agreement/search-agreement";
+
 	/**
 	 * Edit Agreement view
 	 */
 	public static final String AGREEMENT_EDIT = "default/agreement/edit-agreement";
-	
+
 	/**
 	 * Extend Agreement view
 	 */
 	public static final String AGREEMENT_EXTEND = "default/agreement/extend-agreement";
-	
-	
+
 	/**
 	 * Approve Agreement view
 	 */
 	public static final String AGREEMENT_APPROVE = "default/agreement/approve-agreement";
-	
+
 	/**
 	 * Reject Agreement view
 	 */
 	public static final String AGREEMENT_REJECT = "/agreement/reject-agreement";
-	
-	
+
 	/**
 	 * View Agreement view
 	 */
 	public static final String AGREEMENT_VIEW = "default/agreement/view-agreement";
-	
+
 	/**
-	 * Agreements daily stats  view
+	 * Agreements daily stats view
 	 */
 	public static final String AGREEMENT_DAILY_STATS = "default/agreement/agreement-daily-stats";
-	
+
 	/**
 	 * Complete Agreement view
 	 */
@@ -110,11 +108,9 @@ public class ViewConstants {
 	 */
 	public static final String AGREEMENT_DOCUMENT = "default/agreement/document-agreement";
 
-
 	/**
 	 * Document Agreement view
 	 */
 	public static final String AGREEMENT_DOCUMENT_SUCCESS = "default/agreement/general-document-success";
 
 }
-
