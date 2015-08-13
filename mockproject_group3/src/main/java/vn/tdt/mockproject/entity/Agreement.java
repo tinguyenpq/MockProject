@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -40,6 +41,8 @@ public class Agreement implements Serializable {
 	private String description;
 	@Size(max = 45)
 	private String discountUnit;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
 	private Date endDate;
 	@Size(max = 45)
 	private String fundingMethod;
@@ -52,6 +55,8 @@ public class Agreement implements Serializable {
 	@Size(max = 45)
 	private String paymentTo;
 	private Date signReceivedDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
 	private Date startDate;
 	private Date updatedDate;
 	private int variantNumber;
@@ -386,44 +391,46 @@ public class Agreement implements Serializable {
 		this.volume = volume;
 	}
 	
+	
+	
+	/*@NotNull
 	@Transient
-	@DateTimeFormat(iso = ISO.DATE)
-	@NotNull
 	private String strEndDate;
 	
-	@Transient
-	@DateTimeFormat(iso = ISO.DATE)
+	
+	
 	@NotNull
+	@Transient
 	private String strStartDate;
 
-	/**
+	*//**
 	 * @return the strEndDate
-	 */
+	 *//*
 	public String getStrEndDate() {
 		return strEndDate;
 	}
 
-	/**
+	*//**
 	 * @param strEndDate the strEndDate to set
-	 */
+	 *//*
 	public void setStrEndDate(String strEndDate) {
 		this.strEndDate = strEndDate;
 	}
 
-	/**
+	*//**
 	 * @return the strStartDate
-	 */
+	 *//*
 	public String getStrStartDate() {
 		return strStartDate;
 	}
 
-	/**
+	*//**
 	 * @param strStartDate the strStartDate to set
-	 */
+	 *//*
 	public void setStrStartDate(String strStartDate) {
 		this.strStartDate = strStartDate;
 	}
 	
 	
-	
+	*/
 }

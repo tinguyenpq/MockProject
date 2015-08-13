@@ -215,16 +215,20 @@ public class AgreementController {
 				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_DISCOUNT_UNIT));
 		model.addAttribute("listCombinability", iSystemValueService
 				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_COMBINABILITY));
-		if ("".equals(agreement.getStrStartDate()) || "".equals(agreement.getStrEndDate())) {
+		/*if ("".equals(agreement.getStrStartDate()) || "".equals(agreement.getStrEndDate())) {
 			LOGGER.info("LOGGER: ADD Agreement ERROR");
 			model.addAttribute("error", "Error. Please complete exact start date and end date.");
 			return ViewConstants.AGREEMENT_DETAIL;
-		}
+		}*/
 		try {
 			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-			agreement.setStartDate(format.parse(agreement.getStrStartDate()));
-			agreement.setEndDate(format.parse(agreement.getStrEndDate()));
-			if (agreement.getStartDate().before(agreement.getEndDate())) {
+			//agreement.setStartDate(format.parse(agreement.getStrStartDate()));
+			//agreement.setEndDate(format.parse(agreement.getStrEndDate()));
+			
+			agreement.setStartDate(format.parse(agreement.getStartDate().toString()));
+			agreement.setEndDate(format.parse(agreement.getEndDate().toString()));
+			
+			if (agreement.getStartDate().after(agreement.getEndDate())) {
 				LOGGER.info("Start date is after end Date");
 				model.addAttribute("error", "Error. Start date is after end Date.");
 				return ViewConstants.AGREEMENT_DETAIL;

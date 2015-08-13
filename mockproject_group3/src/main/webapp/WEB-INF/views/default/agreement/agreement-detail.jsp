@@ -42,15 +42,15 @@ ${rFONumber}
 		</tr>
 		<tr>
 			<td><label for="startDateInput">Start Date: </label></td>
-			<td><form:input path="strEndDate" id="startDateInput"
+			<td><form:input path="startDate" id="startDateInput"
 					cssErrorClass="input-error" type="date" />
-				<p></p> <form:errors path="strEndDate" class="error" /></td>
+				<p></p> <form:errors path="startDate" class="error" /></td>
 		</tr>
 		<tr>
 			<td><label for="endDateInput">End Date: </label></td>
-			<td><form:input path="strStartDate" id="endDateInput"
+			<td><form:input path="endDate" id="endDateInput"
 					cssErrorClass="input-error" type="date" />
-				<p></p> <form:errors path="strStartDate" class="error" /></td>
+				<p></p> <form:errors path="endDate" class="error" /></td>
 		</tr>
 		<tr>
 			<td><label for="isSignRequiredInput">Is a signed

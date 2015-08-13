@@ -3,11 +3,14 @@
  */
 package vn.tdt.mockproject.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.tdt.mockproject.entity.AgreementStatus;
+import vn.tdt.mockproject.entity.common.CountStatusAgreement;
 import vn.tdt.mockproject.repository.IAgreementStatusRepository;
 import vn.tdt.mockproject.repository.IOperations;
 import vn.tdt.mockproject.service.AbstractService;
@@ -31,6 +34,15 @@ public class AgreementStatusServiceImpl extends AbstractService<AgreementStatus>
 	@Override
 	protected IOperations<AgreementStatus> getDao() {
 		return dao;
+	}
+
+	/* 
+	 * @see vn.tdt.mockproject.service.IAgreementStatusService#countAll()
+	 */
+	@Override
+	public List<CountStatusAgreement> countAll() {
+		// TODO Auto-generated method stub
+		return dao.countAll();
 	}
 
 }
