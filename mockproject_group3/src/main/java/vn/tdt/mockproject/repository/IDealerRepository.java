@@ -5,6 +5,7 @@ package vn.tdt.mockproject.repository;
 
 import java.util.List;
 
+import vn.tdt.mockproject.common.validator.form.DealerSearchForm;
 import vn.tdt.mockproject.entity.Dealer;
 
 /**
@@ -15,4 +16,9 @@ import vn.tdt.mockproject.entity.Dealer;
 public interface IDealerRepository extends IOperations<Dealer> {
 
 	List<Dealer> findAllByAgreementId(int id);
+
+	/**
+	 * @param List<Dealer>
+	 */
+	List<Dealer> findAll(DealerSearchForm dealerSearchForm);
 }

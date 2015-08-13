@@ -58,9 +58,7 @@ public class SystemConfigValueRepositoryImpl extends AbstractHibernateDao<System
 		List<SystemConfigValue> listSystemConfigValue = new ArrayList<SystemConfigValue>();
 		listSystemConfigValue = criteria.list();
 
-		for (SystemConfigValue value : listSystemConfigValue) {
-			LOGGER.info("Result system config value: " + value.toString());
-		}
+		
 		return listSystemConfigValue;
 	}
 

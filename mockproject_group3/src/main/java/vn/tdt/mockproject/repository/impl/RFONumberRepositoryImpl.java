@@ -92,9 +92,6 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 		List<RFONumber> listRFONumber = new ArrayList<RFONumber>();
 		listRFONumber = criteria.list();
 
-		for (RFONumber rfoNumber : listRFONumber) {
-			LOGGER.info("Result customer: " + rfoNumber.toString());
-		}
 		return listRFONumber;
 	}
 

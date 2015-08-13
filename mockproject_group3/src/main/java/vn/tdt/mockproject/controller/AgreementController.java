@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
@@ -28,12 +29,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
 import vn.tdt.mockproject.common.validator.form.AgreementSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
+import vn.tdt.mockproject.common.validator.form.DealerSearchForm;
 import vn.tdt.mockproject.entity.Address;
 import vn.tdt.mockproject.entity.Agreement;
 import vn.tdt.mockproject.entity.AgreementRFO;
@@ -56,6 +59,7 @@ import vn.tdt.mockproject.service.ICustomerTyperService;
 import vn.tdt.mockproject.service.IDealerService;
 import vn.tdt.mockproject.service.IRFONumberService;
 import vn.tdt.mockproject.service.IRFOUserService;
+import vn.tdt.mockproject.service.ISystemConfigValueService;
 import vn.tdt.mockproject.service.IVolumeService;
 
 /**
@@ -98,51 +102,142 @@ public class AgreementController {
 	@Autowired
 	private IAddressService iAddressService;
 
-	/**
-	 * Select customer function /get
-	 * 
-	 * @author ThanhTien
-	 * @since 08-08-2015
-	 */
-	@RequestMapping(value = PathConstants.AGREEMENT_ADD_AGREEMENT, method = RequestMethod.GET)
-	public String getAddAgreement(Model model, @ModelAttribute("rFONumber") RFONumber rFONumber) {
-		// logs debug message
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Add customer is executed!");
-		}
-		// /Get user current Comment
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		// get logged in username
-		String username = auth.getName();
-		LOGGER.info("RFO User: " + username);
-		RFOUser rFOUser = iRFOUserService.findOne(username);
-
-		Agreement agreement = new Agreement();
-
-		model.addAttribute("agreement", agreement);
-		model.addAttribute("rFONumber", rFONumber);
-		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
-	}
+	@Autowired
+	private ISystemConfigValueService iSystemValueService;
 
 	/**
-	 * Select customer function /post
+	 * Search dealer function /post
 	 * 
 	 * @author ThanhTien
 	 * @since 10-08-2015
 	 */
-	@RequestMapping(value = PathConstants.AGREEMENT_ADD_AGREEMENT, method = RequestMethod.POST)
-	public String postAddAgreement(Model model, @ModelAttribute("rFONumber") RFONumber rFONumber,
-			@Valid Agreement agreement, BindingResult bindingResult) {
-		// logs debug message
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Add Select customer is executed!");
-		}
+	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH_DEALER, method = RequestMethod.POST)
+	public String postSearchDealer(Model model, @ModelAttribute("agreement") Agreement agreement,
+			@Valid DealerSearchForm dealerSearchForm, BindingResult bindingResult) {
+
+		LOGGER.info("Post Search dealer is executed!");
 
 		if (bindingResult.hasErrors()) {
-			LOGGER.info("LOGGER: ADD Agreement ERROR");
-			return ViewConstants.AGREEMENT_ADD_AGREEMENT;
+			LOGGER.info("LOGGER: Search dealer ERROR");
+			return ViewConstants.AGREEMENT_SELECT_DEALER;
 		}
-		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
+		model.addAttribute("dealerSearchForm", dealerSearchForm);
+		model.addAttribute("agreement", agreement);
+		model.addAttribute("listDealers", iDealerSerivce.findAll(dealerSearchForm));
+		return ViewConstants.AGREEMENT_SELECT_DEALER;
+	}
+
+	/**
+	 * add agreement function /post
+	 * 
+	 * @author ThanhTien
+	 * @since 10-08-2015
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_SELECT_DEALER, method = RequestMethod.GET)
+	public String getSelectDealer(Model model, @ModelAttribute("agreement") Agreement agreement) {
+		// logs debug message
+		LOGGER.info("Get select dealer is executed!");
+
+		model.addAttribute("dealerSearchForm", new DealerSearchForm());
+		model.addAttribute("agreement", agreement);
+		model.addAttribute("listDealers", iDealerSerivce.findAll());
+		return ViewConstants.AGREEMENT_SELECT_DEALER;
+	}
+
+	/**
+	 * add agreement function /post
+	 * 
+	 * @author ThanhTien
+	 * @since 10-08-2015
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_DETAIL, method = RequestMethod.GET)
+	public String getAgreementDetail(Model model, @ModelAttribute("rFONumber") RFONumber rFONumber) {
+		// logs debug message
+		LOGGER.info("Get agreement detail is executed!");
+
+		model.addAttribute("rFONumber", rFONumber);
+
+		Agreement agreement = new Agreement();
+		model.addAttribute("agreement", agreement);
+
+		model.addAttribute("listFundingMethod", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_FUNDING_TYPE));
+		model.addAttribute("listPaymentTo", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_PAYMENT_TO));
+		model.addAttribute("listAgendaPayment", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_ORDER_TYPE));
+
+		model.addAttribute("listDealerVisibility", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_DEALER_VISIBILITY));
+		model.addAttribute("listVolumeDiscountType", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_VOLUME_DISCOUNT_TYPE));
+		model.addAttribute("listDiscountUnit", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_DISCOUNT_UNIT));
+		model.addAttribute("listCombinability", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_COMBINABILITY));
+
+		return ViewConstants.AGREEMENT_DETAIL;
+	}
+
+	/**
+	 * add agreement function /post
+	 * 
+	 * @author ThanhTien
+	 * @since 10-08-2015
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_DETAIL, method = RequestMethod.POST)
+	public String postAddAgreementDetail(Model model, @Valid Agreement agreement, BindingResult bindingResult,
+			@ModelAttribute RFONumber rFONumber, HttpServletRequest request, RedirectAttributes redirectAttrs) {
+
+		request.getSession().setAttribute("rFONumber", rFONumber);
+		// logs debug message
+		LOGGER.info("Post agreement detail is executed!");
+		if (!bindingResult.hasErrors()) {
+			LOGGER.info("No error agreement detail is executed!");
+			redirectAttrs.addFlashAttribute("rFONumber", rFONumber);
+			redirectAttrs.addFlashAttribute("agreement", agreement);
+			return "redirect:" + PathConstants.AGREEMENT_SELECT_DEALER;
+		}
+
+		model.addAttribute("rFONumber", rFONumber);
+		model.addAttribute("listFundingMethod", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_FUNDING_TYPE));
+		model.addAttribute("listPaymentTo", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_PAYMENT_TO));
+		model.addAttribute("listAgendaPayment", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_ORDER_TYPE));
+
+		model.addAttribute("listDealerVisibility", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_DEALER_VISIBILITY));
+		model.addAttribute("listVolumeDiscountType", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_VOLUME_DISCOUNT_TYPE));
+		model.addAttribute("listDiscountUnit", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_DISCOUNT_UNIT));
+		model.addAttribute("listCombinability", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_COMBINABILITY));
+		if ("".equals(agreement.getStrStartDate()) || "".equals(agreement.getStrEndDate())) {
+			LOGGER.info("LOGGER: ADD Agreement ERROR");
+			model.addAttribute("error", "Error. Please complete exact start date and end date.");
+			return ViewConstants.AGREEMENT_DETAIL;
+		}
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+			agreement.setStartDate(format.parse(agreement.getStrStartDate()));
+			agreement.setEndDate(format.parse(agreement.getStrEndDate()));
+			if (agreement.getStartDate().before(agreement.getEndDate())) {
+				LOGGER.info("Start date is after end Date");
+				model.addAttribute("error", "Error. Start date is after end Date.");
+				return ViewConstants.AGREEMENT_DETAIL;
+			}
+			LOGGER.info("LOGGER: Format DayInCage success " + agreement.getStartDate().toString());
+			LOGGER.info("LOGGER: Format DayInCage success " + agreement.getEndDate().toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+			LOGGER.info("LOGGER: Format DayInCage ERROR " + agreement.getStartDate().toString());
+			LOGGER.info("LOGGER: Format DayInCage ERROR " + agreement.getEndDate().toString());
+		}
+
+		return ViewConstants.AGREEMENT_DETAIL;
 	}
 
 	/**

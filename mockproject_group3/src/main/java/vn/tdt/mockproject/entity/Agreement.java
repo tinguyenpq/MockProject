@@ -2,50 +2,60 @@ package vn.tdt.mockproject.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the agreements database table.
  * 
  */
 @Entity
-@Table(name="agreements")
-@NamedQuery(name="Agreement.findAll", query="SELECT a FROM Agreement a")
+@Table(name = "agreements")
+@NamedQuery(name = "Agreement.findAll", query = "SELECT a FROM Agreement a")
 public class Agreement implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int agreementNumber;
+	@Size(max = 45)
 	private String agendaPayment;
+	@Size(max = 45)
+	@NotEmpty
 	private String agreementName;
 	private String authorisedBy;
+	@Size(max = 45)
 	private String combinability;
 	private String createdBy;
 	private Date createdDate;
+	@Size(max = 45)
 	private String dealerVisibility;
+	@Size(max = 1000)
+	@NotEmpty
 	private String description;
+	@Size(max = 45)
 	private String discountUnit;
-	@DateTimeFormat(iso = ISO.DATE)
-	@NotNull
 	private Date endDate;
+	@Size(max = 45)
 	private String fundingMethod;
+	@Min(value = 0)
 	private double handlingCharge;
 	private boolean isSignReceived;
 	private boolean isSignRequired;
 	private Date lastUpdatedDate;
 	private int numberOfRegistrations;
+	@Size(max = 45)
 	private String paymentTo;
 	private Date signReceivedDate;
-	@DateTimeFormat(iso = ISO.DATE)
-	@NotNull
 	private Date startDate;
 	private Date updatedDate;
 	private int variantNumber;
+	@Size(max = 45)
 	private String volumeDiscountType;
 	private List<AgreementDealer> agreementDealers;
 	private List<AgreementRFO> agreementRFOs;
@@ -57,10 +67,9 @@ public class Agreement implements Serializable {
 	public Agreement() {
 	}
 
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="agreement_number", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "agreement_number", unique = true, nullable = false)
 	public int getAgreementNumber() {
 		return this.agreementNumber;
 	}
@@ -69,8 +78,7 @@ public class Agreement implements Serializable {
 		this.agreementNumber = agreementNumber;
 	}
 
-
-	@Column(name="agenda_payment", nullable=false, length=45)
+	@Column(name = "agenda_payment", nullable = false, length = 45)
 	public String getAgendaPayment() {
 		return this.agendaPayment;
 	}
@@ -79,8 +87,7 @@ public class Agreement implements Serializable {
 		this.agendaPayment = agendaPayment;
 	}
 
-
-	@Column(name="agreement_name", nullable=false, length=100)
+	@Column(name = "agreement_name", nullable = false, length = 100)
 	public String getAgreementName() {
 		return this.agreementName;
 	}
@@ -89,8 +96,7 @@ public class Agreement implements Serializable {
 		this.agreementName = agreementName;
 	}
 
-
-	@Column(name="authorised_by", length=45)
+	@Column(name = "authorised_by", length = 45)
 	public String getAuthorisedBy() {
 		return this.authorisedBy;
 	}
@@ -99,8 +105,7 @@ public class Agreement implements Serializable {
 		this.authorisedBy = authorisedBy;
 	}
 
-
-	@Column(nullable=false, length=45)
+	@Column(nullable = false, length = 45)
 	public String getCombinability() {
 		return this.combinability;
 	}
@@ -109,8 +114,7 @@ public class Agreement implements Serializable {
 		this.combinability = combinability;
 	}
 
-
-	@Column(name="created_by", length=45)
+	@Column(name = "created_by", length = 45)
 	public String getCreatedBy() {
 		return this.createdBy;
 	}
@@ -119,9 +123,8 @@ public class Agreement implements Serializable {
 		this.createdBy = createdBy;
 	}
 
-
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_date", nullable=false)
+	@Column(name = "created_date", nullable = false)
 	public Date getCreatedDate() {
 		return this.createdDate;
 	}
@@ -130,8 +133,7 @@ public class Agreement implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-
-	@Column(name="dealer_visibility", nullable=false, length=45)
+	@Column(name = "dealer_visibility", nullable = false, length = 45)
 	public String getDealerVisibility() {
 		return this.dealerVisibility;
 	}
@@ -140,8 +142,7 @@ public class Agreement implements Serializable {
 		this.dealerVisibility = dealerVisibility;
 	}
 
-
-	@Column(nullable=false)
+	@Column(nullable = false)
 	public String getDescription() {
 		return this.description;
 	}
@@ -150,8 +151,7 @@ public class Agreement implements Serializable {
 		this.description = description;
 	}
 
-
-	@Column(name="discount_unit", nullable=false, length=45)
+	@Column(name = "discount_unit", nullable = false, length = 45)
 	public String getDiscountUnit() {
 		return this.discountUnit;
 	}
@@ -160,9 +160,8 @@ public class Agreement implements Serializable {
 		this.discountUnit = discountUnit;
 	}
 
-
 	@Temporal(TemporalType.DATE)
-	@Column(name="end_date", nullable=false)
+	@Column(name = "end_date", nullable = false)
 	public Date getEndDate() {
 		return this.endDate;
 	}
@@ -171,8 +170,7 @@ public class Agreement implements Serializable {
 		this.endDate = endDate;
 	}
 
-
-	@Column(name="funding_method", nullable=false, length=45)
+	@Column(name = "funding_method", nullable = false, length = 45)
 	public String getFundingMethod() {
 		return this.fundingMethod;
 	}
@@ -181,8 +179,7 @@ public class Agreement implements Serializable {
 		this.fundingMethod = fundingMethod;
 	}
 
-
-	@Column(name="handling_charge", nullable=false)
+	@Column(name = "handling_charge", nullable = false)
 	public double getHandlingCharge() {
 		return this.handlingCharge;
 	}
@@ -191,8 +188,7 @@ public class Agreement implements Serializable {
 		this.handlingCharge = handlingCharge;
 	}
 
-
-	@Column(name="is_sign_received")
+	@Column(name = "is_sign_received")
 	public boolean getIsSignReceived() {
 		return this.isSignReceived;
 	}
@@ -201,8 +197,7 @@ public class Agreement implements Serializable {
 		this.isSignReceived = isSignReceived;
 	}
 
-
-	@Column(name="is_sign_required", nullable=false)
+	@Column(name = "is_sign_required", nullable = false)
 	public boolean getIsSignRequired() {
 		return this.isSignRequired;
 	}
@@ -211,9 +206,8 @@ public class Agreement implements Serializable {
 		this.isSignRequired = isSignRequired;
 	}
 
-
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="last_updated_date")
+	@Column(name = "last_updated_date")
 	public Date getLastUpdatedDate() {
 		return this.lastUpdatedDate;
 	}
@@ -222,8 +216,7 @@ public class Agreement implements Serializable {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
-
-	@Column(name="number_of_registrations")
+	@Column(name = "number_of_registrations")
 	public int getNumberOfRegistrations() {
 		return this.numberOfRegistrations;
 	}
@@ -232,8 +225,7 @@ public class Agreement implements Serializable {
 		this.numberOfRegistrations = numberOfRegistrations;
 	}
 
-
-	@Column(name="payment_to", nullable=false, length=45)
+	@Column(name = "payment_to", nullable = false, length = 45)
 	public String getPaymentTo() {
 		return this.paymentTo;
 	}
@@ -242,9 +234,8 @@ public class Agreement implements Serializable {
 		this.paymentTo = paymentTo;
 	}
 
-
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="sign_received_date")
+	@Column(name = "sign_received_date")
 	public Date getSignReceivedDate() {
 		return this.signReceivedDate;
 	}
@@ -253,9 +244,8 @@ public class Agreement implements Serializable {
 		this.signReceivedDate = signReceivedDate;
 	}
 
-
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date", nullable=false)
+	@Column(name = "start_date", nullable = false)
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -264,9 +254,8 @@ public class Agreement implements Serializable {
 		this.startDate = startDate;
 	}
 
-
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="updated_date", nullable=false)
+	@Column(name = "updated_date", nullable = false)
 	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
@@ -275,8 +264,7 @@ public class Agreement implements Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-
-	@Column(name="variant_number", nullable=false)
+	@Column(name = "variant_number", nullable = false)
 	public int getVariantNumber() {
 		return this.variantNumber;
 	}
@@ -285,8 +273,7 @@ public class Agreement implements Serializable {
 		this.variantNumber = variantNumber;
 	}
 
-
-	@Column(name="volume_discount_type", nullable=false, length=45)
+	@Column(name = "volume_discount_type", nullable = false, length = 45)
 	public String getVolumeDiscountType() {
 		return this.volumeDiscountType;
 	}
@@ -295,9 +282,8 @@ public class Agreement implements Serializable {
 		this.volumeDiscountType = volumeDiscountType;
 	}
 
-
-	//bi-directional many-to-one association to AgreementDealer
-	@OneToMany(mappedBy="agreement")
+	// bi-directional many-to-one association to AgreementDealer
+	@OneToMany(mappedBy = "agreement")
 	public List<AgreementDealer> getAgreementDealers() {
 		return this.agreementDealers;
 	}
@@ -320,9 +306,8 @@ public class Agreement implements Serializable {
 		return agreementDealer;
 	}
 
-
-	//bi-directional many-to-one association to AgreementRFO
-	@OneToMany(mappedBy="agreement")
+	// bi-directional many-to-one association to AgreementRFO
+	@OneToMany(mappedBy = "agreement")
 	public List<AgreementRFO> getAgreementRFOs() {
 		return this.agreementRFOs;
 	}
@@ -345,10 +330,9 @@ public class Agreement implements Serializable {
 		return agreementRFO;
 	}
 
-
-	//bi-directional many-to-one association to AgreementStatus
+	// bi-directional many-to-one association to AgreementStatus
 	@ManyToOne
-	@JoinColumn(name="status_id", nullable=false)
+	@JoinColumn(name = "status_id", nullable = false)
 	public AgreementStatus getAgreementStatus() {
 		return this.agreementStatus;
 	}
@@ -357,10 +341,9 @@ public class Agreement implements Serializable {
 		this.agreementStatus = agreementStatus;
 	}
 
-
-	//bi-directional many-to-one association to RFOUser
+	// bi-directional many-to-one association to RFOUser
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name = "user_id", nullable = false)
 	public RFOUser getRFOUser() {
 		return this.RFOUser;
 	}
@@ -369,9 +352,8 @@ public class Agreement implements Serializable {
 		this.RFOUser = RFOUser;
 	}
 
-
-	//bi-directional many-to-one association to CreditNodeText
-	@OneToMany(mappedBy="agreement")
+	// bi-directional many-to-one association to CreditNodeText
+	@OneToMany(mappedBy = "agreement")
 	public List<CreditNodeText> getCreditNodeTexts() {
 		return this.creditNodeTexts;
 	}
@@ -394,9 +376,8 @@ public class Agreement implements Serializable {
 		return creditNodeText;
 	}
 
-
-	//bi-directional one-to-one association to Volume
-	@OneToOne(mappedBy="agreement")
+	// bi-directional one-to-one association to Volume
+	@OneToOne(mappedBy = "agreement")
 	public Volume getVolume() {
 		return this.volume;
 	}
@@ -404,5 +385,45 @@ public class Agreement implements Serializable {
 	public void setVolume(Volume volume) {
 		this.volume = volume;
 	}
+	
+	@Transient
+	@DateTimeFormat(iso = ISO.DATE)
+	@NotNull
+	private String strEndDate;
+	
+	@Transient
+	@DateTimeFormat(iso = ISO.DATE)
+	@NotNull
+	private String strStartDate;
 
+	/**
+	 * @return the strEndDate
+	 */
+	public String getStrEndDate() {
+		return strEndDate;
+	}
+
+	/**
+	 * @param strEndDate the strEndDate to set
+	 */
+	public void setStrEndDate(String strEndDate) {
+		this.strEndDate = strEndDate;
+	}
+
+	/**
+	 * @return the strStartDate
+	 */
+	public String getStrStartDate() {
+		return strStartDate;
+	}
+
+	/**
+	 * @param strStartDate the strStartDate to set
+	 */
+	public void setStrStartDate(String strStartDate) {
+		this.strStartDate = strStartDate;
+	}
+	
+	
+	
 }
