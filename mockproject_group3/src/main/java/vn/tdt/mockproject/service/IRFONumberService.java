@@ -23,6 +23,11 @@ public interface IRFONumberService extends IOperations<RFONumber> {
 	 * @param List<RFONumber>
 	 */
 	List<RFONumber> findAll(CustomerSearchForm customerSearchForm);
+
+	/**
+	 * @param Object
+	 */
+	RFONumber findOne(String rfoNumber);
 	
 	
 }

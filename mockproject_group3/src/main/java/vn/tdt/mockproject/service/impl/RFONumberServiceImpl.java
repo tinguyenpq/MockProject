@@ -62,6 +62,14 @@ public class RFONumberServiceImpl extends AbstractService<RFONumber>implements I
 		return dao.findAll(customerSearchForm);
 	}
 
+	/* 
+	 * @see vn.tdt.mockproject.service.IRFONumberService#findOne(java.lang.String)
+	 */
+	@Override
+	public RFONumber findOne(String rfoNumber) {
+		return dao.findOne(rfoNumber);
+	}
+
 
 
 }

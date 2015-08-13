@@ -4,8 +4,8 @@
 <%@ include file="/WEB-INF/template/jsp-header.jsp"%>
 
 <c:set var="searchCustomerPath"
-	value="${pageContext.request.contextPath}/agreement/search-customer" />
-<h1>Search</h1>
+	value="${rootPath}/agreement/search-customer" />
+<h2>Select Customer</h2>
 <form:form role="form" action="${searchCustomerPath}"
 	commandName="customerSearchForm" method="POST">
 	<table class="table">
@@ -48,28 +48,32 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td><input type="submit" value="Search" /></td>
+			<td><input type="submit" value="Search"
+				class="btn btn-primary submitSearch" /></td>
 			<td></td>
 		</tr>
 	</table>
 </form:form>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>RFO Number</th>
-			<th>RFO Name</th>
-			<th>Customer Type</th>
-			<th>Business Area</th>
-			<th>PostCode</th>
-			<th>Region</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<form:form
-			action="${rootPath}<%=PathConstants.AGREEMENT_SELECT_CUSTOMER%>"
-			method="POST" commandName="customerSelectForm">
+
+<c:set var="selectCustomerUrl"
+	value="${rootPath}/agreement/select-customer" />
+<form:form action="${selectCustomerUrl}" method="POST"
+	commandName="customerSelectForm">
+	<form:errors path="customer" class="error alert-danger" />
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>RFO Number</th>
+				<th>RFO Name</th>
+				<th>Customer Type</th>
+				<th>Business Area</th>
+				<th>PostCode</th>
+				<th>Region</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
 			<c:forEach var="rfo" items="${listRFONumber}" varStatus="status">
 				<tr>
 					<th scope="row">${status.index +1}</th>
@@ -80,10 +84,14 @@
 					<th>${rfo.getCompany().getAddress().getPostCode()}</th>
 					<th>${rfo.getCompany().getSector()}</th>
 					<th><form:radiobutton path="customer"
-							id="customer${status.index +1}" value="${rfo.getRFONumber()}"
-							cssErrorClass="input-error" /></th>
+							id="customer${status.index +1}" value="${rfo.getRFONumber()}" /></th>
 				</tr>
 			</c:forEach>
-		</form:form>
-	</tbody>
-</table>
+
+		</tbody>
+	</table>
+	<div class="form-group" style="text-align: right;">
+		<input type="submit" value="Create agreemen"
+			class="btn btn-primary submitSearch" />
+	</div>
+</form:form>

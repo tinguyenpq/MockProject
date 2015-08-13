@@ -33,6 +33,7 @@ import vn.tdt.mockproject.entity.AgreementStatus;
 import vn.tdt.mockproject.entity.Company;
 import vn.tdt.mockproject.entity.CreditNodeText;
 import vn.tdt.mockproject.entity.Dealer;
+import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.entity.Volume;
 import vn.tdt.mockproject.entity.common.AgreementInfo;
 import vn.tdt.mockproject.service.IAddressService;
@@ -66,21 +67,21 @@ public class AgreementController {
 
 	@Autowired
 	private IAgreementStatusService iAgreementStatusService;
-	
+
 	@Autowired
 	private ICreditNodeTextService iCreditNodeTextService;
-	
+
 	@Autowired
 	private IDealerService iDealerSerivce;
-	
+
 	@Autowired
 	private IVolumeService iVolumeService;
-	
+
 	@Autowired
 	private ICompanyService iCompanyService;
-	
+
 	@Autowired
-	private IAddressService iAddressService; 
+	private IAddressService iAddressService;
 
 	/**
 	 * Select customer function /get
@@ -88,17 +89,15 @@ public class AgreementController {
 	 * @author ThanhTien
 	 * @since 08-08-2015
 	 */
-	@RequestMapping(value = { PathConstants.AGREEMENT_ADD_AGREEMENT,
-			PathConstants.AGREEMENT_SELECT_CUSTOMER }, method = RequestMethod.GET)
-	public String getSelectCustomer(Model model) {
+	@RequestMapping(value = PathConstants.AGREEMENT_ADD_AGREEMENT, method = RequestMethod.GET)
+	public String getAddAgreement(Model model,
+			@ModelAttribute("rFONumber") RFONumber rFONumber) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Select customer is executed!");
+			LOGGER.debug("Add customer is executed!");
 		}
-		model.addAttribute("customerSearchForm", new CustomerSearchForm());
-		model.addAttribute("customerSelectForm", new CustomerSelectForm());
-		model.addAttribute("listRFONumber", iRFONumberService.findAll());
-		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
+
+		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
 	}
 
 	/**
@@ -107,17 +106,15 @@ public class AgreementController {
 	 * @author ThanhTien
 	 * @since 10-08-2015
 	 */
-	@RequestMapping(value = PathConstants.AGREEMENT_SELECT_CUSTOMER, method = RequestMethod.POST)
-	public String postSelectCustomer(Model model) {
+	@RequestMapping(value = PathConstants.AGREEMENT_ADD_AGREEMENT, method = RequestMethod.POST)
+	public String postAddAgreement(Model model) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Post Select customer is executed!");
+			LOGGER.debug("Add Select customer is executed!");
 		}
-		
-		return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
-	}
 
-	
+		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
+	}
 
 	/**
 	 * copy agreement function /post
@@ -125,7 +122,7 @@ public class AgreementController {
 	 * @author ThanhTien
 	 * @since 10-08-2015
 	 */
-	
+
 	@RequestMapping(value = PathConstants.AGREEMENT_COPY, method = RequestMethod.GET)
 	public String copyAgreement(Model model) {
 		// logs debug message
@@ -163,8 +160,7 @@ public class AgreementController {
 	 * @since 09-08-2015
 	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_SEARCH, method = RequestMethod.POST)
-	public String search(@ModelAttribute("agrSearchForm") AgreementSearchForm agrSearchForm,
-			Model model) {
+	public String search(@ModelAttribute("agrSearchForm") AgreementSearchForm agrSearchForm, Model model) {
 
 		int agrNumberInt = 0;
 		String agrNumberStr = agrSearchForm.getAgrNumber();
@@ -174,76 +170,75 @@ public class AgreementController {
 		String endDate = agrSearchForm.getEndDate();
 		String cusName = agrSearchForm.getCusName();
 		String cusPostcode = agrSearchForm.getCusPostcode();
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date start = null;
 		Date end = null;
-		
+
 		try {
-			
+
 			if (!"".equals(startDate) && startDate != null) {
 				start = sdf.parse(formatDate(startDate));
 			}
-			
+
 			if (!"".equals(endDate) && endDate != null) {
 				end = sdf.parse(formatDate(endDate));
 			}
-				
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
 			agrNumberInt = Integer.parseInt(agrNumberStr);
 		}
 
-		List<AgreementInfo> lst = iAgreementService
-				.findAll(cusTypeIdInt, cusName,
-						cusPostcode, agrStatusIdInt,
-						start, end, agrNumberInt);
+		List<AgreementInfo> lst = iAgreementService.findAll(cusTypeIdInt, cusName, cusPostcode, agrStatusIdInt, start,
+				end, agrNumberInt);
 
 		if (lst == null || lst.size() == 0) {
 			model.addAttribute("message", "Result does not exist.");
 		}
-		
+
 		model.addAttribute("agreementList", lst);
 		model.addAttribute("cusTypes", iCustomerTyperService.findAll());
 		model.addAttribute("agrStatuses", iAgreementStatusService.findAll());
 
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
-	
-	/** view an agreement function
+
+	/**
+	 * view an agreement function
+	 * 
 	 * @author PhatVT
 	 * @param String
 	 */
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.POST)
-	public String view(
-			@RequestParam("selected") String selected,
-			@RequestParam("backURI") String backURI, Model model) {
-		
+	public String view(@RequestParam("selected") String selected, @RequestParam("backURI") String backURI,
+			Model model) {
+
 		String agrInfo[] = selected.split("///");
-		
+
 		if (agrInfo.length != 5) {
 			model.addAttribute("message", "Agreement does not exist.");
 			return ViewConstants.AGREEMENT_VIEW;
 		}
-		
+
 		int agrNumber = Integer.parseInt(agrInfo[3]);
 		int volumeId = 0;
 		Volume vol = null;
-		
+
 		CreditNodeText creNoteText = iCreditNodeTextService.findOneLatest(agrNumber);
 		List<Dealer> dealerList = iDealerSerivce.findAllByAgreementId(agrNumber);
 		Agreement agr = iAgreementService.findOne(agrNumber);
-		
+
 		try {
 			volumeId = agr.getVolume().getVolumeId();
 		} catch (Exception e) {
-			
+
 		}
-		
+
 		if (volumeId != 0) {
 			vol = iVolumeService.findOne(volumeId);
 			Hibernate.initialize(vol.getBandings());
@@ -262,16 +257,16 @@ public class AgreementController {
 		model.addAttribute("rfonumber", agrInfo[0]);
 		model.addAttribute("backURI", backURI);
 		model.addAttribute("paramAgr", selected);
-		
+
 		return ViewConstants.AGREEMENT_VIEW;
 	}
-	
+
 	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT, method = RequestMethod.POST)
-	public String submit(@RequestParam("param") String param,
-			@RequestParam("agrNumber") String agrNumberStr, Model model) {
-		
+	public String submit(@RequestParam("param") String param, @RequestParam("agrNumber") String agrNumberStr,
+			Model model) {
+
 		int agrNumberInt = 0;
-		
+
 		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
 			try {
 				agrNumberInt = Integer.parseInt(agrNumberStr);
@@ -279,35 +274,35 @@ public class AgreementController {
 				ex.printStackTrace();
 			}
 		}
-		
+
 		Agreement agreement = iAgreementService.findOne(agrNumberInt);
-		
+
 		if (agreement != null) {
 			AgreementStatus agrStatus = iAgreementStatusService.findOne(2);
 			agreement.setAgreementStatus(agrStatus);
 			agreement.setLastUpdatedDate(new Date());
 			iAgreementService.update(agreement);
 		}
-		
+
 		model.addAttribute("paramAgr", param);
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
-	
+
 	@RequestMapping(value = PathConstants.AGREEMENT_SAVE_AS_DRAFT, method = RequestMethod.POST)
-	public String saveAsDraft(@RequestParam("param")String param, Model model) {
-		
+	public String saveAsDraft(@RequestParam("param") String param, Model model) {
+
 		model.addAttribute("param", param);
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
-	
+
 	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
 	public String generateDocument(@RequestParam("param") String param, Model model) {
-		
-		return ViewConstants.AGREEMENT_DOCUMENT; 
+
+		return ViewConstants.AGREEMENT_DOCUMENT;
 	}
-	
-	/**@
-	 * @author PhatVT
+
+	/**
+	 * @ @author PhatVT
 	 * @param String
 	 */
 	private String formatDate(String dateStr) {
@@ -317,7 +312,5 @@ public class AgreementController {
 		String year = dateArr[2];
 		return year + "-" + month + "-" + day;
 	}
-	
-	
 
 }

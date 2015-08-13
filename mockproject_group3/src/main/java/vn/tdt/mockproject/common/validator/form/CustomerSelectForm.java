@@ -18,9 +18,10 @@ public class CustomerSelectForm {
 	/**
 	 * Select customer
 	 */
-	@Size(min = 1, max = 254, message = "{customer.rfonumber.size}")
-	@NotEmpty(message = "{customer.rfonumber.empty}")
+	@Size(min = 1, max = 254)
+	@NotEmpty(message ="Please select one customer")
 	private String customer;
+
 
 	/**
 	 * @return the customer
@@ -29,13 +30,15 @@ public class CustomerSelectForm {
 		return customer;
 	}
 
+
 	/**
 	 * @param customer the customer to set
 	 */
 	public void setCustomer(String customer) {
 		this.customer = customer;
 	}
-	
+
+
 	/**
 	 * 
 	 */

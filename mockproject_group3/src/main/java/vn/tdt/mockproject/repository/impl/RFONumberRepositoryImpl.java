@@ -15,6 +15,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.controller.CustomerController;
 import vn.tdt.mockproject.entity.RFONumber;
+import vn.tdt.mockproject.entity.common.AgreementInfo;
 import vn.tdt.mockproject.repository.AbstractHibernateDao;
 import vn.tdt.mockproject.repository.IRFONumberRepository;
 
@@ -78,7 +80,7 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 
 		LOGGER.info("LOGGER: findAll Customer executed");
 
-		List<RFONumber> listRFONumber = sessionFactory.getCurrentSession().createCriteria(RFONumber.class, "rfo")
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RFONumber.class, "rfo")
 				.createAlias("rfo.customerType", "cus").createAlias("rfo.company", "com")
 				.createAlias("com.address", "add")
 				.add(Restrictions.like("rfo.RFONumber", customerSearchForm.getrFONumber(), MatchMode.ANYWHERE))
@@ -86,12 +88,24 @@ public class RFONumberRepositoryImpl extends AbstractHibernateDao<RFONumber>impl
 				.add(Restrictions.like("rfo.RFOName", customerSearchForm.getrFOName(), MatchMode.ANYWHERE))
 				.add(Restrictions.like("add.postCode", customerSearchForm.getPostCode(), MatchMode.ANYWHERE))
 				.add(Restrictions.eq("com.businessArea", customerSearchForm.getBusinessArea()))
-				.add(Restrictions.like("com.sector", customerSearchForm.getRegion(), MatchMode.ANYWHERE)).list();
+				.add(Restrictions.like("com.sector", customerSearchForm.getRegion(), MatchMode.ANYWHERE));
+		List<RFONumber> listRFONumber = new ArrayList<RFONumber>();
+		listRFONumber = criteria.list();
 
 		for (RFONumber rfoNumber : listRFONumber) {
 			LOGGER.info("Result customer: " + rfoNumber.toString());
 		}
 		return listRFONumber;
+	}
+
+	/*
+	 * @see
+	 * vn.tdt.mockproject.repository.IRFONumberRepository#findOne(java.lang.
+	 * String)
+	 */
+	@Override
+	public RFONumber findOne(String rfoNumber) {
+		return (RFONumber) sessionFactory.getCurrentSession().get(RFONumber.class, rfoNumber);
 	}
 
 }

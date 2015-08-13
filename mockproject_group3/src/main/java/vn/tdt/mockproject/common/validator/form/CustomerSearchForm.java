@@ -3,17 +3,7 @@
  */
 package vn.tdt.mockproject.common.validator.form;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotEmpty;
-
-import vn.tdt.mockproject.entity.AgreementRFO;
-import vn.tdt.mockproject.entity.Company;
-import vn.tdt.mockproject.entity.CustomerType;
 
 /**
  * CustomerSelectForm.java
@@ -25,13 +15,13 @@ public class CustomerSearchForm {
 
 	
 	private String rFONumber;
-	
+	@NotEmpty
 	private String customerType;
 	
 	private String rFOName;
 	
 	private String postCode;
-	
+	@NotEmpty
 	private String businessArea;
 	
 	private String region;

@@ -40,6 +40,10 @@ public class ViewConstants {
 	public static final String HTML_EXCEPTION_403 = "default/html-exceptions/403";
 
 	/**
+	 * Add agreeement select customer view
+	 */
+	public static final String AGREEMENT_ADD_AGREEMENT = "default/agreement/add-agreement";
+	/**
 	 * Select customer view
 	 */
 	public static final String AGREEMENT_SELECT_CUSTOMER = "default/agreement/select-customer";
@@ -105,5 +109,7 @@ public class ViewConstants {
 	 * Document Agreement view
 	 */
 	public static final String AGREEMENT_DOCUMENT = "default/agreement/document-agreement";
+
+	
 }
 
