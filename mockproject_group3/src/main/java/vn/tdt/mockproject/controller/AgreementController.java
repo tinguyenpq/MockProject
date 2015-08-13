@@ -8,10 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -28,11 +29,13 @@ import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
 import vn.tdt.mockproject.entity.Address;
 import vn.tdt.mockproject.entity.Agreement;
+import vn.tdt.mockproject.entity.AgreementRFO;
 import vn.tdt.mockproject.entity.AgreementStatus;
 import vn.tdt.mockproject.entity.Company;
 import vn.tdt.mockproject.entity.CreditNodeText;
 import vn.tdt.mockproject.entity.Dealer;
 import vn.tdt.mockproject.entity.RFONumber;
+import vn.tdt.mockproject.entity.RFOUser;
 import vn.tdt.mockproject.entity.Volume;
 import vn.tdt.mockproject.entity.common.AgreementInfo;
 import vn.tdt.mockproject.entity.common.PrintCommon;
@@ -45,6 +48,7 @@ import vn.tdt.mockproject.service.ICreditNodeTextService;
 import vn.tdt.mockproject.service.ICustomerTyperService;
 import vn.tdt.mockproject.service.IDealerService;
 import vn.tdt.mockproject.service.IRFONumberService;
+import vn.tdt.mockproject.service.IRFOUserService;
 import vn.tdt.mockproject.service.IVolumeService;
 
 /**
@@ -56,6 +60,9 @@ import vn.tdt.mockproject.service.IVolumeService;
 @Controller
 public class AgreementController {
 	private static final Logger LOGGER = Logger.getLogger(AgreementController.class);
+
+	@Autowired
+	private IRFOUserService iRFOUserService;
 
 	@Autowired
 	private IAgreementService iAgreementService;
@@ -91,13 +98,26 @@ public class AgreementController {
 	 * @since 08-08-2015
 	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_ADD_AGREEMENT, method = RequestMethod.GET)
-	public String getAddAgreement(Model model,
-			@ModelAttribute("rFONumber") RFONumber rFONumber) {
+	public String getAddAgreement(Model model, @ModelAttribute("rFONumber") RFONumber rFONumber) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Add customer is executed!");
 		}
+		// /Get user current Comment
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		// get logged in username
+		String username = auth.getName();
+		LOGGER.info("RFO User: " + username);
+		RFOUser rFOUser = iRFOUserService.findOne(username);
 
+		Agreement agreement = new Agreement();
+
+		AgreementRFO agreementRFO = new AgreementRFO();
+
+		agreementRFO.setRFONumber(rFONumber);
+
+		// agreement.setAgreementRFOs(agreementRFOs);
+		model.addAttribute("agreement", agreement);
 		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
 	}
 
@@ -116,7 +136,6 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
 	}
-
 
 	/**
 	 * copy agreement function /post
@@ -263,7 +282,6 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_VIEW;
 	}
 
-
 	/**
 	 * @author PhatVT
 	 * @param String
@@ -303,9 +321,6 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
 
-
-	
-
 	/**
 	 * @ @author PhatVT
 	 * @author PhatVT
@@ -314,7 +329,7 @@ public class AgreementController {
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
 	public String viewDocument(@RequestParam("param") String param, Model model) {
-		
+
 		String agrInfo[] = param.split("///");
 
 		if (agrInfo.length != 5) {
@@ -327,16 +342,16 @@ public class AgreementController {
 		Agreement agr = iAgreementService.findOne(agrNumber);
 
 		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
-		
+
 		model.addAttribute("agr", agr);
 		model.addAttribute("com", com);
 		model.addAttribute("rfonumber", agrInfo[0]);
 		model.addAttribute("paramAgr", param);
 
-//		PrintCommon.build(agrInfo[0], agr, com, address);
+		// PrintCommon.build(agrInfo[0], agr, com, address);
 		return ViewConstants.AGREEMENT_DOCUMENT;
 	}
-	
+
 	/**
 	 * @author PhatVT
 	 * @param String
@@ -344,7 +359,7 @@ public class AgreementController {
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_GENERATE_DOCUMENT, method = RequestMethod.POST)
 	public String generateDocument(@RequestParam("param") String param, Model model) {
-		
+
 		String agrInfo[] = param.split("///");
 
 		if (agrInfo.length != 5) {
@@ -360,7 +375,7 @@ public class AgreementController {
 		Address address = iAddressService.findOne(Integer.parseInt(agrInfo[2]));
 
 		PrintCommon.build(agrInfo[0], agr, com, address);
-		
+
 		return ViewConstants.AGREEMENT_DOCUMENT_SUCCESS;
 	}
 
@@ -377,4 +392,3 @@ public class AgreementController {
 	}
 
 }
-
