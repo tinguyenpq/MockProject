@@ -5,8 +5,11 @@ package vn.tdt.mockproject.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -16,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,12 +116,8 @@ public class AgreementController {
 
 		Agreement agreement = new Agreement();
 
-		AgreementRFO agreementRFO = new AgreementRFO();
-
-		agreementRFO.setRFONumber(rFONumber);
-
-		// agreement.setAgreementRFOs(agreementRFOs);
 		model.addAttribute("agreement", agreement);
+		model.addAttribute("rFONumber", rFONumber);
 		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
 	}
 
@@ -128,12 +128,17 @@ public class AgreementController {
 	 * @since 10-08-2015
 	 */
 	@RequestMapping(value = PathConstants.AGREEMENT_ADD_AGREEMENT, method = RequestMethod.POST)
-	public String postAddAgreement(Model model) {
+	public String postAddAgreement(Model model, @ModelAttribute("rFONumber") RFONumber rFONumber,
+			@Valid Agreement agreement, BindingResult bindingResult) {
 		// logs debug message
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Add Select customer is executed!");
 		}
 
+		if (bindingResult.hasErrors()) {
+			LOGGER.info("LOGGER: ADD Agreement ERROR");
+			return ViewConstants.AGREEMENT_ADD_AGREEMENT;
+		}
 		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
 	}
 

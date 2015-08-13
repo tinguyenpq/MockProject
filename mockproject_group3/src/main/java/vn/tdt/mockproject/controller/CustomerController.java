@@ -13,13 +13,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ValueConstants;
 
 import vn.tdt.mockproject.common.constant.PathConstants;
 import vn.tdt.mockproject.common.constant.ViewConstants;
 import vn.tdt.mockproject.common.validator.form.AgreementSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSearchForm;
 import vn.tdt.mockproject.common.validator.form.CustomerSelectForm;
+import vn.tdt.mockproject.service.IAgreementStatusService;
+import vn.tdt.mockproject.service.ICustomerTyperService;
 import vn.tdt.mockproject.service.IRFONumberService;
+import vn.tdt.mockproject.service.ISystemConfigValueService;
 
 /**
  * CustomerController.java
@@ -34,6 +38,12 @@ public class CustomerController {
 
 	@Autowired
 	private IRFONumberService iRFONumberService;
+
+	@Autowired
+	private ICustomerTyperService iCustomerTyperService;
+
+	@Autowired
+	private ISystemConfigValueService iSystemValueService;
 
 	/**
 	 * Search customer function /post
@@ -53,7 +63,10 @@ public class CustomerController {
 			LOGGER.info("LOGGER: Search Customer ERROR");
 			return ViewConstants.AGREEMENT_SELECT_CUSTOMER;
 		}
-
+		model.addAttribute("listCustomerType", iCustomerTyperService.findAll());
+		model.addAttribute("listBusinessArea", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_BUSINESS_AREA));
+		
 		model.addAttribute("customerSearchForm", customerSearchForm);
 		model.addAttribute("customerSelectForm", customerSelectForm);
 		model.addAttribute("listRFONumber", iRFONumberService.findAll(customerSearchForm));
@@ -72,6 +85,10 @@ public class CustomerController {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Get Select customer is executed!");
 		}
+		model.addAttribute("listCustomerType", iCustomerTyperService.findAll());
+		model.addAttribute("listBusinessArea", iSystemValueService
+				.findAll(vn.tdt.mockproject.common.constant.ValueConstants.SYSTEM_CONFIG_BUSINESS_AREA));
+
 		model.addAttribute("customerSearchForm", new CustomerSearchForm());
 		model.addAttribute("customerSelectForm", new CustomerSelectForm());
 		model.addAttribute("listRFONumber", iRFONumberService.findAll());

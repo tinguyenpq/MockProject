@@ -2,6 +2,11 @@ package vn.tdt.mockproject.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +30,8 @@ public class Agreement implements Serializable {
 	private String dealerVisibility;
 	private String description;
 	private String discountUnit;
+	@DateTimeFormat(iso = ISO.DATE)
+	@NotNull
 	private Date endDate;
 	private String fundingMethod;
 	private double handlingCharge;
@@ -34,6 +41,8 @@ public class Agreement implements Serializable {
 	private int numberOfRegistrations;
 	private String paymentTo;
 	private Date signReceivedDate;
+	@DateTimeFormat(iso = ISO.DATE)
+	@NotNull
 	private Date startDate;
 	private Date updatedDate;
 	private int variantNumber;

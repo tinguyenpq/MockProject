@@ -18,9 +18,13 @@
 		</tr>
 		<tr>
 			<td><label for="customerTypeInput">Customer Type: </label></td>
-			<td><form:input path="customerType" id="customerTypeInput"
+			<td><form:select path="customerType" class="selectpicker"
+					data-style="btn-success" items="${listCustomerType}"
+					itemLabel="customerTypeName" itemValue="customerTypeName"
 					cssErrorClass="input-error" />
 				<p></p> <form:errors path="customerType" class="error" /></td>
+
+
 		</tr>
 		<tr>
 			<td><label for="rFONameInput">RFO Name: </label></td>
@@ -36,7 +40,9 @@
 		</tr>
 		<tr>
 			<td><label for="businessAreaInput">Business Area: </label></td>
-			<td><form:input path="businessArea" id="businessAreaInput"
+			<td><form:select path="businessArea" class="selectpicker"
+					data-style="btn-success" items="${listBusinessArea}"
+					itemLabel="configValue" itemValue="configValue"
 					cssErrorClass="input-error" />
 				<p></p> <form:errors path="businessArea" class="error" /></td>
 		</tr>
