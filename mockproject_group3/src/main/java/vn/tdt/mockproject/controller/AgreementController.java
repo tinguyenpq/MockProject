@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -242,7 +245,9 @@ public class AgreementController {
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.POST)
 	public String view(@RequestParam("selected") String selected, @RequestParam("backURI") String backURI,
-			Model model) {
+			HttpServletRequest request, Model model) {
+
+		request.getSession().setAttribute("param", selected);
 
 		String agrInfo[] = selected.split("///");
 
@@ -293,8 +298,7 @@ public class AgreementController {
 	 */
 
 	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT, method = RequestMethod.POST)
-	public String submit(@RequestParam("param") String param, @RequestParam("agrNumber") String agrNumberStr,
-			Model model) {
+	public String submit(@RequestParam("agrNumber") String agrNumberStr) {
 
 		int agrNumberInt = 0;
 
@@ -315,7 +319,6 @@ public class AgreementController {
 			iAgreementService.update(agreement);
 		}
 
-		model.addAttribute("paramAgr", param);
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
 
@@ -327,13 +330,18 @@ public class AgreementController {
 	}
 
 	/**
-	 * @ @author PhatVT
+	 * 
 	 * @author PhatVT
 	 * @param String
 	 */
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
-	public String viewDocument(@RequestParam("param") String param, Model model) {
+	public String viewDocument(HttpServletRequest request, Model model) {
+
+		// get session
+		HttpSession session = request.getSession();
+
+		String param = (String) session.getAttribute("param");
 
 		String agrInfo[] = param.split("///");
 
@@ -351,7 +359,7 @@ public class AgreementController {
 		model.addAttribute("agr", agr);
 		model.addAttribute("com", com);
 		model.addAttribute("rfonumber", agrInfo[0]);
-		model.addAttribute("paramAgr", param);
+		// model.addAttribute("paramAgr", param);
 
 		// PrintCommon.build(agrInfo[0], agr, com, address);
 		return ViewConstants.AGREEMENT_DOCUMENT;
@@ -360,10 +368,16 @@ public class AgreementController {
 	/**
 	 * @author PhatVT
 	 * @param String
+	 * 
 	 */
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_GENERATE_DOCUMENT, method = RequestMethod.POST)
-	public String generateDocument(@RequestParam("param") String param, Model model) {
+	public String generateDocument(HttpServletRequest request, Model model) {
+
+		// get session
+		HttpSession session = request.getSession();
+
+		String param = (String) session.getAttribute("param");
 
 		String agrInfo[] = param.split("///");
 
@@ -382,6 +396,65 @@ public class AgreementController {
 		PrintCommon.build(agrInfo[0], agr, com, address);
 
 		return ViewConstants.AGREEMENT_DOCUMENT_SUCCESS;
+	}
+
+	/**
+	 * @author Trung
+	 * @param String
+	 * @since
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_APPROVE, method = RequestMethod.POST)
+	public String approveAgreement(@RequestParam("agrNumber") String agrNumberStr) {
+
+		int agrNumberInt = 0;
+
+		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
+			try {
+				agrNumberInt = Integer.parseInt(agrNumberStr);
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		Agreement agreement = iAgreementService.findOne(agrNumberInt);
+
+		if (agreement != null) {
+			AgreementStatus agrStatus = iAgreementStatusService.findOne(4);
+			agreement.setAgreementStatus(agrStatus);
+			agreement.setLastUpdatedDate(new Date());
+			iAgreementService.update(agreement);
+		}
+
+		return ViewConstants.AGREEMENT_COMPLETE;
+	}
+
+	/**
+	 * @author Trung
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_TERMINATE, method = RequestMethod.POST)
+	public String terminateAgreement(@RequestParam("agrNumber") String agrNumberStr) {
+
+		int agrNumberInt = 0;
+
+		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
+			try {
+				agrNumberInt = Integer.parseInt(agrNumberStr);
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		Agreement agreement = iAgreementService.findOne(agrNumberInt);
+
+		if (agreement != null) {
+			AgreementStatus agrStatus = iAgreementStatusService.findOne(6);
+			agreement.setAgreementStatus(agrStatus);
+			agreement.setLastUpdatedDate(new Date());
+			iAgreementService.update(agreement);
+		}
+
+		return ViewConstants.AGREEMENT_COMPLETE;
 	}
 
 	/**

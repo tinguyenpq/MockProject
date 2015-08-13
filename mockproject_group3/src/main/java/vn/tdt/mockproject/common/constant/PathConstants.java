@@ -141,4 +141,8 @@ public class PathConstants {
 	 */
 	public static final String AGREEMENT_GENERATE_DOCUMENT = "/agreement/generate-document-agreement";
 	
+	/**
+	 * Approve Agreement path
+	 */
+	public static final String AGREEMENT_TERMINATE = "/agreement/terminate-agreement";
 }

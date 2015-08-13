@@ -28,9 +28,7 @@ $(document).ready(function() {
 			$("#agrNumber").focus();
 			return false;
 		}
-		
-		
-		
+			
 		return true;
 	});
 	
