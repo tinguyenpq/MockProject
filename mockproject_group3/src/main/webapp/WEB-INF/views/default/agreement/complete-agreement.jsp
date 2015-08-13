@@ -15,7 +15,7 @@ Thank you for creating the agreement.
 	<div class="col-md-2">
 		<form action="${rootPath}<%=PathConstants.AGREEMENT_VIEW%>"
 			method="post">
-			<input type="hidden" name="selected" value="${paramAgr}">
+			<input type="hidden" name="selected" value="${sessionScope.param}">
 			<input type="hidden" name="backURI" value="">
 			<input type="submit" class="btn btn-primary"
 				value="View agreement" />

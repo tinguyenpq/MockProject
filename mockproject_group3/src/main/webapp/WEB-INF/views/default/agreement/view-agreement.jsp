@@ -185,9 +185,9 @@
 						<div class="col-md-1 col-md-offset-7">
 							<form action="${rootPath}<%=PathConstants.AGREEMENT_SUBMIT%>"
 								method="post">
-								<input type="hidden" name="param" value="${paramAgr}"> <input
-									type="hidden" name="agrNumber" value="${agr.agreementNumber}">
-								<input type="submit" class="btn btn-primary" value="Submit" />
+								<input type="hidden" name="agrNumber"
+									value="${agr.agreementNumber}"> <input type="submit"
+									class="btn btn-primary" value="Submit" />
 							</form>
 						</div>
 						<div class="col-md-1 ">
@@ -198,8 +198,7 @@
 						<div class="col-md-1">
 							<form action="${rootPath}<%=PathConstants.AGREEMENT_DOCUMENT%>"
 								method="post">
-								<input type="hidden" name="param" value="${paramAgr}"> <input
-									type="submit" class="btn btn-primary" value="Print" />
+								<input type="submit" class="btn btn-primary" value="Print" />
 							</form>
 						</div>
 
@@ -207,8 +206,7 @@
 							<form
 								action="${rootPath}<%=PathConstants.AGREEMENT_SAVE_AS_DRAFT%>"
 								method="post">
-								<input type="hidden" name="param" value="${paramAgr}"> <input
-									type="submit" class="btn btn-primary"
+								<input type="submit" class="btn btn-primary"
 									value="Save
 						As Draft" />
 							</form>
@@ -218,9 +216,11 @@
 				<c:when test="${agr.agreementStatus.agreementStatusId eq 2}">
 					<div class="row">
 						<div class="col-md-1 col-md-offset-9">
-							<form action="#" method="post">
-								<input type="hidden" name="param" value="${paramAgr}"> <input
-									type="submit" class="btn btn-primary" value="Approve" />
+							<form action="${rootPath}<%=PathConstants.AGREEMENT_APPROVE%>"
+								method="post">
+								<input type="hidden" name="agrNumber"
+									value="${agr.agreementNumber}"> <input type="submit"
+									class="btn btn-primary " value="Approve" />
 							</form>
 						</div>
 						<div class="col-md-1">
@@ -232,8 +232,8 @@
 						</div>
 						<div class="col-md-1">
 							<form action="#" method="post">
-								<input type="hidden" name="param" value="${paramAgr}"> <input
-									type="submit" class="btn btn-primary" value="Copy Agreement" />
+								<input type="submit" class="btn btn-primary"
+									value="Copy Agreement" />
 							</form>
 						</div>
 					</div>
@@ -243,8 +243,7 @@
 						<div class="col-md-1 col-md-offset-11">
 							<form action="${rootPath}<%=PathConstants.AGREEMENT_DOCUMENT%>"
 								method="post">
-								<input type="hidden" name="param" value="${paramAgr}"> <input
-									type="submit" class="btn btn-primary" value="Print" />
+								<input type="submit" class="btn btn-primary" value="Print" />
 							</form>
 						</div>
 					</div>
@@ -271,9 +270,12 @@
 							</form>
 						</div>
 						<div class="col-md-1">
-							<form action="#" method="post">
-								<input type="hidden" name="param" value="${paramAgr}"> <input
-									type="submit" class="btn btn-primary" value="Terminate" />
+							<form action="${rootPath}<%=PathConstants.AGREEMENT_TERMINATE%>" method="post">
+								<input type="hidden" name="agrNumber"
+									value="${agr.agreementNumber}">
+									<input type="hidden" id="endDateTer" value="${agr.endDate}">
+									<input
+									type="submit" class="btn btn-primary submitTerminate" value="Terminate" />
 							</form>
 						</div>
 						<div class="col-md-1">
@@ -288,4 +290,27 @@
 		</div>
 	</c:otherwise>
 </c:choose>
+<script>
+	$(document).ready(function() {
+		$(".submitTerminate").click(function() {
+			
+			var endDate = $("#endDateTer").val();
+			
+			var endD = new Date(endDate);
+			
+			var now = new Date();
+			
+			var temp = Math.floor((now - endD)/(60*60*24*1000));
+			
+			var flag = false;
+			
+			if (temp <= 30) {
+				flag = confirm("There are less than 30 days left on this agreement" 
+						+ ", are you sure you would like to terminate?");
+			}
+			
+			return flag;
+		});
+	});
+</script>
 
