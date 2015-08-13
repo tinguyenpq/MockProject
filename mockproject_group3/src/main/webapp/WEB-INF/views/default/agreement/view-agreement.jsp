@@ -215,7 +215,7 @@
 				</c:when>
 				<c:when test="${agr.agreementStatus.agreementStatusId eq 2}">
 					<div class="row">
-						<div class="col-md-1 col-md-offset-9">
+						<div class="col-md-1 col-md-offset-8">
 							<form action="${rootPath}<%=PathConstants.AGREEMENT_APPROVE%>"
 								method="post">
 								<input type="hidden" name="agrNumber"
@@ -229,6 +229,12 @@
 								<input type="hidden" name="param" value="${paramAgr}"> <input
 									type="submit" class="btn btn-primary" value="Print" />
 							</form>
+						</div>
+						<div class="col-md-1">
+
+							<a href="${rootPath}<%=PathConstants.AGREEMENT_REJECT%>"
+								class="btn btn-primary">Reject</a>
+
 						</div>
 						<div class="col-md-1">
 							<form action="#" method="post">
@@ -270,12 +276,13 @@
 							</form>
 						</div>
 						<div class="col-md-1">
-							<form action="${rootPath}<%=PathConstants.AGREEMENT_TERMINATE%>" method="post">
+							<form action="${rootPath}<%=PathConstants.AGREEMENT_TERMINATE%>"
+								method="post">
 								<input type="hidden" name="agrNumber"
-									value="${agr.agreementNumber}">
-									<input type="hidden" id="endDateTer" value="${agr.endDate}">
-									<input
-									type="submit" class="btn btn-primary submitTerminate" value="Terminate" />
+									value="${agr.agreementNumber}"> <input type="hidden"
+									id="endDateTer" value="${agr.endDate}"> <input
+									type="submit" class="btn btn-primary submitTerminate"
+									value="Terminate" />
 							</form>
 						</div>
 						<div class="col-md-1">
@@ -291,26 +298,32 @@
 	</c:otherwise>
 </c:choose>
 <script>
-	$(document).ready(function() {
-		$(".submitTerminate").click(function() {
-			
-			var endDate = $("#endDateTer").val();
-			
-			var endD = new Date(endDate);
-			
-			var now = new Date();
-			
-			var temp = Math.floor((now - endD)/(60*60*24*1000));
-			
-			var flag = false;
-			
-			if (temp <= 30) {
-				flag = confirm("There are less than 30 days left on this agreement" 
-						+ ", are you sure you would like to terminate?");
-			}
-			
-			return flag;
-		});
-	});
+	$(document)
+			.ready(
+					function() {
+						$(".submitTerminate")
+								.click(
+										function() {
+
+											var endDate = $("#endDateTer")
+													.val();
+
+											var endD = new Date(endDate);
+
+											var now = new Date();
+
+											var temp = Math.floor((now - endD)
+													/ (60 * 60 * 24 * 1000));
+
+											var flag = false;
+
+											if (temp <= 30) {
+												flag = confirm("There are less than 30 days left on this agreement"
+														+ ", are you sure you would like to terminate?");
+											}
+
+											return flag;
+										});
+					});
 </script>
 

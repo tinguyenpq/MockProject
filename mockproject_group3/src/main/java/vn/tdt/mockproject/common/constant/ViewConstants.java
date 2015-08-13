@@ -86,7 +86,7 @@ public class ViewConstants {
 	/**
 	 * Reject Agreement view
 	 */
-	public static final String AGREEMENT_REJECT = "/agreement/reject-agreement";
+	public static final String AGREEMENT_REJECT = "default/agreement/reject-agreement";
 
 	/**
 	 * View Agreement view
