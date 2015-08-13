@@ -334,6 +334,18 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_SEARCH;
 	}
+	
+	/**
+	 * view an agreement function
+	 * 
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.GET)
+	public String viewAgreement() {
+		
+		return "redirect:" + PathConstants.COMMON_HOME;
+	}
 
 	/**
 	 * view an agreement function
@@ -397,6 +409,18 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_VIEW;
 	}
+	
+	/**
+	 * submit an agreement function
+	 * 
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT, method = RequestMethod.GET)
+	public String submit() {
+		
+		return "redirect:" + PathConstants.COMMON_HOME;
+	}
 
 	/**
 	 * @author PhatVT
@@ -427,12 +451,35 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
+	
+	/**
+	 * submit an agreement function
+	 * 
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_SAVE_AS_DRAFT, method = RequestMethod.GET)
+	public String saveAsDraft() {
+		
+		return "redirect:" + PathConstants.COMMON_HOME;
+	}
 
 	@RequestMapping(value = PathConstants.AGREEMENT_SAVE_AS_DRAFT, method = RequestMethod.POST)
 	public String saveAsDraft(@RequestParam("param") String param, Model model) {
 
 		model.addAttribute("param", param);
 		return ViewConstants.AGREEMENT_COMPLETE;
+	}
+	
+	/**
+	 * 
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.GET)
+	public String viewDocument() {
+		
+		return "redirect:" + PathConstants.COMMON_HOME;
 	}
 
 	/**
@@ -470,6 +517,18 @@ public class AgreementController {
 		// PrintCommon.build(agrInfo[0], agr, com, address);
 		return ViewConstants.AGREEMENT_DOCUMENT;
 	}
+	
+	/**
+	 * 
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_GENERATE_DOCUMENT,
+			method = RequestMethod.GET)
+	public String generateDocument() {
+		
+		return "redirect:" + PathConstants.COMMON_HOME;
+	}
 
 	/**
 	 * @author PhatVT
@@ -503,6 +562,18 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_DOCUMENT_SUCCESS;
 	}
+	
+	/**
+	 * 
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_APPROVE,
+			method = RequestMethod.GET)
+	public String approveAgreement() {
+		
+		return "redirect:" + PathConstants.COMMON_HOME;
+	}
 
 	/**
 	 * @author Trung
@@ -532,6 +603,18 @@ public class AgreementController {
 		}
 
 		return ViewConstants.AGREEMENT_COMPLETE;
+	}
+	
+	/**
+	 * 
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_TERMINATE,
+			method = RequestMethod.GET)
+	public String terminateAgreement() {
+		
+		return "redirect:" + PathConstants.COMMON_HOME;
 	}
 
 	/**

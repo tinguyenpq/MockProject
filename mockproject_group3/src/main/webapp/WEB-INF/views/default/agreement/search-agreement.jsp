@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/template/jsp-header.jsp"%>
 <c:set var="searchAgreementPath"
 	value="${rootPath}/agreement/search-agreement" />
-<h1>SEARCH AGREEMENT</h1>
+<h2 class="section-heading">Search Agreement</h2>
 <form:form method="post" action="${searchAgreementPath}"
 	class="form-horizontal" role="form" commandName="agrSearchForm">
 

@@ -118,7 +118,9 @@ public class PrintCommon {
 					.pageFooter(Templates.footerComponent)
 					.title(Templates.createTitleComponent("Group 4"))
 					.setDataSource(createDataSource(rfoNumber, agr, com, address))
-					.toPdf(new FileOutputStream("d:/report" + random.nextInt(10000) + ".pdf"));
+					.toPdf(new FileOutputStream("d:/report" + random.nextInt(10000) + ".pdf"))
+					.show(false);
+			
 		} catch (DRException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {

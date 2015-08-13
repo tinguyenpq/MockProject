@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
@@ -87,6 +88,8 @@ public class AgreementRepositoryImpl extends AbstractHibernateDao<Agreement> imp
 			cri.add(Restrictions.like("address.postCode",
 					cusPostcode, MatchMode.ANYWHERE));
 		}
+		
+		cri.addOrder(Order.asc("rfo.RFONumber"));
 		
 		cri.setProjection(Projections.projectionList()
 				.add(Projections.property("rfo.RFONumber").as("rFONumber"))

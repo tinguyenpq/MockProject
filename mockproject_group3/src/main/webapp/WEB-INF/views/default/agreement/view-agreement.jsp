@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="/WEB-INF/template/jsp-header.jsp"%>
-<h1>customer</h1>
+<h2 class="section-heading">View An Agreement</h2>
 <c:choose>
 	<c:when test="${message ne null}">
 		<p align="center" style="color: red;">${message}</p>
