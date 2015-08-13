@@ -239,10 +239,17 @@ public class AgreementController {
 	 */
 	@Transactional
 	@RequestMapping(value = PathConstants.AGREEMENT_VIEW, method = RequestMethod.POST)
-	public String view(@RequestParam("selected") String selected, @RequestParam("backURI") String backURI,
+	public String view(@RequestParam(value = "selected", defaultValue = "") String selected,
+			@RequestParam(value = "backURI", defaultValue = "") String backURI,
 			HttpServletRequest request, Model model) {
-
-		request.getSession().setAttribute("param", selected);
+		
+		HttpSession session = request.getSession();
+		
+		if ("".equals(selected) || selected == null) {
+			selected = (String) session.getAttribute("param");
+		} else {
+			session.setAttribute("param", selected);
+		}
 
 		String agrInfo[] = selected.split("///");
 
@@ -444,6 +451,67 @@ public class AgreementController {
 
 		if (agreement != null) {
 			AgreementStatus agrStatus = iAgreementStatusService.findOne(6);
+			agreement.setAgreementStatus(agrStatus);
+			agreement.setLastUpdatedDate(new Date());
+			iAgreementService.update(agreement);
+		}
+
+		return ViewConstants.AGREEMENT_COMPLETE;
+	}
+
+	/**
+	 * @author PhatVT
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_REJECT, method = RequestMethod.GET)
+	public String rejectAgreement(HttpServletRequest request, Model model) {
+
+		// get session
+		HttpSession session = request.getSession();
+
+		String param = (String) session.getAttribute("param");
+
+		String agrInfo[] = param.split("///");
+
+		if (agrInfo.length != 5) {
+			model.addAttribute("message", "Agreement does not exist.");
+			return ViewConstants.AGREEMENT_VIEW;
+		}
+
+		int agrNumber = Integer.parseInt(agrInfo[3]);
+
+		Agreement agr = iAgreementService.findOne(agrNumber);
+
+		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
+
+		model.addAttribute("agr", agr);
+		model.addAttribute("com", com);
+		model.addAttribute("rfonumber", agrInfo[0]);
+
+		return ViewConstants.AGREEMENT_REJECT;
+	}
+	
+	/**
+	 * @author Trung
+	 * @param String
+	 */
+	@RequestMapping(value = PathConstants.AGREEMENT_REJECT, method = RequestMethod.POST)
+	public String rejectAgreement(@RequestParam("agrNumber") String agrNumberStr) {
+
+		int agrNumberInt = 0;
+
+		if (!"".equals(agrNumberStr) && agrNumberStr != null) {
+			try {
+				agrNumberInt = Integer.parseInt(agrNumberStr);
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		Agreement agreement = iAgreementService.findOne(agrNumberInt);
+
+		if (agreement != null) {
+			AgreementStatus agrStatus = iAgreementStatusService.findOne(5);
 			agreement.setAgreementStatus(agrStatus);
 			agreement.setLastUpdatedDate(new Date());
 			iAgreementService.update(agreement);

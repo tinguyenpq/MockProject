@@ -145,4 +145,5 @@ public class PathConstants {
 	 * Approve Agreement path
 	 */
 	public static final String AGREEMENT_TERMINATE = "/agreement/terminate-agreement";
+
 }
