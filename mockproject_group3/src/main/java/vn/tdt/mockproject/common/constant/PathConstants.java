@@ -134,4 +134,10 @@ public class PathConstants {
 	 * Agreements generate document path
 	 */
 	public static final String AGREEMENT_DOCUMENT = "/agreement/document-agreement";
+	
+	/**
+	 * Agreements generate document path
+	 */
+	public static final String AGREEMENT_GENERATE_DOCUMENT = "/agreement/generate-document-agreement";
+	
 }

@@ -6,7 +6,7 @@
 Thank you for creating the agreement.
 <div class="row">
 	<div class="col-md-1 col-md-offset-8">
-		<form action="${rootPath}<%=PathConstants.AGREEMENT_SUBMIT%>"
+		<form action="${rootPath}<%=PathConstants.AGREEMENT_DOCUMENT%>"
 			method="post">
 			<input type="hidden" name="param" value="${paramAgr}">
 			<input type="submit" class="btn btn-primary" value="Print" />

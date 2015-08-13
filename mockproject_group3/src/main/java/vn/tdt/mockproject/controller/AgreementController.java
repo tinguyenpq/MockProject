@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -36,6 +35,8 @@ import vn.tdt.mockproject.entity.Dealer;
 import vn.tdt.mockproject.entity.RFONumber;
 import vn.tdt.mockproject.entity.Volume;
 import vn.tdt.mockproject.entity.common.AgreementInfo;
+import vn.tdt.mockproject.entity.common.PrintCommon;
+import vn.tdt.mockproject.entity.common.Templates;
 import vn.tdt.mockproject.service.IAddressService;
 import vn.tdt.mockproject.service.IAgreementService;
 import vn.tdt.mockproject.service.IAgreementStatusService;
@@ -115,6 +116,7 @@ public class AgreementController {
 
 		return ViewConstants.AGREEMENT_ADD_AGREEMENT;
 	}
+
 
 	/**
 	 * copy agreement function /post
@@ -261,6 +263,12 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_VIEW;
 	}
 
+
+	/**
+	 * @author PhatVT
+	 * @param String
+	 */
+
 	@RequestMapping(value = PathConstants.AGREEMENT_SUBMIT, method = RequestMethod.POST)
 	public String submit(@RequestParam("param") String param, @RequestParam("agrNumber") String agrNumberStr,
 			Model model) {
@@ -295,10 +303,65 @@ public class AgreementController {
 		return ViewConstants.AGREEMENT_COMPLETE;
 	}
 
-	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
-	public String generateDocument(@RequestParam("param") String param, Model model) {
 
+	
+
+	/**
+	 * @ @author PhatVT
+	 * @author PhatVT
+	 * @param String
+	 */
+	@Transactional
+	@RequestMapping(value = PathConstants.AGREEMENT_DOCUMENT, method = RequestMethod.POST)
+	public String viewDocument(@RequestParam("param") String param, Model model) {
+		
+		String agrInfo[] = param.split("///");
+
+		if (agrInfo.length != 5) {
+			model.addAttribute("message", "Agreement does not exist.");
+			return ViewConstants.AGREEMENT_VIEW;
+		}
+
+		int agrNumber = Integer.parseInt(agrInfo[3]);
+
+		Agreement agr = iAgreementService.findOne(agrNumber);
+
+		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
+		
+		model.addAttribute("agr", agr);
+		model.addAttribute("com", com);
+		model.addAttribute("rfonumber", agrInfo[0]);
+		model.addAttribute("paramAgr", param);
+
+//		PrintCommon.build(agrInfo[0], agr, com, address);
 		return ViewConstants.AGREEMENT_DOCUMENT;
+	}
+	
+	/**
+	 * @author PhatVT
+	 * @param String
+	 */
+	@Transactional
+	@RequestMapping(value = PathConstants.AGREEMENT_GENERATE_DOCUMENT, method = RequestMethod.POST)
+	public String generateDocument(@RequestParam("param") String param, Model model) {
+		
+		String agrInfo[] = param.split("///");
+
+		if (agrInfo.length != 5) {
+			model.addAttribute("message", "Agreement does not exist.");
+			return ViewConstants.AGREEMENT_VIEW;
+		}
+
+		int agrNumber = Integer.parseInt(agrInfo[3]);
+
+		Agreement agr = iAgreementService.findOne(agrNumber);
+
+		Company com = iCompanyService.findOne(Integer.parseInt(agrInfo[1]));
+		Address address = iAddressService.findOne(Integer.parseInt(agrInfo[2]));
+
+		PrintCommon.build(agrInfo[0], agr, com, address);
+		
+		return ViewConstants.AGREEMENT_DOCUMENT_SUCCESS;
 	}
 
 	/**
